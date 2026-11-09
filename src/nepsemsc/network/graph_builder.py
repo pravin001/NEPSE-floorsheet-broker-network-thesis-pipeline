@@ -19,7 +19,8 @@ def build_directed_weighted_graph(
     (broker trading with itself) are legal edges in the network object and
     are also tracked separately in the feature table.
     """
-    if aggregate and (source_col, target_col) <= set(edges.columns) and len(edges) > 1:
+    if (aggregate and {source_col, target_col} <= set(edges.columns)
+            and len(edges) > 1):
         agg_cols = [source_col, target_col]
         edges = edges.groupby(agg_cols, observed=True)[weight_col].sum().reset_index()
     G = nx.DiGraph()

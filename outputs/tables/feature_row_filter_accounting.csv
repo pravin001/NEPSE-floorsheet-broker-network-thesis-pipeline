@@ -1,0 +1,2 @@
+n_rows_raw,n_rows_after_filters,dropped_rows,volume_kept_share,policy
+57892630,57892602,28,0.9999999587253705,"SV7: DROP rows (junk/NULL-volume; missing broker id); pre-declared, never switch"
