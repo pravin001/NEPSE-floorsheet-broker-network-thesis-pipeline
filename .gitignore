@@ -1,0 +1,25 @@
+# virtualenv — ANCHORED (D5 lesson from sibling project: unanchored patterns
+# silently exclude in-repo package dirs; never match names you also import).
+/nepse-msc/
+.venv/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+build/
+dist/
+
+# raw archives + big regenerable artefacts stay OUT of git (prov manifests
+# are the tracked evidence, mirroring the sibling-project convention D2/D12)
+data/raw/**
+data/duckdb/**
+data/processed/*.parquet
+outputs/logs/
+outputs/predictions/*.parquet
+
+# keep tracked: data/metadata/* (excluding state caches), outputs/tables,
+# outputs/figures, outputs/manifests, dash extracts, notebooks, docs, reports
+!data/metadata/
+data/metadata/tier*_state.json
