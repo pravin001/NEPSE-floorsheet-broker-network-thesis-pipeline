@@ -57,6 +57,8 @@ def test_refit_changes_stats():
 def test_fold_masks_disjoint(toy_feature_frame):
     from nepsemsc.ml.walk_forward import purged_folds, assert_no_fold_overlap
     folds = purged_folds(toy_feature_frame["date"].unique(), n_folds=4, purge_gap_sessions=6)
-    assert_no_fold_overlap(folds)   # per-fold train/test disjoint (R5)
-    # NOTE: whole-frame union disjointness is NOT assertable in sequential
-    # walk-forward — fold k+1 legitimately trains on fold k's test segment.
+    assert_no_fold_overlap(folds)   # per-fold train/test disjoint (R5, both modes)
+    # NOTE: whole-frame union disjointness is NOT assertable in either
+    # walk-forward mode — later folds legitimately train on earlier test
+    # segments (sequential pairs reuse segment k+1; anchored expands through
+    # all prior chunks).

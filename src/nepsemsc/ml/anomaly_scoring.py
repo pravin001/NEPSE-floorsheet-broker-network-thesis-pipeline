@@ -42,11 +42,12 @@ def walk_forward_anomaly_scores(
     contamination: str | float = "auto",
     winsor: tuple[float, float] = (0.01, 0.99),
     date_col: str = "date",
+    mode: str = "anchored",
 ) -> pd.DataFrame:
     """Returns a frame: [date, features..., anomaly_score, fold_id, is_train]."""
     features = features or FEATURES_DEFAULT
     folds = purged_folds(feature_frame[date_col], n_folds=n_folds,
-                         purge_gap_sessions=purge_gap_sessions)
+                         purge_gap_sessions=purge_gap_sessions, mode=mode)
     out_rows: list[pd.DataFrame] = []
     for fold in folds:
         frame = feature_frame

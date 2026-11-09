@@ -24,8 +24,8 @@ def test_walk_forward_scores_on_synthetic_two_features(toy_feature_frame):
     np.testing.assert_allclose(out["anomaly_score"].to_numpy(),
                                out2["anomaly_score"].to_numpy())
 
-    # per-fold train/test disjointness (cross-fold reuse of earlier test dates
-    # as later train dates is BY DESIGN in sequential walk-forward)
+    # per-fold train/test disjointness (cross-fold reuse of earlier blocks
+    # as later train dates is BY DESIGN in walk-forward — both modes)
     for fid, g in out.groupby("fold_id"):
         t_dates = set(g.loc[~g["is_train"], "date"].astype(str))
         r_dates = set(g.loc[g["is_train"], "date"].astype(str))

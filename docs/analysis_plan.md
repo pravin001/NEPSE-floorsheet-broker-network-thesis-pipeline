@@ -62,8 +62,15 @@ Controls in EVERY regression: `log(volume[t])`, `market_ret_loo[t]`
 
 ## 4. Anomaly scoring discipline (R1/R7/DC7)
 
-* 4 sequential purged folds; purge gap = 6 sessions (horizon 1 + embargo 5),
-  strict-gap definition: test_start_pos = train_end_pos + gap + 1.
+* 4 anchored expanding purged folds: sessions cut at linspace(0, n, 6) → 5
+  chunks; chunk 0 = warm-up train, fold f trains on everything strictly
+  before its test chunk and tests on that chunk purged at its start (the
+  2021-22 bubble tail and 2024 both receive OOS scores). Purge gap = 6
+  sessions (horizon 1 + embargo 5), strict-gap definition unchanged:
+  test_start_pos = train_end_pos + gap + 1. DEVIATION from the original
+  sequential-pairs default, logged in docs/analysis_deviations.md
+  2026-11-09 BEFORE any test-fold data was observed; sequential pairs are
+  kept as the Phase-5 robustness variant.
 * Per fold: winsor + standardise on TRAIN rows; IsolationForest
   (n_estimators=200, contamination='auto', random_state=if_seed(k) from seeds.py)
   fitted on TRAIN; test rows scored by that model. -decision_function orientation.

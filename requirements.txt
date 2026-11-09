@@ -23,3 +23,5 @@ hypothesis
 nbmake
 jupyterlab
 ipykernel
+kagglehub
+

@@ -57,7 +57,12 @@ walk_forward:                            # R5/R7/R1
   gap_definition: strict                 # purge_gap sessions STRICTLY between
                                          # train_end pos and test_start pos:
                                          # test_start_pos = train_end_pos + gap + 1
-  mode: sequential                       # fold k trains on segment k, tests on segment k+1
+  mode: anchored                         # fold f trains on [0, c_f), tests on
+                                         # purged chunk f (expanding); deviation
+                                         # from sequential logged 2026-11-09
+                                         # BEFORE any test-fold data observed
+                                         # (docs/analysis_deviations.md)
+                                         # sequential = Phase-5 robustness only
   universe_per_fold: true                # DC1
 
 anomaly:                                 # Module 2 (R1/R7)

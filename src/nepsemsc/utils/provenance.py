@@ -49,7 +49,13 @@ def read_manifest() -> pd.DataFrame:
     return pd.read_csv(MANIFEST)
 
 
-__all__ = ["record", "read_manifest", "sha256_file", "MANIFEST", "utc_iso"]
+__all__ = ["record", "read_manifest", "sha256_file", "MANIFEST", "utc_iso",
+           "atomic_write_csv", "atomic_write_json"]
+
+
+def atomic_write_json(path: str | Path, obj, indent: int = 2) -> Path:
+    from nepsemsc.utils.io import atomic_write_json as _awj
+    return _awj(path, obj, indent=indent)
 
 
 def atomic_write_csv(path: str | Path, df: pd.DataFrame, index: bool = False) -> Path:
