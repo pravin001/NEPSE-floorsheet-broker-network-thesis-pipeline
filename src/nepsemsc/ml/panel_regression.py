@@ -95,10 +95,16 @@ def fit_fama_macbeth(panel: pd.DataFrame, outcome: str, feature_cols: list[str],
     df = panel.sort_values([time_col, entity_col])
     betas: dict[str, list[float]] = {c: [] for c in feature_cols}
     times: list = []
+    n_rhs = 1 + len(feature_cols)
     for t, g in df.groupby(time_col, observed=True):
-        if len(g) < 2:
+        # slice guard (declared 2026-11-09 deviation): a cross-section with
+        # fewer rows than RHS params (const + regressors) is rank-deficient —
+        # statsmodels pinv would emit arbitrary beta draws; skip instead.
+        if len(g) < n_rhs:
             continue
         X = sm.add_constant(g[feature_cols].astype("float64"), has_constant="add")
+        if np.linalg.matrix_rank(X.to_numpy()) < n_rhs:
+            continue  # rank-deficient slice: pinv betas would be arbitrary
         m = sm.OLS(g[outcome].astype("float64"), X).fit()
         for c in feature_cols:
             betas[c].append(float(m.params[c]))

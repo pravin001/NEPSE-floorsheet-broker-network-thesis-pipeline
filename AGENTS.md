@@ -53,6 +53,7 @@ Key validated facts (treat as REQUIRED reading):
 - **D6 (2026-11-09)** Corpus source assignment: 2021–2023 = kaggle viking303 (CC0); 2024 = socrateai PRIMARY (MIT); kaggle-2024 cross-check only. One documented relabel (2021-03-07→03-08, evidence triple). D01 dealer codes verbatim. Evidence: EXP-0002b.
 - **D7 (2026-11-09)** Walk-forward DEFAULT fold mode = **anchored expanding** (deviation row 2026-11-09 BEFORE any test-fold data observed; commit `26ad798`): sequential could not score past 2023-06-14. Sequential kept as Phase-5 variant.
 - **D8 (2026-11-09)** OHLCV policy: tier1 primary + tier2 gap-fill (every row carries `ohlcv_source`); NEPSE index = secondary shading input (licence unstated → non-headline; user may swap source).
+- **D9 (2026-11-09)** Phase-4 estimator conventions (deviation rows cited in EXP-0004b/c): ALL regressors incl. the market control z-standardized with TRAIN-fold constants via the shared builder `src/nepsemsc/ml/panel_data.py` (κ on a fully standardized design; §3.2 purge = max-VIF metric); IF scores use **-decision_function on BOTH sides** (scale incident + regression tests); FM slices skipped unless row-count and full-rank feasible; headline conjunction: placebo constraint applies ONLY to placebo-scoped rows (H2/H3), sign agreement REPORTED not gated.
 
 ## Phase plan (19-day, per brief)
 
@@ -60,8 +61,8 @@ Key validated facts (treat as REQUIRED reading):
 |---|---|---|
 | 1 | 8-9 Nov: env + sample data + DuckDB + pytest smoke | EXECUTED 2026-11-08 (STATUS REPORT below; mandatory stop honoured) |
 | 2 | 9-12 Nov: top-10 selection + full window acquisition/audit + reconciliation + provenance | **EXECUTED 2026-11-09 (STATUS REPORT below)** — 6 days ahead of the 12-Nov mark |
-| 3 | 12-15 Nov: daily network features + core-periphery + broker persistence | IN PROGRESS (auto-proceed per R10; honour gates in Phase-2 report §7) |
-| 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | NOT EXECUTED (STOP after for user review) |
+| 3 | 12-15 Nov: daily network features + core-periphery + broker persistence | **EXECUTED 2026-11-09 (`a1fc845`) — 6 days ahead (STATUS REPORT below)** |
+| 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | **EXECUTED 2026-11-09 (STATUS REPORT below) — MANDATORY R10 STOP honoured: awaiting user review before Phase 5** |
 | 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | NOT EXECUTED |
 | 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | NOT EXECUTED |
 | 7 | 21 Nov: freeze artefacts + experiment register + limitations | NOT EXECUTED (STOP) |
@@ -69,9 +70,13 @@ Key validated facts (treat as REQUIRED reading):
 
 ## R10 gate status
 
-Phase 1 stop honoured (2026-11-08). Phase 2 complete with pytest **50 passed / 0 failed**
-(48 unit + notebooks 00+01 under nbmake) and zero BLOCKED items → auto-proceed to
-Phase 3. NEXT STOP: after Phase-4 results (user review), then Phase-7 freeze.
+Phase 1 stop honoured (2026-11-08). Phase 2 auto-proceeded (50 passed). Phase 3 auto-proceeded
+(52 passed). **Phase 4 complete 2026-11-09 with pytest 56 passed / 0 failed and zero BLOCKED
+items — but Phase 4 is a HARD GATE: STOP and present results for user review** (STATUS REPORT
+below). NEXT user action required: review the headline set (H7/H8/H10 sign-agree; H4
+opposite-sign; H6 DK-only; H2/H3 null + placebo-killed) and authorise Phase 5 (robustness
+battery), Phase 6 (Dash), Phase 7 (freeze). OPEN for pre-Phase-7: kagglehub not yet in
+requirements-lock (regen before freeze).
 
 ## Gotchas to remember (inherited + Phase-2)
 
@@ -86,6 +91,10 @@ Phase 3. NEXT STOP: after Phase-4 results (user review), then Phase-7 freeze.
 - **calendar parquet column is `session_date`** — CAST to `date` before `USING (date)` joins in DuckDB SQL.
 - `heredoc`-inline python with parens/quotes produced 3 syntax traps today — prefer writing patch scripts to `/tmp/opencode/*.py` and running them.
 - pytest with an explicit bad arg aborts before collecting `tests/` ("collected 0 items") — fix the arg, not the tests.
+- **IF scoring scale**: ALWAYS `-model.decision_function(...)` on BOTH train and test sides. Mixing `-score_samples` (train) with `-decision_function` (test) adds a ~+0.5 offset under contamination='auto' and silently zeroes all events vs a train-q90 threshold (EXP-0004a incident; pinned by tests/test_anomaly_scale.py).
+- **FM fallback slices**: any per-date cross-section must clear BOTH `n >= 1 + #regressors` AND full-rank X, else statsmodels silently returns pinv-determined arbitrary betas (SingularMatrixWarning) — guard lives in `fit_fama_macbeth` (deviation row).
+- **Conjunction semantics**: a placebo constraint that was never applied to a test is NOT a failure for it — Phase-4 gate uses `placebo_share.fillna(0.0) <= alpha` (missing = not applicable; deviation row).
+- **Deterministic re-score trick**: carrying bookkeeping columns (total_volume) through the scoring parquet must NOT change scores — verify with a max|Δ|=0 null diff (ET convention).
 
 ## Phase 1 STATUS REPORT (2026-11-08 — filled post-execution)
 
@@ -117,3 +126,28 @@ Phase 3. NEXT STOP: after Phase-4 results (user review), then Phase-7 freeze.
 | provenance | manifest 30 entries; register EXP-0002a–f EXECUTED; deviations: fold-mode + relabel + defect rows; ai_use_policy licence table rewritten (viking303 FOUND/CC0 supersedes NOT-FOUND note) |
 | open items | tier1 OHLCV licence = PENDING student UI check (figures RESTRICTED until confirmed); kagglehub not yet in requirements-lock (regen before Phase-7 freeze) |
 | gate | auto-proceed to Phase 3 per R10 (pytest green, 0 BLOCKED). Phase-3 MUST honour: 2023-02-16 ordering exclusion, junk/NULL-volume filtering, `source` propagation, DC1 per-fold universe re-selection |
+
+## Phase 3 STATUS REPORT (2026-11-09 — filled post-execution)
+
+| item | value |
+|---|---|
+| features | **233,706 (symbol,date) pairs** from 57,892,602 post-SV7 rows (28 junk dropped; volume kept 99.999996%) |
+| graph stage | 37,165,013 aggregated pair edges → 529 symbols × 938 days in 46 min (24-way parallel); graphs exact (< 200 nodes); fixed tuple<=set glyph bug + regression test |
+| outcomes | 80,610 rows × 99 tier1 symbols × 940 days; ret_fwd1/abs_ret/parkinson/market_loo coverage ≥ 99.9% |
+| persistence | 233,177 transitions; mean J 0.2339 — DESCRIPTIVE (R11); promoter-only scrips uninterpreted |
+| regimes | calendar regime medians — descriptive only (EXP-0003d) |
+| pytest | 52 passed |
+
+## Phase 4 STATUS REPORT (2026-11-09 — filled post-execution; R10 GATE: results presented for user review)
+
+| item | value |
+|---|---|
+| scoring (EXP-0004a) | anchored purge-gap-6 walk-forward, DC1 per-fold top-10 universes (fold0 NBL / f1–2 NHPC / f3 SHIVM + 9 common); IF(200,'auto') train-only; **7,126 OOS rows / 686 events (9.6%)**; thresholds train-q90 (0.023–0.033); train rows 17,822 EDA-only; re-score after carrying volume cols reproduced scores bit-exactly |
+| grid (EXP-0004b) | n=7,116; κ(std) 3.3 → NO §3.2 purge; VIF ≤ 2.38; IPS mean-ADF ≤ −4.29; DK(bw=5) primary + DC + full-rank-guarded FM (SV2); BH q=0.10 |
+| headlines | **5/10 BH-passing: H4 H6 H7 H8 H10** (adj p 0.0689–0.0918); DG — H7 EoD→abs_ret +3.95 bp/SD (FM .0094 concordant), H8 EoD→ret −4.47 bp/SD (FM .0587 borderline), H10 reciprocity→abs_ret +9.49 bp/SD (FM .2896 DK-only), H4 buyer_hhi→ret +7.51 bp/SD (**opposite-sign** vs declared negative; FM .0082 normal-era driven), H6 reciprocity→ret −10.94 bp/SD (amb sign, FM .5403 DK-only) |
+| placebo (EXP-0004c) | H2 share 0.800, H3 0.640 (≈ random) → **anomaly score has NO forward-return content in the OOS design** (H2/H3 rejected twice: placebo + BH); conjunction semantics fixed pre-numbers-of-record (deviation row) |
+| regime split (EXP-0004d) | bubble 38.5% / normal 61.5%; **no interaction significant** (min p 0.1171) — headline signals do not calendar-switch; H7/H8 same-sign betas in both eras |
+| event study (EXP-0004e) | 686 events; 670 market-model + 16 illiquid-trigger market-adjusted; **overall CAR +0.13% p .569 (null)**; market-model +0.19% p .409; illiquid subsample −2.45% p .0018 (n=16 caveat); no post-event daily drift |
+| register/manifest | EXP-0004a–e EXECUTED; deviation rows: κ/control standardization, FM full-rank guard, conjunction semantics; provenance manifest 42+ entries |
+| pytest | **56 passed, 0 failed** (54 unit incl. panel_data ×2 + anomaly-scale ×2, + notebooks 00/01) |
+| [] STOP | **mandatory R10 stop after Phase 4 — results above presented for user review before Phase 5 (robustness battery)** |
