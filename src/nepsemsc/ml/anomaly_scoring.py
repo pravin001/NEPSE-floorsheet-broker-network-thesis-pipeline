@@ -106,13 +106,18 @@ def select_fold_universe(
     symbol_col: str = "symbol",
     date_col: str = "date",
     turnover_col: str = "turnover",
+    excluded: set[str] | frozenset[str] | None = None,
 ) -> list[str]:
     """TOP-`n_top` symbols by MEAN DAILY TURNOVER over the fold's TRAIN dates
     only (analysis_plan §1 DC1), with the DC2 coverage rule (>= min_coverage
     of train sessions present). Deterministic tie-break on symbol id so fold
-    universes never depend on groupby order (DC7)."""
+    universes never depend on groupby order (DC7). `excluded` symbols are
+    removed BEFORE the ranking head (Phase-5 external cross-section: ranks
+    11+ of the same train-only ranking)."""
     n_sessions = len(set(train_dates))
     g = turnover[turnover[date_col].isin(train_dates)]
+    if excluded:
+        g = g.loc[~g[symbol_col].isin(excluded)]
     stats = g.groupby(symbol_col, observed=True)[turnover_col].agg(
         mean_turnover="mean", n_days="size")
     stats = stats[stats["n_days"] >= min_coverage * n_sessions]
@@ -135,6 +140,7 @@ def walk_forward_anomaly_scores_dc1(
     n_top: int = 10,
     min_coverage: float = 0.90,
     event_quantile: float = 0.90,
+    per_fold_exclude=None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Purged walk-forward scoring WITH per-fold DC1 universe.
 
@@ -142,8 +148,10 @@ def walk_forward_anomaly_scores_dc1(
     coverage). Standardizer + IsolationForest fit on TRAIN rows of that
     universe ONLY; test rows = SAME universe, later dates. Event flag =
     test-row score >= `event_quantile` of the TRAIN-fold score distribution
-    of that same fold (never pooled/test). Returns (scores_frame, summary
-    frame with the fold universe + diagnostics). TRAIN scores are in-sample
+    of that same fold (never pooled/test). `per_fold_exclude`: optional
+    callable(fold) -> iterable of symbol ids removed before the ranking head
+    (Phase-5 external cross-section). Returns (scores_frame, summary frame
+    with the fold universe + diagnostics). TRAIN scores are in-sample
     (is_train) — EDA only, never pooled with test rows in regressions.
     """
     features = features or FEATURES_DEFAULT
@@ -151,8 +159,9 @@ def walk_forward_anomaly_scores_dc1(
                          purge_gap_sessions=purge_gap_sessions, mode=mode)
     out_rows, summary_rows = [], []
     for fold in folds:
-        universe = select_fold_universe(turnover, fold.train_dates, n_top=n_top,
-                                        min_coverage=min_coverage)
+        universe = select_fold_universe(
+            turnover, fold.train_dates, n_top=n_top, min_coverage=min_coverage,
+            excluded=set(per_fold_exclude(fold)) if per_fold_exclude else None)
         ff = feature_frame[
             feature_frame[date_col].isin(fold.train_dates + fold.test_dates)
             & feature_frame["symbol"].isin(universe)]

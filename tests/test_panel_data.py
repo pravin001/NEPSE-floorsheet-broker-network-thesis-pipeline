@@ -66,3 +66,19 @@ def test_z_columns_use_own_fold_constants_only():
     # no cross-fold contamination: fold 0 z-stats computed on fold 0 train rows
     z0 = p.loc[p.fold_id == 0, "anomaly_score_z"]
     assert float(z0.notna().all())
+
+
+def test_extra_outcome_cols_ride_along_without_changing_rows():
+    """Phase-5 battery: extra outcome columns (fwd_k horizons) merge onto the
+    TEST panel; the base dropna row set stays EXACTLY the default one."""
+    from nepsemsc.ml.panel_data import build_oos_panel
+    s = _scores()
+    o = _outcomes().assign(ret_fwd2=np.nan, abs_ret_fwd2=np.nan)
+    a, _ = build_oos_panel(s, o)
+    b, _ = build_oos_panel(s, o, extra_outcome_cols=("ret_fwd2",
+                                                     "abs_ret_fwd2"))
+    assert {"ret_fwd2", "abs_ret_fwd2"} <= set(b.columns)
+    assert len(b) == len(a)                 # base row set unchanged
+    # all-NaN extra col must not sneak into the row filter — per-fit dropna
+    # in each regression handles truncated tails instead
+    assert b["ret_fwd2"].isna().all()

@@ -39,6 +39,24 @@ def _turnover(frame):
             .assign(turnover=rng.random(len(frame[["date", "symbol"]].drop_duplicates()))))
 
 
+def test_excluded_symbols_never_enter_universe():
+    """Phase-5 external cross-section: exclusion applies BEFORE the ranking head."""
+    from nepsemsc.ml.anomaly_scoring import select_fold_universe
+    rng = np.random.default_rng(3)
+    dates = [d.date() for d in pd.bdate_range("2024-01-02", periods=20)]
+    rows = []
+    for sym, base in (("AAA", 5.0), ("BBB", 4.0), ("CCC", 3.0), ("DDD", 2.0)):
+        rows.extend({"date": d, "symbol": sym, "turnover": base + rng.random() * 1e-6}
+                    for d in dates)
+    turn = pd.DataFrame(rows)
+    u_all = select_fold_universe(turn, dates, n_top=3)
+    assert u_all == ["AAA", "BBB", "CCC"]
+    u_ext = select_fold_universe(turn, dates, n_top=3, excluded={"AAA", "BBB"})
+    assert u_ext == ["CCC", "DDD"]
+    u_allb = select_fold_universe(turn, dates, n_top=10, excluded=None)
+    assert set(u_allb) == {"AAA", "BBB", "CCC", "DDD"}
+
+
 def test_anomalous_test_chunk_fires_events():
     from nepsemsc.ml.anomaly_scoring import walk_forward_anomaly_scores_dc1
     frame = _frame()

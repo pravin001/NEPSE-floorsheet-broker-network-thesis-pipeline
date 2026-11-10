@@ -22,19 +22,25 @@ TESTED_FEATURES = ["anomaly_score", "buyer_hhi", "self_loop_ratio",
 Z_SOURCE_COLS = TESTED_FEATURES + ["log_volume", "market_ret_loo"]
 
 
-def build_oos_panel(scores: pd.DataFrame, outcomes: pd.DataFrame
+def build_oos_panel(scores: pd.DataFrame, outcomes: pd.DataFrame,
+                    extra_outcome_cols: tuple[str, ...] = ()
                     ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """(panel, train): OOS test rows with outcomes + log_volume; and the
-    train rows merged with market_ret_loo (fold-statistics input)."""
+    train rows merged with market_ret_loo (fold-statistics input).
+    `extra_outcome_cols` (e.g. fwd_k horizons, Phase-5 battery) ride along
+    on the TEST merge ONLY — the base dropna row set is unchanged
+    (`ret_fwd1` + Z_SOURCE_COLS); truncated tails stay NaN and are handled
+    per-fit by each regression's own dropna. Default keeps EXP-0004b/d
+    behaviour bit-identical."""
     sc = scores.copy()
     out = outcomes.copy()
     sc["date"] = pd.to_datetime(sc["date"]).dt.date
     out["date"] = pd.to_datetime(out["date"]).dt.date
 
+    test_cols = ["date", "symbol", "ret_fwd1", "abs_ret_fwd1",
+                 "market_ret_loo", *extra_outcome_cols]
     test = (sc.loc[~sc["is_train"]]
-              .merge(out[["date", "symbol", "ret_fwd1", "abs_ret_fwd1",
-                          "market_ret_loo"]],
-                     on=["date", "symbol"], how="left"))
+              .merge(out[test_cols], on=["date", "symbol"], how="left"))
     test["log_volume"] = np.log(test["total_volume"].clip(lower=1.0))
     test = test.dropna(subset=["ret_fwd1"] + Z_SOURCE_COLS).reset_index(drop=True)
 

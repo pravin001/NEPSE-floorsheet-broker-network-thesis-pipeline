@@ -62,8 +62,8 @@ Key validated facts (treat as REQUIRED reading):
 | 1 | 8-9 Nov: env + sample data + DuckDB + pytest smoke | EXECUTED 2026-11-08 (STATUS REPORT below; mandatory stop honoured) |
 | 2 | 9-12 Nov: top-10 selection + full window acquisition/audit + reconciliation + provenance | **EXECUTED 2026-11-09 (STATUS REPORT below)** — 6 days ahead of the 12-Nov mark |
 | 3 | 12-15 Nov: daily network features + core-periphery + broker persistence | **EXECUTED 2026-11-09 (`a1fc845`) — 6 days ahead (STATUS REPORT below)** |
-| 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | **EXECUTED 2026-11-09 (STATUS REPORT below) — MANDATORY R10 STOP honoured: awaiting user review before Phase 5** |
-| 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | NOT EXECUTED |
+| 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | **EXECUTED 2026-11-09 — MANDATORY R10 STOP honoured; user review passed ("continue")** |
+| 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 8+ days ahead** |
 | 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | NOT EXECUTED |
 | 7 | 21 Nov: freeze artefacts + experiment register + limitations | NOT EXECUTED (STOP) |
 | 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | NOT EXECUTED |
@@ -71,12 +71,11 @@ Key validated facts (treat as REQUIRED reading):
 ## R10 gate status
 
 Phase 1 stop honoured (2026-11-08). Phase 2 auto-proceeded (50 passed). Phase 3 auto-proceeded
-(52 passed). **Phase 4 complete 2026-11-09 with pytest 56 passed / 0 failed and zero BLOCKED
-items — but Phase 4 is a HARD GATE: STOP and present results for user review** (STATUS REPORT
-below). NEXT user action required: review the headline set (H7/H8/H10 sign-agree; H4
-opposite-sign; H6 DK-only; H2/H3 null + placebo-killed) and authorise Phase 5 (robustness
-battery), Phase 6 (Dash), Phase 7 (freeze). OPEN for pre-Phase-7: kagglehub not yet in
-requirements-lock (regen before freeze).
+(52 passed). Phase 4 HARD GATE passed (user review 2026-11-09 → "continue"). **Phase 5 complete
+2026-11-10 with pytest 58 passed / 0 failed and zero BLOCKED items — Phase 5 is NOT a stop
+gate: auto-proceeded to Phase 6 (Dash dashboard, 4 pages, extracts-only). Phase 6 → Phase 7
+freeze is the NEXT HARD STOP.** Open for Phase-7: kagglehub not yet in requirements-lock (regen
+before freeze).
 
 ## Gotchas to remember (inherited + Phase-2)
 
@@ -151,3 +150,20 @@ requirements-lock (regen before freeze).
 | register/manifest | EXP-0004a–e EXECUTED; deviation rows: κ/control standardization, FM full-rank guard, conjunction semantics; provenance manifest 42+ entries |
 | pytest | **56 passed, 0 failed** (54 unit incl. panel_data ×2 + anomaly-scale ×2, + notebooks 00/01) |
 | [] STOP | **mandatory R10 stop after Phase 4 — results above presented for user review before Phase 5 (robustness battery)** |
+
+## Phase 5 STATUS REPORT (2026-11-10 — filled post-execution; NOT an R10 stop → auto-proceed)
+
+| item | value |
+|---|---|
+| battery | `scripts/run_robustness.py` sections a–g per plan §7 pre-declarations; ONE consolidated provenance row (`robustness_battery_exp0005a_g`; manifest 43 entries); 3 runs executed, **numbers of record = first complete run**; engineering-incident row added to analysis_deviations (fwd_k leading-shift fix + panel ride-along + full-feature input frame + diag-z² sign — all BEFORE numbers of record; regression test added to test_panel_data) |
+| (a) LOO (EXP-0005a) | 12 symbol-drops × 10 tests = 110 DK refits; **all five headlines sign-stable 12/12**; raw p<.10 in 11/12 (H4), 12/12 (H6/H7/H10), 10/12 (H8); β spreads (bp) H4 +6.57..+9.35, H6 −12.74..−8.92, H7 +2.95..+4.66, H8 −6.15..−3.36, H10 +7.97..+10.71; H2/H3 stay null (0/12) — **placebo null LOO-robust** [REAL] |
+| (b) horizons (EXP-0005b) | coverage 99.9/99.7/99.4% (within-window closes); BH(heads): t+2 0/5, t+3 0/5 (raw H7 p .0185 dies under BH), **t+5 1/5: H7 +10.22 bp p .0061**; directions IDENTICAL at every horizon (H7/H8/H10 same-sign; H4 opposite-sign); magnitudes GROW with k — t+1 stays the primary pre-declared object; horizon sensitivity = descriptive [REAL] |
+| (c) EoD thresholds (EXP-0005c) | descriptive sensitivity (raw DK p + concordance vs base 5%, no fresh BH family — pre-declared): **H7 threshold-robust** 1% +3.72 bp (p .0296) / 10% +3.78 (p .0387) vs base +3.95; **H8 collapses at 1%** −0.60 bp (p .7634), concordant at 10% −4.24 (p .0633) ⇒ H8's return effect = mid-tail EoD mass; SQL rows 233,454 / 937 days = 938 − defect ✓ |
+| (d) alt scorers (EXP-0005d) | per-fold OOS Spearman vs IF: Mahalanobis +.83 (.70–.92), diag-z² +.95 (.94–.96), LOF +.60 (.41–.78), OC-SVM +.54 (.45–.66) ⇒ IF OOS ordering = strong instance of a broader quadratic-anomaly class, not one-algorithm artifact; noise-floor nuance: OC-SVM/LOF share ~half the ordering — score levels/tails stay method-dependent (SV5: correlation only, no inference) [REAL] |
+| (e) drop-bubble (EXP-0005e) | normal era (2023+, n=4,379; folds/constants unchanged): **H4/H6/H7/H10 survive BH (adj .0611/.0611/.0765/.0611), magnitudes ≥ base** (H4 +10.49 bp opposite-sign ⇒ normal-era phenomenon re-confirmed); **H8 FAILS (−4.44 bp p .1703)** ⇒ H8 bubble-era-driven; H2/H3 null — no era rescues the anomaly score [REAL] |
+| (f) top-5 external (EXP-0005f) | ranks 11–15 per fold (base top-10 excluded BEFORE the head; universes printed in register; fresh IF(200)/constants): 3,414 OOS rows / 264 events (7.7%); **0/5 BH-pass (raw p ≥ .23)**; directions agree (H7 +2.14, H8 −0.70, H10 +5.40 bp) but magnitudes shrink ~2–4× ⇒ **concentration signals are tier-specific (liquidity/attention), not market-wide — the battery's primary honest limitation** [REAL] |
+| (g) sequential (EXP-0005g) | D7 coverage limitation confirmed (test = middle segments 2021-07→2023-06 only; NO 2024, no bubble tail); n_oos 1,068–1,092/fold; event shares 7.6–13.5%; pooled Spearman vs anchored on 2,731 overlapping OOS rows = **+0.87 (p < 1e-300)** ⇒ fold mode changes coverage/levels, not the anomaly ranking; anchored choice not the driver of EXP-0004's pattern [REAL] |
+| verdict | headlines survive LOO + thresholds + normal-era drop; degrade ONLY below the traded tier (f) and inflect at longer horizons (b, sign-stable, size grows); H8 fragile twice (1% cutoff + bubble era); IF anomaly score OOS nullity re-confirmed wherever re-checkable — thesis narrative: broker-network concentration effects are REAL but LOCALIZED to the most-traded tier; the IF event-based story is NULL |
+| tables | 8 CSVs outputs/tables/robustness_* (master headline-survival = 46 variant×test rows) |
+| pytest | pytest 58 = 56 unit + 2 notebooks (two new tests this phase: anomaly-scale excluded-symbols ×1 + panel ride-along ×1, so 55-unit checkpoint estimate was off by one) — all green |
+| [] NEXT | Phase 6: Dash dashboard, 4 pages, EXTRACTS-ONLY (serves data/raw/floorsheet/<SYM>/<YYYY-MM>.csv top-12 extracts + outputs/tables results — NO DuckDB query at runtime; page spec defined by me since docs don't pin it); THEN Phase 7 freeze = NEXT HARD STOP (regen requirements-lock WITH kagglehub before freeze) |
