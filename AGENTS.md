@@ -7,7 +7,7 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-09 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-10 · Engineering ends 21 Nov (writing 22-27)
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -64,8 +64,8 @@ Key validated facts (treat as REQUIRED reading):
 | 3 | 12-15 Nov: daily network features + core-periphery + broker persistence | **EXECUTED 2026-11-09 (`a1fc845`) — 6 days ahead (STATUS REPORT below)** |
 | 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | **EXECUTED 2026-11-09 — MANDATORY R10 STOP honoured; user review passed ("continue")** |
 | 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 8+ days ahead** |
-| 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | NOT EXECUTED |
-| 7 | 21 Nov: freeze artefacts + experiment register + limitations | NOT EXECUTED (STOP) |
+| 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 10 days ahead** |
+| 7 | 21 Nov: freeze artefacts + experiment register + limitations | NOT EXECUTED (HARD STOP — next action is Phase 7 freeze) |
 | 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | NOT EXECUTED |
 
 ## R10 gate status
@@ -73,9 +73,12 @@ Key validated facts (treat as REQUIRED reading):
 Phase 1 stop honoured (2026-11-08). Phase 2 auto-proceeded (50 passed). Phase 3 auto-proceeded
 (52 passed). Phase 4 HARD GATE passed (user review 2026-11-09 → "continue"). **Phase 5 complete
 2026-11-10 with pytest 58 passed / 0 failed and zero BLOCKED items — Phase 5 is NOT a stop
-gate: auto-proceeded to Phase 6 (Dash dashboard, 4 pages, extracts-only). Phase 6 → Phase 7
-freeze is the NEXT HARD STOP.** Open for Phase-7: kagglehub not yet in requirements-lock (regen
-before freeze).
+gate: auto-proceeded to Phase 6 (Dash dashboard, 4 pages, extracts-only). **Phase 6 complete
+2026-11-10 (pytest 62 passed / 0 failed, zero BLOCKED) — auto-proceed to Phase 7.**
+**Phase 6 → Phase 7 freeze IS the NEXT HARD STOP (R10): present the freeze plan for user
+review before touching frozen artefacts.** Open for Phase-7: regen requirements-lock WITH
+kagglehub; re-fingerprint configs/project.yaml (amended in the fold-mode commit); git
+identity placeholder replacement = student interaction.
 
 ## Gotchas to remember (inherited + Phase-2)
 
@@ -167,3 +170,14 @@ before freeze).
 | tables | 8 CSVs outputs/tables/robustness_* (master headline-survival = 46 variant×test rows) |
 | pytest | pytest 58 = 56 unit + 2 notebooks (two new tests this phase: anomaly-scale excluded-symbols ×1 + panel ride-along ×1, so 55-unit checkpoint estimate was off by one) — all green |
 | [] NEXT | Phase 6: Dash dashboard, 4 pages, EXTRACTS-ONLY (serves data/raw/floorsheet/<SYM>/<YYYY-MM>.csv top-12 extracts + outputs/tables results — NO DuckDB query at runtime; page spec defined by me since docs don't pin it); THEN Phase 7 freeze = NEXT HARD STOP (regen requirements-lock WITH kagglehub before freeze) |
+
+## Phase 6 STATUS REPORT (2026-11-10 — filled post-execution; NOT an R10 stop → auto-proceed to Phase 7 freeze)
+
+| item | value |
+|---|---|
+| contract | 4 pages, EXTRACTS-ONLY: runtime serves `data/processed/dashboard_cache/*.csv` (compact snapshots) + `outputs/tables/*.csv` (register artifacts of record) ONLY — `test_layout_builds_without_duckdb` literally imports duckdb-blocked to prove it; no full-corpus reads, no DuckDB connection in the app process; exp0006 cache provenance rows ×4 in manifest (46 entries total) |
+| pages | 1 · Corpus & Provenance (/) — 938/940 calendar strip + per-source daily load + licence table + top-12 extract load (log-scaled); 2 · Daily Network Features (/features) — 12-symbol × 9-metric explorer w/ bubble shading + defect-day marker + descriptive stats card (R11 only); 3 · Anomaly Events & CARs (/anomaly) — 686/7,126 KPIs, score histogram w/ event overlay, per-day event bars, ES table + method CAR bars, fold diagnostics table; 4 · Inference & Robustness (/inference) — 10-row grid table (DK/FM/BH/placebo/sign/headline), variant×headline survival heatmap (9 variants), LOO β-range funnel, base-vs-eras-vs-top5 magnitude bars, regime-interaction table |
+| build | `scripts/build_dashboard_cache.py` (idempotent re-run appends prov rows — documented in evidence) → `scripts/dashboard_app.py` + `scripts/dashboard_pages/` (Dash 4.5 Pages, dbc CDN stylesheet) — run `nepse-msc/bin/python scripts/dashboard_app.py` → 127.0.0.1:8050 |
+| honesty | every plotted number pre-computed in the register artifacts [REAL]; the app computes ONLY descriptive aggregates on page 2 (labeled); no inference, no re-scoring, no new experiment |
+| pytest | **62 passed, 0 failed** (60 unit incl. 4 dashboard tests + 2 notebooks) |
+| [] NEXT | **Phase 7 freeze = HARD STOP (R10)** — present freeze plan (artefact freeze, requirements-lock regen w/ kagglehub, config re-fingerprint, limitations doc, register finalization) for user review |
