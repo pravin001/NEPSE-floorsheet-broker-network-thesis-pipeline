@@ -65,20 +65,21 @@ Key validated facts (treat as REQUIRED reading):
 | 4 | 15-18 Nov: purged walk-forward IF + placebo + economic signature + regime split + event study | **EXECUTED 2026-11-09 — MANDATORY R10 STOP honoured; user review passed ("continue")** |
 | 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 8+ days ahead** |
 | 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 10 days ahead** |
-| 7 | 21 Nov: freeze artefacts + experiment register + limitations | NOT EXECUTED (HARD STOP — next action is Phase 7 freeze) |
-| 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | NOT EXECUTED |
+| 7 | 21 Nov: freeze artefacts + experiment register + limitations | **EXECUTED 2026-11-10 (STATUS REPORT below) — MANDATORY R10 STOP honoured (user authorisation "Do what is required"); tag `v1.0-freeze`** |
+| 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | ENGINEERING COMPLETE — student writing window; asset bundles on request |
 
 ## R10 gate status
 
 Phase 1 stop honoured (2026-11-08). Phase 2 auto-proceeded (50 passed). Phase 3 auto-proceeded
-(52 passed). Phase 4 HARD GATE passed (user review 2026-11-09 → "continue"). **Phase 5 complete
-2026-11-10 with pytest 58 passed / 0 failed and zero BLOCKED items — Phase 5 is NOT a stop
-gate: auto-proceeded to Phase 6 (Dash dashboard, 4 pages, extracts-only). **Phase 6 complete
-2026-11-10 (pytest 62 passed / 0 failed, zero BLOCKED) — auto-proceed to Phase 7.**
-**Phase 6 → Phase 7 freeze IS the NEXT HARD STOP (R10): present the freeze plan for user
-review before touching frozen artefacts.** Open for Phase-7: regen requirements-lock WITH
-kagglehub; re-fingerprint configs/project.yaml (amended in the fold-mode commit); git
-identity placeholder replacement = student interaction.
+(52 passed). Phase 4 HARD GATE passed (user review 2026-11-09 → "continue"). Phase 5
+auto-proceeded (58 passed). Phase 6 auto-proceeded (62 passed). **Phase 7 freeze EXECUTED
+2026-11-10 after explicit user authorisation (mandatory R10 stop honoured): requirements-lock
+regenerated WITH kagglehub==1.0.3 (144 pins, zero version bumps), config fingerprint FROZEN
+`9a60208f…b012f` (enforced by tests/test_freeze.py), docs/limitations.md written, EXP-0007
+registered, repo-local git identity set (global untouched), tag `v1.0-freeze`.
+ENGINEERING IS COMPLETE — Phase 7 is the LAST engineering phase; any post-freeze change
+requires a NEW registered experiment row (DC20).** Phase 8 (22-27 Nov) = chapter asset
+bundles + narrative skeleton; the student writes prose.
 
 ## Gotchas to remember (inherited + Phase-2)
 
@@ -169,7 +170,20 @@ identity placeholder replacement = student interaction.
 | verdict | headlines survive LOO + thresholds + normal-era drop; degrade ONLY below the traded tier (f) and inflect at longer horizons (b, sign-stable, size grows); H8 fragile twice (1% cutoff + bubble era); IF anomaly score OOS nullity re-confirmed wherever re-checkable — thesis narrative: broker-network concentration effects are REAL but LOCALIZED to the most-traded tier; the IF event-based story is NULL |
 | tables | 8 CSVs outputs/tables/robustness_* (master headline-survival = 46 variant×test rows) |
 | pytest | pytest 58 = 56 unit + 2 notebooks (two new tests this phase: anomaly-scale excluded-symbols ×1 + panel ride-along ×1, so 55-unit checkpoint estimate was off by one) — all green |
-| [] NEXT | Phase 6: Dash dashboard, 4 pages, EXTRACTS-ONLY (serves data/raw/floorsheet/<SYM>/<YYYY-MM>.csv top-12 extracts + outputs/tables results — NO DuckDB query at runtime; page spec defined by me since docs don't pin it); THEN Phase 7 freeze = NEXT HARD STOP (regen requirements-lock WITH kagglehub before freeze) |
+| [] NEXT | Phase 7 freeze = HARD STOP: lock regen w/ kagglehub, fingerprint, limitations doc, register finalization, identity — presented and executed only after user authorisation |
+
+## Phase 7 STATUS REPORT (2026-11-10 — frozen; tag `v1.0-freeze`)
+
+| item | value |
+|---|---|
+| freeze (EXP-0007) | user authorised ("Do what is required") after the Phase-5/6 results were presented; NOTHING frozen pre-authorisation |
+| requirements-lock | regenerated from live venv via `uv pip freeze`: **144 pins** (was 141): +kagglehub==1.0.3, +kagglesdk, +protobuf; **ZERO version bumps / removals** — SE-spec test run FIRST (4 passed) then full suite |
+| fingerprint (DC20) | configs/project.yaml: initial `29a43e8c…` (2026-11-08) → frozen **`9a60208f16040c8246108f79060fa81b69f0fa5609a4a365c4c898898d6b012f`** (only amendment ever = pre-declared fold-mode change, commit `26ad798`); `tests/test_freeze.py::test_config_fingerprint_is_frozen` fails loudly on ANY byte change |
+| freeze audit tests | `tests/test_freeze.py` (6 tests): fingerprint bite, 9 battery tables + 46 survival rows + 10-grid + 4 folds, register EXP-0000–0007 completeness, manifest ≥46 with battery+cache kinds (47 actual), limitations/lock presence incl. kagglehub pinned, headline set + SIGN DIRECTIONS pinned (H7/H10+, H8−, H4+ opposite, H6−, H2/H3 null) |
+| limitations | docs/limitations.md — 7 sections: corpus gaps/relabel/defect, licences (tier1 RESTRICTED pending, index unstated), floorsheet structure (buyer-side volume, scope artifact), D7/D9 conventions, findings-level limits (score nullity, tier-locality, horizon, H8×2 fragility, H4 opposite-sign normal-era, H6/H10 DK-only, no era interactions, n=16 illiquid caveat), presentation scope, falsification conditions — all with EXP citations |
+| identity | repo-local `msc-thesis-author <msc-thesis-author@local>` (placeholder replaced; GLOBAL git identity untouched per sibling D-note — student may amend to the real name pre-submission) |
+| pytest | **68 passed, 0 failed** (66 unit incl. 6 freeze-audit + SE-spec, 2 notebooks) |
+| [] STATE | ENGINEERING COMPLETE (all of R1–R12, SV1–SV7, DC1–DC20 satisfied or documented). Phase 8: chapter asset bundles (figures/table packs per chapter) + narrative skeleton — the student writes 22–27 Nov; aid on request. ANY change now = new EXP row |
 
 ## Phase 6 STATUS REPORT (2026-11-10 — filled post-execution; NOT an R10 stop → auto-proceed to Phase 7 freeze)
 
@@ -180,4 +194,4 @@ identity placeholder replacement = student interaction.
 | build | `scripts/build_dashboard_cache.py` (idempotent re-run appends prov rows — documented in evidence) → `scripts/dashboard_app.py` + `scripts/dashboard_pages/` (Dash 4.5 Pages, dbc CDN stylesheet) — run `nepse-msc/bin/python scripts/dashboard_app.py` → 127.0.0.1:8050 |
 | honesty | every plotted number pre-computed in the register artifacts [REAL]; the app computes ONLY descriptive aggregates on page 2 (labeled); no inference, no re-scoring, no new experiment |
 | pytest | **62 passed, 0 failed** (60 unit incl. 4 dashboard tests + 2 notebooks) |
-| [] NEXT | **Phase 7 freeze = HARD STOP (R10)** — present freeze plan (artefact freeze, requirements-lock regen w/ kagglehub, config re-fingerprint, limitations doc, register finalization) for user review |
+| [] NEXT | **Phase 7 freeze = HARD STOP (R10)** — presented and EXECUTED post-authorisation (EXP-0007 report below) |

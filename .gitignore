@@ -16,7 +16,8 @@ dist/
 data/raw/**
 data/duckdb/**
 data/processed/*.parquet
-data/processed/dashboard_cache/   # regenerable: scripts/build_dashboard_cache.py (EXP-0006; prov rows)
+# regenerable via scripts/build_dashboard_cache.py (EXP-0006; prov rows in manifest)
+data/processed/dashboard_cache/
 outputs/logs/
 outputs/predictions/*.parquet
 
