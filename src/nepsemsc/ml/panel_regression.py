@@ -87,6 +87,48 @@ def fit_double_clustered(panel: pd.DataFrame, outcome: str, feature_cols: list[s
     return res
 
 
+def fit_double_clustered_v2(panel: pd.DataFrame, outcome: str,
+                            feature_cols: list[str],
+                            entity_col: str = "symbol", time_col: str = "date",
+                            entity_effects: bool = True,
+                            time_effects: bool = True):
+    """TRUE two-way clustered SEs by (entity, time) — v2 Stage-2 correction.
+
+    The v1 wrapper `fit_double_clustered` passed a (2, nobs) transposed array
+    to linearmodels, which linearmodels 7.1 rejects; the v1 code then fell
+    back to the time-kernel SE, so the frozen v1 `p_dc` column is numerically
+    identical to DK (disclosed in deviation #15). For a two-way cluster in
+    linearmodels 7.1, pass a row-aligned DataFrame with TWO columns indexed
+    by the model's MultiIndex. This function leaves the v1 wrapper untouched
+    so the frozen v1 outputs remain exactly reproducible.
+    """
+    y, X, df = _prep_panel(panel, entity_col, time_col, outcome, feature_cols)
+    clusters = pd.DataFrame(
+        {"entity": pd.factorize(df[entity_col])[0],
+         "time": pd.factorize(df[time_col])[0]},
+        index=X.index)
+    res = PanelOLS(y, X, entity_effects=entity_effects,
+                   time_effects=time_effects, drop_absorbed=True).fit(
+        cov_type="clustered", clusters=clusters)
+    res.cov_type_used = "double_clustered_two_way_v2"
+    return res
+
+
+def fit_cluster_entity(panel: pd.DataFrame, outcome: str,
+                       feature_cols: list[str],
+                       entity_col: str = "symbol", time_col: str = "date",
+                       entity_effects: bool = True, time_effects: bool = True):
+    """One-way cluster-robust SEs by entity (the wild-bootstrap target)."""
+    y, X, df = _prep_panel(panel, entity_col, time_col, outcome, feature_cols)
+    clusters = pd.DataFrame(
+        {"entity": pd.factorize(df[entity_col])[0]}, index=X.index)
+    res = PanelOLS(y, X, entity_effects=entity_effects,
+                   time_effects=time_effects, drop_absorbed=True).fit(
+        cov_type="clustered", clusters=clusters)
+    res.cov_type_used = "cluster_entity_v2"
+    return res
+
+
 def fit_fama_macbeth(panel: pd.DataFrame, outcome: str, feature_cols: list[str],
                      entity_col: str = "symbol", time_col: str = "date",
                      maxlag: int = 5, add_constant: bool = True):

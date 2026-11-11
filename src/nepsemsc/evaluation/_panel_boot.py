@@ -269,12 +269,15 @@ def build_bundle(panel: pd.DataFrame, outcome: str, feature_cols: Sequence[str],
 
 # --------------------------- pseudo-fit bootstrap --------------------------- #
 def pseudo_draws(bundle: DKBundle, eta: np.ndarray, cluster: bool = False,
-                 chunk_size: int = 1700, demean_tol: float = 1e-13
-                 ) -> dict:
+                 cluster_cov: bool = False, chunk_size: int = 1700,
+                 demean_tol: float = 1e-13) -> dict:
     """Vectorized wild-bootstrap draws on the frozen design.
 
     eta: (B, n_row) row-level weights (RW scheme), OR (B, n_entities) when
     cluster=True (Stage-2 wild cluster bootstrap, one weight per symbol).
+    cluster_cov=True additionally replaces the DK kernel with the cluster
+    (entity) robust meat S = sum_g s_g s_g' — required for a CGM-2008 wild
+    CLUSTER bootstrap; default False preserves the validated Stage-1 path.
     Returns {'delta': (B,k), 'se': (B,k), 't_recentered': (B,k),
              't_raw': (B,k), 'beta_raw': (B,k)}.
     """
@@ -286,6 +289,12 @@ def pseudo_draws(bundle: DKBundle, eta: np.ndarray, cluster: bool = False,
     weights = bundle.weights
     eta_rows = eta[:, bundle.ent_idx] if cluster else eta
     B = eta.shape[0]
+    n_ent = int(ent.max()) + 1
+    ent_sums = None
+    if cluster_cov:
+        ent_sums = sparse.csr_matrix(
+            (np.ones(n, dtype="float64"), (ent, np.arange(n, dtype=int))),
+            shape=(n_ent, n))
 
     delta = np.empty((B, k))
     se = np.empty((B, k))
@@ -297,9 +306,14 @@ def pseudo_draws(bundle: DKBundle, eta: np.ndarray, cluster: bool = False,
         e_star = w_u - d @ X.T                                        # (c, n)
         scores_rows = e_star[:, :, None] * X[None, :, :]              # (c, n, k)
         mat = scores_rows.transpose(1, 0, 2).reshape(n, c * k)        # (n, c*k)
-        xi_t = bundle.tim_sums @ mat                                  # (T, c*k)
-        xi_t = xi_t.reshape(bundle.tim_sums.shape[0], c, k).transpose(1, 0, 2)
-        S = dk_S_from_period_scores(xi_t, weights)                    # (c, k, k)
+        if cluster_cov:
+            sg = ent_sums @ mat                                       # (n_ent, c*k)
+            sg = sg.reshape(n_ent, c, k).transpose(1, 0, 2)           # (c, n_ent, k)
+            S = np.einsum("cgi,cgj->cij", sg, sg)
+        else:
+            xi_t = bundle.tim_sums @ mat                              # (T, c*k)
+            xi_t = xi_t.reshape(bundle.tim_sums.shape[0], c, k).transpose(1, 0, 2)
+            S = dk_S_from_period_scores(xi_t, weights)                # (c, k, k)
         V = bundle.calib_c * (Ainv @ S) @ Ainv
         se_c = np.sqrt(np.einsum("bii->bi", V))
         delta[s:s + c] = d
