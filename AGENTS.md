@@ -7,7 +7,10 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-10 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-11 · Engineering ends 21 Nov (writing 22-27)
+- **v2.0 A++ upgrade IN PROGRESS** (post-`v1.0-freeze`): binding pre-declaration
+  `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stage 1
+  COMPLETE (EXP-0008a–e); stages 2–6 pending; final tag `v2.0-a++-freeze`.
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -67,6 +70,24 @@ Key validated facts (treat as REQUIRED reading):
 | 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 10 days ahead** |
 | 7 | 21 Nov: freeze artefacts + experiment register + limitations | **EXECUTED 2026-11-10 (STATUS REPORT below) — MANDATORY R10 STOP honoured (user authorisation "Do what is required"); tag `v1.0-freeze`** |
 | 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | ENGINEERING COMPLETE — student writing window; asset bundles on request |
+
+## v2.0 A++ upgrade — post-freeze program (started 2026-11-10, after `v1.0-freeze`)
+
+Binding pre-declaration: `docs/analysis_plan_v2_extension.md` (V2-0..V2-6),
+written BEFORE any v2 computation. Governance: frozen v1 numeric files are
+NEVER edited; v2 adds new result files + governance columns + deviation rows.
+Every stage ends with a printed STATUS REPORT + commit; final tag
+`v2.0-a++-freeze`. Detailed deviation rows #10–#14 are in
+`docs/analysis_deviations.md`; experiment rows EXP-0008a–e in the register.
+
+| Stage | Status | Headline outcome |
+|---|---|---|
+| 1 · statistical interpretation fixes | **COMPLETE 2026-11-11** (`Stage 1: statistical interpretation fixes (v2.0-stage1)`) | Romano–Wolf B=999: **only H10 survives q=.10 (rw_p .081)**; H6 .120 / H7 .159 demoted NULL_FRAGILE; H4 EXPLORATORY_POST_HOC; H8 NULL_FRAGILE; H1/H2/H3/H5/H9 NULL_ROBUST. DC13: 7/10 rows flag (5/5 unique features except EoD); H10 (sole survivor) carries the largest past-\|ret\| association (+19.69 vs +9.49 bp forward). Expanded placebo (1000 draws + blocks): anomaly score null confirmed; EoD block-placebo tail .009/.006; negctrl lead-5 null. MDE: H8 NULL_UNDERPOWERED, others NULL_POWERED. pytest 89 passed |
+| 2 · referee-proof robustness | pending | liquidity controls, wild cluster bootstrap, 4-SE concordance, VIF audit |
+| 3 · panel/outcome upgrades | pending | quantile panel, EGARCH-standardized outcomes, trade-size buckets, H7 specification curve |
+| 4 · effective-N, broker panel, cost-benefit, subgroups | pending | PhD-seed broker panel, network snapshots, event-study BMP/rank upgrade |
+| 5 · final headline set + chapter skeletons | pending | `outputs/tables/v2_final_headline_set.csv`, Ch.5/Ch.6 skeletons, limitations table |
+| 6 · freeze v2.0 | pending | clean rebuild, test suite ≥80, `configs/v2_freeze/` hashes, lock regen, deposit prep, tag `v2.0-a++-freeze` |
 
 ## R10 gate status
 
