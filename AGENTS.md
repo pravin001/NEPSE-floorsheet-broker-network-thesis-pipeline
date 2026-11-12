@@ -7,10 +7,11 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-11 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-12 · Engineering ends 21 Nov (writing 22-27)
 - **v2.0 A++ upgrade IN PROGRESS** (post-`v1.0-freeze`): binding pre-declaration
-  `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stage 1
-  COMPLETE (EXP-0008a–e); stages 2–6 pending; final tag `v2.0-a++-freeze`.
+  `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–3
+  COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c); stages 4–6 pending; final tag
+  `v2.0-a++-freeze`.
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -77,14 +78,15 @@ Binding pre-declaration: `docs/analysis_plan_v2_extension.md` (V2-0..V2-6),
 written BEFORE any v2 computation. Governance: frozen v1 numeric files are
 NEVER edited; v2 adds new result files + governance columns + deviation rows.
 Every stage ends with a printed STATUS REPORT + commit; final tag
-`v2.0-a++-freeze`. Detailed deviation rows #10–#14 are in
-`docs/analysis_deviations.md`; experiment rows EXP-0008a–e in the register.
+`v2.0-a++-freeze`. Detailed deviation rows #10–#19 are in
+`docs/analysis_deviations.md`; experiment rows EXP-0008a–e, EXP-0009a–d and
+EXP-0010a–c in the register.
 
 | Stage | Status | Headline outcome |
 |---|---|---|
 | 1 · statistical interpretation fixes | **COMPLETE 2026-11-11** (`Stage 1: statistical interpretation fixes (v2.0-stage1)`) | Romano–Wolf B=999: **only H10 survives q=.10 (rw_p .081)**; H6 .120 / H7 .159 demoted NULL_FRAGILE; H4 EXPLORATORY_POST_HOC; H8 NULL_FRAGILE; H1/H2/H3/H5/H9 NULL_ROBUST. DC13: 7/10 rows flag (5/5 unique features except EoD); H10 (sole survivor) carries the largest past-\|ret\| association (+19.69 vs +9.49 bp forward). Expanded placebo (1000 draws + blocks): anomaly score null confirmed; EoD block-placebo tail .009/.006; negctrl lead-5 null. MDE: H8 NULL_UNDERPOWERED, others NULL_POWERED. pytest 89 passed |
 | 2 · referee-proof robustness | **COMPLETE 2026-11-11** (`Stage 2: liquidity controls, wild cluster bootstrap, SE concordance, VIF audit (v2.0-stage2)`) | Liquidity controls on identical 7,116 rows move no v1 estimate >6% or sign; **H10 +9.586 bp p .0117 vs base +9.492 p .0138**. WB corrected to entity-clustered covariance on both draws and observed t (engine 5.11e-13; 12-cluster small-G caveat): p_WB H4 .002 / H6 .002 / H7 .022 / H8 .095 / H9 .100 / H10 .009. v1 `p_dc` disclosed as silent time-kernel fallback (==DK); true DC-v2 p H4 .0053 / H6 .0021 / H7 .0086 / H8 .0574 / H10 .0028. 4-SE concordance STRONG H4/H7/H8, MODERATE H6/H10, NULL other five; **Stage-2 headline = {H10} only** (intersection with Stage-1 CONFIRMED_HEADLINE). VIF max 2.538, \|r\| max .635, no flags. pytest **103 passed** |
-| 3 · panel/outcome upgrades | pending | quantile panel, EGARCH-standardized outcomes, trade-size buckets, H7 specification curve |
+| 3 · panel/outcome upgrades | **COMPLETE 2026-11-11** (`Stage 3: quantile panel, EGARCH outcomes, trade-size heterogeneity (v2.0-stage3)`) | EGARCH(1,1)-standardized outcomes (declared arch 8.0.0 call = symmetric `o=0`): 40 fits (37 converged, 4 degenerate), 6,819/7,116 usable z rows; all five BH-passing signs match v1, standardized-effect ratios 0.86–1.17 — H10 +412.40 z p .0383, H6 −511.87 p .0204, H7 +149.15 p .0638, H8 −157.91 p .0745, H4 +256.86 p .0544; H4/H7 fragile in exclusion sensitivities; nulls stay null. Quantile panel (50/50 converged, 7,116×737 two-way design): **H10 BOTH_TAILS INCREASING +3.08/+4.89/+18.70 bp at τ=.10/.50/.90 (ratio 6.06)**; H4 BOTH_TAILS; H6/H8 LOWER_TAIL; H7 NONE/HUMP; null tail labels unadjusted descriptive only. Trade-size (TRAIN-only p10/p90; min-5 guard): **H7 EoD large-bucket +4.519 bp p .0356** (sign-aware pass), H8 medium-bucket −5.266 p .0056 (not large-ticket); small bucket 0.35% volume/unusable. H7 specification curve deferred to V2-4/Stage 4 per binding plan. All Stage-3 tables byte-identical across reruns. pytest **120 passed** |
 | 4 · effective-N, broker panel, cost-benefit, subgroups | pending | PhD-seed broker panel, network snapshots, event-study BMP/rank upgrade |
 | 5 · final headline set + chapter skeletons | pending | `outputs/tables/v2_final_headline_set.csv`, Ch.5/Ch.6 skeletons, limitations table |
 | 6 · freeze v2.0 | pending | clean rebuild, test suite ≥80, `configs/v2_freeze/` hashes, lock regen, deposit prep, tag `v2.0-a++-freeze` |

@@ -1,0 +1,7 @@
+test_id,metric,beta_large_bp,p_large,beta_small_bp,p_small,sign_large_matches_v1,sign_small_matches_v1,magnitude_large_ge_small,p_large_le_small,success_criterion,success_criterion_sign_aware
+H7,buyer_hhi,0.25223485562380077,0.8985465193117333,-2.6848421702779746,0.5283854711461331,True,False,False,False,False,False
+H8,buyer_hhi,2.7520277751119755,0.30908631372984097,3.1659441828007835,0.5021034746904307,False,False,False,True,False,False
+H7,top3_buyer_share,0.9602975076476017,0.6545380669347013,-2.7224362772663495,0.6489063574913331,True,False,False,False,False,False
+H8,top3_buyer_share,5.842139403996688,0.027179851023025895,5.604839537536023,0.4011365612505615,False,False,True,True,True,False
+H7,eod_concentration,4.5190298920339345,0.03563338936673902,-1.359478706580125,0.6496760685846682,True,False,True,True,True,True
+H8,eod_concentration,-4.466804983887644,0.061090622552386044,5.840898837604848,0.13431025200864555,True,False,False,True,False,False

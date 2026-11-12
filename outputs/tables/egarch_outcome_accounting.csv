@@ -1,0 +1,14 @@
+item,value
+base_panel_rows,7116.0
+egarch_z_rows,6819.0
+panel_rows_with_z,6819.0
+panel_rows_without_z,297.0
+fits,40.0
+fits_converged,37.0
+fits_degenerate,4.0
+fits_with_sigma_underflow,2.0
+fits_with_boundary_exclusion_only,10.0
+oos_rows_excluded_total,307.0
+oos_rows_excluded_sigma_underflow,297.0
+oos_rows_excluded_no_next_session,10.0
+z_numeric_max,20.0
