@@ -1,0 +1,31 @@
+# v2 Stage 5 log of record — canonical headline set + chapter skeletons + limitations
+# generated 2026-11-12 (NPT); builder: scripts/build_v2_final_headline_set.py
+
+final headline set written
+hypothesis pre_declared_direction  estimated_beta     dk_p  rw_p  wild_bootstrap_p se_concordance  survives_liquidity  survives_egarch       tail_concentration final_classification
+        H1               positive       -1.556594 0.430629 0.915             0.257     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H2               positive       -1.491177 0.575298 0.915             0.541     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H3               negative        0.957087 0.750120 0.915             0.794     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H4               negative        7.509961 0.027547 0.159             0.002         STRONG                True             True  BOTH_TAILS (INCREASING) EXPLORATORY_POST_HOC
+        H5               positive       -1.856088 0.487523 0.915             0.357     NULL (0/4)               False            False LOWER_TAIL (descriptive)         NULL_POWERED
+        H6              ambiguous      -10.938552 0.019711 0.120             0.002       MODERATE                True             True  LOWER_TAIL (INCREASING)         NULL_FRAGILE
+        H7               positive        3.952373 0.027432 0.159             0.022         STRONG                True             True              NONE (HUMP)         NULL_FRAGILE
+        H8               negative       -4.470947 0.045888 0.203             0.095         STRONG                True             True     LOWER_TAIL (U_SHAPE)         NULL_FRAGILE
+        H9               negative        1.817473 0.458719 0.915             0.100     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+       H10               positive        9.492266 0.013755 0.081             0.009       MODERATE                True             True  BOTH_TAILS (INCREASING)    HEADLINE_MODERATE
+
+composition audit
+hypothesis               stage1  stage2_headline stage2_concordance               mde  liquidity  egarch  rw_p                final
+        H1          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H2          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H3          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H4 EXPLORATORY_POST_HOC            False             STRONG               n/a       True    True 0.159 EXPLORATORY_POST_HOC
+        H5          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H6         NULL_FRAGILE            False           MODERATE               n/a       True    True 0.120         NULL_FRAGILE
+        H7         NULL_FRAGILE            False             STRONG               n/a       True    True 0.159         NULL_FRAGILE
+        H8         NULL_FRAGILE            False             STRONG NULL_UNDERPOWERED       True    True 0.203         NULL_FRAGILE
+        H9          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+       H10   CONFIRMED_HEADLINE             True           MODERATE               n/a       True    True 0.081    HEADLINE_MODERATE
+
+## Stage-5 pytest (unit + nbmake)
+149 passed, 51 warnings in 9.47s
