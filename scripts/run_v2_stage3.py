@@ -176,11 +176,22 @@ def main() -> None:
                          indicator=True)
     n_both = int((merged["_merge"] == "both").sum())
     n_missing = int((merged["_merge"] == "left_only").sum())
+    raw_oos_rows = int((~scores["is_train"]).sum())
     accounting = pd.DataFrame([
+        # Two denominators are reported explicitly: the RAW OOS score grid
+        # (7,126 rows, before the outcome merge) and the ANALYSIS PANEL
+        # (7,116 rows; the 10 last-session 2024-12-31 rows have no ret_fwd1
+        # and are outside the panel by construction). 307 raw-grid
+        # exclusions = 297 in-panel sigma-underflow rows + 10 outside-panel
+        # boundary rows, so 7,116 - 297 = 6,819 is the usable panel.
+        {"item": "raw_oos_grid_rows", "value": raw_oos_rows},
         {"item": "base_panel_rows", "value": len(panel)},
+        {"item": "raw_oos_grid_rows_outside_panel",
+         "value": raw_oos_rows - len(panel)},
         {"item": "egarch_z_rows", "value": len(z_out)},
         {"item": "panel_rows_with_z", "value": n_both},
         {"item": "panel_rows_without_z", "value": n_missing},
+        {"item": "panel_rows_excluded_total", "value": n_missing},
         {"item": "fits", "value": len(fit_log)},
         {"item": "fits_converged", "value": int(fit_log.converged.sum())},
         {"item": "fits_degenerate", "value": int(fit_log.flag_degenerate.sum())},
@@ -189,12 +200,12 @@ def main() -> None:
         {"item": "fits_with_boundary_exclusion_only",
          "value": int(((fit_log.n_oos_excluded > 0) &
                        (fit_log.n_forward_sigma_invalid == 0)).sum())},
-        {"item": "oos_rows_excluded_total",
+        {"item": "raw_oos_grid_rows_excluded_total",
          "value": int(fit_log.n_oos_excluded.sum())},
-        {"item": "oos_rows_excluded_sigma_underflow",
+        {"item": "raw_oos_grid_rows_excluded_sigma_underflow",
          "value": int(fit_log.loc[fit_log.n_forward_sigma_invalid > 0,
                                   "n_oos_excluded"].sum())},
-        {"item": "oos_rows_excluded_no_next_session",
+        {"item": "raw_oos_grid_rows_excluded_no_next_session",
          "value": int(fit_log.loc[fit_log.n_forward_sigma_invalid == 0,
                                   "n_oos_excluded"].sum())},
         {"item": "z_numeric_max", "value": Z_NUMERIC_MAX},

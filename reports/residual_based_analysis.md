@@ -63,26 +63,40 @@ observation.
 
 `outputs/tables/egarch_outcome_accounting.csv`:
 
+Two denominators are distinguished in the artifact. The **raw OOS score grid**
+has 7,126 rows; the **analysis panel** has 7,116 rows because the 10 rows of the
+final session (2024-12-31) have no `ret_fwd1` and are dropped by
+`build_oos_panel` before any EGARCH work.
+
 | item | value |
 |---|---:|
-| base OOS panel rows | 7,116 |
+| raw OOS score-grid rows | 7,126 |
+| base analysis-panel rows | 7,116 |
+| raw-grid rows outside the analysis panel (2024-12-31, no `ret_fwd1`) | 10 |
 | EGARCH fits (fold × symbol) | 40 |
 | fits converged | 37 |
 | fits flagged degenerate | 4 |
 | fits with sigma underflow | 2 (fold-0 NABIL, fold-0 NLIC) |
 | fits with boundary exclusion only (last OOS session has no next session) | 10 (fold 3) |
 | EGARCH `z` rows | **6,819** |
-| panel rows without `z` | **297** |
-| rows excluded by sigma underflow | 297 |
-| rows excluded by no-next-session boundary | 10 |
+| panel rows with `z` | 6,819 |
+| panel rows without `z` (`panel_rows_excluded_total`) | **297** |
+| raw-grid rows excluded by sigma underflow | 297 |
+| raw-grid rows excluded by no-next-session boundary | 10 (outside the panel) |
+
+The reconciliation is therefore: `7,116 panel = 6,819 usable + 297 underflow`;
+`7,126 raw grid = 7,116 panel + 10 boundary`. The raw-grid exclusions total 307,
+but only the 297 underflow rows are subtracted from the 7,116 analysis panel.
 
 The two underflow fits are both in **fold 0**: NABIL (161 excluded; 9 usable)
 and NLIC (136 excluded; 40 usable). NABIL converged but its forward recursion
 degenerated; NLIC did not converge and also degenerated. The other two
 non-converged fits (fold-0 API, fold-3 NICA) kept a well-behaved sigma path and
 contribute their OOS rows (`status='ok'`). The fold-3 boundary exclusions are
-mechanical: the last OOS session has no next session to standardize, so each of
-the 10 fold-3 fits loses exactly one row.
+mechanical: the last OOS session (2024-12-31) has no next session to
+standardize, so each of the 10 fold-3 fits loses exactly one row; those rows are
+already outside the analysis panel because `ret_fwd1` is missing, so they do not
+reduce the 7,116 panel.
 
 ### 1.3 Calibration of the standardized outcomes
 
