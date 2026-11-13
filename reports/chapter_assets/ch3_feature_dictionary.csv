@@ -1,0 +1,13 @@
+feature,definition,formula_or_source,predeclared_in,exp_id,notes
+self_loop_ratio,Volume-weighted share of daily volume where buyer broker equals seller broker,src/nepsemsc/network/concentration.py::self_loop_volume_ratio,docs/analysis_plan.md §2,EXP-0003a,Label is SELF-LOOP VOLUME; do not call it wash trading (R12)
+buyer_hhi,Herfindahl-Hirschman index of buyer-side volume shares,src/nepsemsc/network/concentration.py::buyer_hhi_by_day,docs/analysis_plan.md §2,EXP-0003a,Sum of squared buyer volume shares; sole buyer = 1.0
+reciprocity,Share of directed edge volume flowing on bidirectional broker pairs,src/nepsemsc/network/metrics.py::reciprocity_volume,docs/analysis_plan.md §2,EXP-0003a,2*sum(min(w_ij,w_ji))/sum(all weights)
+end_of_day_concentration,Share of daily volume in the top 5% of trades by contract_no,src/nepsemsc/network/concentration.py::end_of_day_concentration,docs/analysis_plan.md §2,EXP-0003a,Ordering-dependent; 2023-02-16 excluded
+anomaly_score,Per-fold Isolation Forest score oriented so larger = more anomalous,src/nepsemsc/ml/anomaly_scoring.py,docs/analysis_plan.md §4,EXP-0004a,Train-fold fit only; -decision_function on both sides
+log_volume,Natural log of daily traded volume,src/nepsemsc/ml/panel_data.py,docs/analysis_plan.md §2,EXP-0004b,Control in every regression
+market_ret_loo,Market return excluding stock i on its own row,src/nepsemsc/ml/panel_data.py,docs/analysis_plan.md §2,EXP-0004b,DC9 leave-one-out market control
+ret_fwd1,Next-session close-to-close return,scripts/build_outcomes.py,docs/analysis_plan.md §2,EXP-0003b,Primary directional outcome
+abs_ret_fwd1,Absolute value of ret_fwd1,scripts/build_outcomes.py,docs/analysis_plan.md §2,EXP-0003b,Volatility proxy
+amihud_liquidity,Amihud illiquidity control,src/nepsemsc/features/liquidity.py,docs/analysis_plan_v2_extension.md §V2-2,EXP-0009a,v2 control; TRAIN-fold construction
+roll_spread,Roll effective-spread control,src/nepsemsc/features/liquidity.py,docs/analysis_plan_v2_extension.md §V2-2,EXP-0009a,v2 control
+corwin_schultz_spread,Corwin-Schultz high-low spread control,src/nepsemsc/features/liquidity.py,docs/analysis_plan_v2_extension.md §V2-2,EXP-0009a,v2 control

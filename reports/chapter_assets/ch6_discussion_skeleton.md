@@ -9,6 +9,12 @@ follows `docs/chapter_artifact_map.md` (negative-result framing → limitations
 → PhD extensions → broker persistence appendix) and the Stage-1–4 findings.
 Logged as Stage-5 deviation #28.
 
+Path refresh (v2.0.1 handoff): every table path in this skeleton now resolves
+to a tracked v2 artefact and is listed in the verified crosswalk
+(`docs/chapter_artifact_map.md`), audited by `scripts/audit_chapter_map.py`.
+Figures under `outputs/figures/` are real but remain licence-restricted and are
+not part of the derived deposit (`reports/limitations.md` L4).
+
 Severity vocabulary for §6.3: `CRITICAL` / `MAJOR` / `MINOR`, as defined in
 `reports/limitations.md`.
 
@@ -63,7 +69,8 @@ structure.
   (EXP-0002b/c, EXP-0003a).
 
 **Assets.** `reports/limitations.md` (CRITICAL rows L1–L4);
-`docs/analysis_plan.md` §epistemic; `reports/broker_pilot_phd_seed.md`.
+`README.md` (epistemic frame); `docs/analysis_plan.md` §3;
+`reports/broker_pilot_phd_seed.md`.
 
 ---
 
@@ -170,7 +177,7 @@ and the thesis states the conditions under which that reading would change.
   `docs/deposit_readme.md` (Stage 6), `CITATION.cff` (Stage 6),
   `LICENSE` (Stage 6).
 
-**Assets.** `reports/limitations.md` §falsification;
+**Assets.** `reports/limitations.md` §3 (what would change the conclusions);
 `docs/reproducibility.md`; Stage-6 deposit files.
 
 ---
@@ -187,3 +194,5 @@ and the thesis states the conditions under which that reading would change.
 | cost-benefit | `outputs/tables/economic_magnitude.csv` | §6.5 |
 | exploratory findings | `reports/exploratory_findings.md` | §6.1/§6.2 |
 | PhD seed | `reports/broker_pilot_phd_seed.md` | §6.4, Appendix B |
+| verified crosswalk | `docs/chapter_artifact_map.md` | all sections |
+| audit guard | `tests/test_chapter_map_integrity.py` | build check |

@@ -7,11 +7,15 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-12 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-13 · Engineering ends 21 Nov (writing 22-27)
 - **v2.0 A++ upgrade COMPLETE** (post-`v1.0-freeze`): binding pre-declaration
   `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–6
   COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012,
   EXP-0013); final tag `v2.0-a++-freeze` (2026-11-13).
+- **v2.0.1 post-freeze handoff COMPLETE**: verified 67-claim chapter→artefact
+  crosswalk, Ch.1–Ch.6 handoff packs, chapter-map integrity guard, derived-only
+  deposit archive + preflight (EXP-0014); tag `v2.0.1-handoff`. Frozen
+  `v2.0-a++-freeze` tag and all v1/v2 numeric files unchanged.
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -70,7 +74,7 @@ Key validated facts (treat as REQUIRED reading):
 | 5 | 18-20 Nov: robustness battery (+ optional GPU/IF sklearnex) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 8+ days ahead** |
 | 6 | 20-21 Nov: Dash dashboard (4 pages, extracts-only) | **EXECUTED 2026-11-10 (STATUS REPORT below) — 10 days ahead** |
 | 7 | 21 Nov: freeze artefacts + experiment register + limitations | **EXECUTED 2026-11-10 (STATUS REPORT below) — MANDATORY R10 STOP honoured (user authorisation "Do what is required"); tag `v1.0-freeze`** |
-| 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | ENGINEERING COMPLETE — student writing window; asset bundles on request |
+| 8 | 22-27 Nov: chapter asset bundles + narrative skeleton (student writes prose) | **HANDOFF COMPLETE 2026-11-13** — Ch.1–Ch.6 packs/skeletons, verified crosswalk, deposit preflight; student writing window |
 
 ## v2.0 A++ upgrade — post-freeze program (started 2026-11-10, after `v1.0-freeze`)
 
@@ -79,8 +83,9 @@ written BEFORE any v2 computation. Governance: frozen v1 numeric files are
 NEVER edited; v2 adds new result files + governance columns + deviation rows.
 Every stage ends with a printed STATUS REPORT + commit; final tag
 `v2.0-a++-freeze`. Detailed deviation rows #10–#30 are in
-`docs/analysis_deviations.md`; experiment rows EXP-0008a–e, EXP-0009a–d,
-EXP-0010a–c, EXP-0011a–f, EXP-0012 and EXP-0013 in the register.
+`docs/analysis_deviations.md` (post-freeze #31–#32 record the chapter-map
+defect and v2.0.1 handoff); experiment rows EXP-0008a–e, EXP-0009a–d,
+EXP-0010a–c, EXP-0011a–f, EXP-0012, EXP-0013 and EXP-0014 are in the register.
 
 | Stage | Status | Headline outcome |
 |---|---|---|
@@ -90,6 +95,30 @@ EXP-0010a–c, EXP-0011a–f, EXP-0012 and EXP-0013 in the register.
 | 4 · effective-N, broker panel, cost-benefit, subgroups | **COMPLETE 2026-11-12** (`Stage 4: effective-N, broker panel, cost-benefit, subgroups, event-study upgrade (v2.0-stage4)`) | Effective N: **6,383** (7,116 − 11 − 722), FM cross-sections 712–714; frozen β/p unchanged. H7 spec curve: **144 specs / 72 unique design betas** (plan arithmetic slip logged): 72/72 `abs_ret` positive, median +3.952 bp, CI-excl .583, p<.05 .542; full .958 vs bubble .292; `ret` 66/72 negative and 1% cutoff collapses; H7 stays NULL_FRAGILE. Broker panel: 57.9M trades, **91 canonical brokers, 3,026 broker-months**, active 50–90; core 11/219; transitions 183/28/36; 18/48 complete-graph months; source-format defect 275,590 rows/15 days, 37/7,126 OOS rows, leave-out signs unchanged (H8 p .0563). Subgroups: **no Bonferroni survivor** (min p_bonf .1434); circuit-breaker `NOT_EXECUTED`. Event study: reconstruction exact (max ΔCAR 0.0); mean CAR +12.86 bp p .569; BMP p .240; rank z 3.158 (date-clustered 2.522, p .012); market-adjusted −73.41 bp is a pre-window-alpha artifact. Cost-benefit: H7 7.59–12.65× / H10 3.16–5.27× / H4 3.99–6.66× **below** the 30–50 bp floor; not tradable at 1 SD. 22 artifacts byte-identical across consecutive runs; pytest **143 passed** |
 | 5 · final headline set + chapter skeletons | **COMPLETE 2026-11-12** (`Stage 5: canonical headline set, chapter skeletons, limitations (v2.0-stage5)`) | Canonical set 10 rows × exact brief columns; **H10 HEADLINE_MODERATE** sole headline (RW .081, WB .009, MODERATE concordance, liquidity+EGARCH pass, both tails increasing); H4 EXPLORATORY_POST_HOC (opposite sign, RW .159); H6/H7/H8 NULL_FRAGILE (RW .120/.159/.203; H8 also MDE-underpowered, ratio 1.426); H1/H2/H3/H5/H9 NULL_POWERED (RW .915; MDE powered). Composition/taxonomy in deviation #27, brief-structure fallback #28. Ch.5/Ch.6 bullet skeletons in `reports/chapter_assets/`; `reports/limitations.md` 24 rows L1–L24 (CRITICAL/MAJOR/MINOR); `chapter_section` column added to the register; EXP-0012; manifest +6 rows; canonical table byte-identical across two builds; pytest **149 passed** |
 | 6 · freeze v2.0 | **COMPLETE 2026-11-13** (`Stage 6: clean rebuild, freeze, deposit prep, final audit`) | Clean rebuild 21/21 steps exit 0 in 3,749.9 s (62.5 min); `data/raw/` unchanged (577 files / 611,881,127 bytes); 73 table artefacts: 40 identical, 25 ≤3.55e-14, 4 reorder-only, 2 QuantReg drift 7.44e-7, 1 float aggregation ±1 unit, 1 descriptive sequential-fold threshold flip (146→141; anchored 686 unchanged); classifications identical. 7-file `configs/v2_freeze/` snapshot; lock 153 pins incl. `arch==8.0.0`; 629-row hash backfill; final register audit 697 checks = 695 OK + manifest self-reference + EXP-0000 historical lock; pytest 154 passed; deposit README/CITATION/LICENSE prepared (not uploaded); tag `v2.0-a++-freeze` |
+
+## v2.0.1 post-freeze handoff (2026-11-13)
+
+Trigger: the Stage-5 chapter map named six artefacts that never existed
+(`main_regression.csv`, `placebo_distribution.csv`, `regime_split.csv`,
+`event_study_car.csv`, `robustness_matrix.csv`, `broker_persistence.csv`).
+Diagnosis: latent documentation drift, **not a v2 regression**; the Stage-6
+register audit only resolved experiment-row paths, so the chapter surface was
+outside its input. Logged as deviations #31 (defect + audit gap) and #32
+(handoff repair).
+
+| item | value |
+|---|---|
+| crosswalk | `docs/chapter_artifact_map.md` — 67 claims / 6 chapters / 50 distinct artefacts; columns chapter, section, claim_id, artifact_path, exp_id, sha256, claim_version, status |
+| claim versions | `v1` frozen results remain citable (e.g. H7 v1 p=.0274) even when v2 reclassifies (`NULL_FRAGILE`); `v2` = governance/robustness or handoff scaffold |
+| audit | `scripts/audit_chapter_map.py` → `outputs/tables/v2_chapter_map_audit.csv`; 67/67 OK, 0 FAIL, stable SHA-256 |
+| guard | `tests/test_chapter_map_integrity.py` — 7 tests; suite now **161 passed** |
+| packs | `reports/chapter_assets/ch1_introduction_pack.md` … `ch4_data_engineering_pack.md`; Ch.5/Ch.6 skeletons path-refreshed; Ch.2 is an empty literature/gap/comparison scaffold with **no invented citations** |
+| deposit | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; derived tables/code/docs only; raw/duckdb/processed/figures/logs excluded; 76/76 tables hash-aligned |
+| TODOs | author identity in `CITATION.cff`/`LICENSE`; tier1 OHLCV licence; derived-only vs licensed-subset deposit scope |
+
+`git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
+tag `v2.0.1-handoff`. No frozen v1 numeric file, binding freeze file, final
+classification, or existing tag was moved.
 
 ## R10 gate status
 

@@ -1,0 +1,68 @@
+claim_id,chapter,section,artifact_path,exp_id,claim_version,status,file_exists,crosswalk_hash_match,manifest_hash_match,exp_ids_valid,outcome,detail
+CH1-1.1-SCOPE,Ch.1 Introduction,1.1,README.md,"EXP-0002b,EXP-0012",v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH1-1.1-LIMITS,Ch.1 Introduction,1.1,reports/limitations.md,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH1-1.2-HYPOTHESES,Ch.1 Introduction,1.2,docs/analysis_plan.md,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH1-1.3-HEADLINE,Ch.1 Introduction,1.3,outputs/tables/v2_final_headline_set.csv,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH1-1.4-COST,Ch.1 Introduction,1.4,outputs/tables/economic_magnitude.csv,EXP-0011f,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH1-1.5-CONTRIBUTION,Ch.1 Introduction,1.5,reports/economic_magnitude_analysis.md,EXP-0011f,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH2-2.1-MATRIX,Ch.2 Literature,2.1,reports/chapter_assets/ch2_literature_matrix.csv,EXP-0014,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH2-2.2-GAP,Ch.2 Literature,2.2,reports/chapter_assets/ch2_research_gap.md,EXP-0014,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH2-2.3-COMPARE,Ch.2 Literature,2.3,reports/chapter_assets/ch2_comparison_table.csv,EXP-0014,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH2-2.4-HYPOMAP,Ch.2 Literature,2.4,docs/analysis_plan.md,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH2-2.4-FRONTIER,Ch.2 Literature,2.4,reports/limitations.md,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH3-3.1-DESIGN,Ch.3 Methodology,3.1,docs/analysis_plan.md,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH3-3.2-PREDECL,Ch.3 Methodology,3.2,docs/analysis_plan_v2_extension.md,EXP-0008a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH3-3.2-FREEZE,Ch.3 Methodology,3.2,configs/v2_freeze/freeze_manifest.csv,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH3-3.3-WALKFORWARD,Ch.3 Methodology,3.3,reports/chapter_assets/ch3_walk_forward_diagram.md,EXP-0004a,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH3-3.3-WALKFORWARD-PLAN,Ch.3 Methodology,3.3,docs/analysis_plan.md,EXP-0004a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH3-3.4-FEATURES,Ch.3 Methodology,3.4,reports/chapter_assets/ch3_feature_dictionary.csv,EXP-0003a,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH3-3.5-ESTIMATION,Ch.3 Methodology,3.5,docs/analysis_plan.md,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH3-3.6-ROBUSTNESS,Ch.3 Methodology,3.6,docs/analysis_plan.md,EXP-0005a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH3-3.6-EVENT,Ch.3 Methodology,3.6,docs/analysis_plan.md,EXP-0004e,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.1-PIPELINE,Ch.4 Data Engineering,4.1,reports/chapter_assets/ch4_pipeline_diagram.md,EXP-0013,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
+CH4-4.1-DRIVER,Ch.4 Data Engineering,4.1,scripts/run_stage6_rebuild.py,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH4-4.2-PROVENANCE,Ch.4 Data Engineering,4.2,data/metadata/corpus_files_sha256.csv,EXP-0002b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.2-LICENCE,Ch.4 Data Engineering,4.2,docs/ai_use_policy.md,EXP-0002d,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.3-CORPUS-AUDIT,Ch.4 Data Engineering,4.3,notebooks/01_data_quality_audit.ipynb,EXP-0002f,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.3-DUP,Ch.4 Data Engineering,4.3,outputs/tables/corpus_duplicate_keys.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.3-MISSING,Ch.4 Data Engineering,4.3,outputs/tables/corpus_missing_broker_ids.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.3-COVERAGE,Ch.4 Data Engineering,4.3,outputs/tables/corpus_symbol_coverage.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.3-DAILY,Ch.4 Data Engineering,4.3,outputs/tables/corpus_daily_summary.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.4-VOLUME,Ch.4 Data Engineering,4.4,outputs/tables/volume_reconciliation.csv,EXP-0002e,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.5-UNIVERSE,Ch.4 Data Engineering,4.5,outputs/tables/universe_selected_top10.csv,EXP-0002a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.5-EXCLUSIONS,Ch.4 Data Engineering,4.5,outputs/tables/universe_exclusions.csv,EXP-0002a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.6-DRIFT,Ch.4 Data Engineering,4.6,outputs/tables/v2_clean_rebuild_audit.csv,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH4-4.6-REPRO,Ch.4 Data Engineering,4.6,docs/reproducibility.md,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.1-SAMPLE,Ch.5 Results,5.1,outputs/tables/hypothesis_grid_results_v2.csv,EXP-0011a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.2-GRID-V1,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.2-H7-V1-P0274,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.2-GRID-V2,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results_v2.csv,EXP-0008a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.3-PLACEBO,Ch.5 Results,5.3,outputs/tables/placebo_distribution_expanded.csv,EXP-0008e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.3-PLACEBO-OUTCOME,Ch.5 Results,5.3,outputs/tables/placebo_outcome_test.csv,EXP-0008d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.3-REGIME,Ch.5 Results,5.3,outputs/tables/regime_split_results.csv,EXP-0004d,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.4-EVENT-V1,Ch.5 Results,5.4,outputs/tables/event_study_summary.csv,EXP-0004e,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.4-EVENT-V2,Ch.5 Results,5.4,outputs/tables/event_study_upgraded.csv,EXP-0011e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.4-EVENT-CLUSTER,Ch.5 Results,5.4,outputs/tables/event_study_clustered_inference.csv,EXP-0011e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.5-ROBUST,Ch.5 Results,5.5,outputs/tables/robustness_headline_survival.csv,EXP-0005a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.6.1-RW,Ch.5 Results,5.6.1,outputs/tables/hypothesis_grid_results_rw.csv,EXP-0008b,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.2-WB,Ch.5 Results,5.6.2,outputs/tables/wild_cluster_bootstrap.csv,EXP-0009c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.2-SE,Ch.5 Results,5.6.2,outputs/tables/se_concordance.csv,EXP-0009d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.3-LIQ,Ch.5 Results,5.6.3,outputs/tables/headline_with_liquidity_controls.csv,EXP-0009b,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.4-EGARCH,Ch.5 Results,5.6.4,outputs/tables/headline_with_egarch_outcome.csv,EXP-0010a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.5-QUANTILE,Ch.5 Results,5.6.5,outputs/tables/quantile_tail_summary.csv,EXP-0010b,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.6-TRADESIZE,Ch.5 Results,5.6.6,outputs/tables/trade_size_heterogeneity.csv,EXP-0010c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.7-SPEC,Ch.5 Results,5.6.7,outputs/tables/specification_curve_h7_summary.csv,EXP-0011b,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.8-SUBGROUP,Ch.5 Results,5.6.8,outputs/tables/heterogeneity_subgroups.csv,EXP-0011d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.6.9-COST,Ch.5 Results,5.6.9,outputs/tables/economic_magnitude.csv,EXP-0011f,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.7-FINAL,Ch.5 Results,5.7,outputs/tables/v2_final_headline_set.csv,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.1-NEGATIVE,Ch.6 Discussion,6.1,outputs/tables/v2_final_headline_set.csv,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.1-EXPLORATORY,Ch.6 Discussion,6.1,reports/exploratory_findings.md,EXP-0008a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.2-LIMITS,Ch.6 Discussion,6.2,reports/limitations.md,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.2-PLAN,Ch.6 Discussion,6.2,docs/analysis_plan.md,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH6-6.3-LIMITS,Ch.6 Discussion,6.3,reports/limitations.md,EXP-0012,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.4-PANEL,Ch.6 Discussion,6.4,outputs/tables/broker_panel_summary.csv,EXP-0011c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.4-CORE,Ch.6 Discussion,6.4,outputs/tables/broker_core_transitions.csv,EXP-0011c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.4-PERSIST,Ch.6 Discussion,6.4,outputs/tables/broker_top50_persistence.csv,EXP-0011c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.4-PHD,Ch.6 Discussion,6.4,reports/broker_pilot_phd_seed.md,EXP-0011c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.5-COST,Ch.6 Discussion,6.5,outputs/tables/economic_magnitude.csv,EXP-0011f,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH6-6.5-REPRO,Ch.6 Discussion,6.5,docs/reproducibility.md,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned

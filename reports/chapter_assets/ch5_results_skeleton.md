@@ -9,6 +9,12 @@ below follows `docs/chapter_artifact_map.md` (main regression → placebo →
 regime split → event study → robustness) and appends the v2 Stage-1–4
 adjudication. Logged as Stage-5 deviation #28.
 
+Path refresh (v2.0.1 handoff): every table path in this skeleton now resolves
+to a tracked v2 artefact and is listed in the verified crosswalk
+(`docs/chapter_artifact_map.md`), audited by `scripts/audit_chapter_map.py`.
+Figures under `outputs/figures/` are real but remain licence-restricted and are
+not part of the derived deposit (`reports/limitations.md` L4).
+
 **Units.** `estimated_beta` = basis points per 1 TRAIN-fold standard deviation
 of the feature (bp/SD). Raw inference α = .05; BH multiplicity q = .10;
 Romano–Wolf FWER q = .10. `n = 7,116` unless stated. Canonical table:
@@ -307,3 +313,5 @@ Companion: `reports/limitations.md`; `docs/experiment_register.md` EXP-0012.
 | cost-benefit | `outputs/tables/economic_magnitude.csv` | §5.6.9 |
 | event study | `outputs/tables/event_study_upgraded.csv` | §5.4 |
 | robustness | `outputs/tables/robustness_headline_survival.csv` | §5.5 |
+| verified crosswalk | `docs/chapter_artifact_map.md` | all sections |
+| audit guard | `tests/test_chapter_map_integrity.py` | build check |

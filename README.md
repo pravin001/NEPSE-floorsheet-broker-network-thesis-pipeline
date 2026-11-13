@@ -24,12 +24,17 @@ make nb00               # execute notebooks/00_smoke_test.ipynb
 
 | Tier | Source | Status |
 |---|---|---|
-| Floorsheets | `socrateai-official/nepse-open-data` (MIT, verified) — local archive 650 files, 2024-01→2026-11 | ADOPTED (SV1(b); nepalstock.com-direct is network-blocked) |
-| OHLCV | Kaggle `rohankasichhwa/nepse-daily-stock-data-2012-2025` (local, 101 files) | licence pending user UI check |
-| Prices proxy | `SamirWagle/Nepse-All-Scraper` | no licence file — analytic use with attribution |
+| Floorsheets 2021–2023 | Kaggle `viking303/nepse-historical-floorsheet` v14 (CC0, verified) | ADOPTED — 935 day files; bubble-era corpus |
+| Floorsheets 2024 | `socrateai-official/nepse-open-data` (MIT, verified) — local archive 232 files | ADOPTED (SV1(b); nepalstock.com-direct is network-blocked) |
+| OHLCV | Kaggle tier1 (100 scrips, 2012→2025-09) + tier2 `SamirWagle/Nepse-All-Scraper` gap-fill | tier1 licence pending user UI check; tier2 no licence file, analytic use with attribution |
+| NEPSE index | `menaceXnadin` composite (1997→2026-11-06) | SECONDARY shading/benchmark only; licence `unstated_in_repo` |
 
-2021–2023 floorsheets (bubble regime): **not evidenced yet** — bounded Phase-2
-search, fork decision logged in `docs/block_log.md`.
+The adopted corpus is **1,167 day files** (935 Kaggle + 232 socrateai; 2024
+Kaggle cross-check only), **57,927,926 raw rows** → **57,892,630 deduplicated
+rows**, covering **938/940** calendar sessions (2021-01-01→2024-12-31; gaps
+2021-09-01 and 2023-11-27). The two documented source exceptions are the
+2021-03-07→03-08 relabel and the 2023-02-16 `contract_no_defect`; both are in
+`docs/analysis_deviations.md` and `reports/limitations.md`.
 
 ## Layout
 

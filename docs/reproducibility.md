@@ -136,6 +136,23 @@ digest.
 nepse-msc/bin/python -m pytest tests notebooks/*_*.ipynb --nbmake
 ```
 
-**154 passed, 0 failed** (in 9.23 s): all unit/leakage/SE-specification tests,
-the five `tests/test_freeze_v2.py` snapshot checks, and the four executed
-notebooks. This clears the V2-6 ≥80-test requirement.
+The Stage-6 freeze run passed **154 tests, 0 failed** (in 9.23 s): all
+unit/leakage/SE-specification tests, the five `tests/test_freeze_v2.py` snapshot
+checks, and the four executed notebooks. This clears the V2-6 ≥80-test
+requirement.
+
+The post-freeze v2.0.1 handoff adds seven chapter-map integrity tests; the
+current suite is **161 passed, 0 failed** (in 9.36 s).
+
+## v2.0.1 deposit archive
+
+```bash
+nepse-msc/bin/python scripts/build_deposit_archive.py
+```
+
+The packer is deterministic (sorted file list, mtime/uid/gid normalised,
+gzip mtime 0), writes `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz`,
+and refuses to build if any `outputs/tables/*.csv` lacks a matching
+hash-bearing provenance row or if a raw/figure/log path leaks into the payload.
+`docs/deposit_preflight.md` records the archive hash, content-manifest hash,
+inventory, licence checks and the three remaining user decisions.

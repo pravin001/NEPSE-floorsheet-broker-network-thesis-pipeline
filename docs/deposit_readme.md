@@ -1,13 +1,14 @@
 # Deposit README — NEPSE Floorsheet Microstructure (v2.0)
 
-**Release:** `v2.0-a++-freeze` · 2026-11-12
+**Release:** `v2.0.1-handoff` (post-`v2.0-a++-freeze`) · 2026-11-13
 **Thesis:** *Broker Networks, Concentration, and Market Integrity in a Frontier
 Exchange: Evidence from NEPSE Floorsheets.*
 **Scope:** predictive associations in the most-traded NEPSE tier, 2021–2024.
 Not causal identification, not a trading strategy.
 
-**Deposit status:** prepared, **NOT uploaded**. Uploading to a repository or
-DOI service is a user action; see §8.
+**Deposit status:** derived-only archive built and verified locally, **NOT
+uploaded**. Uploading to a repository or DOI service is a user action; see §8.
+Packaging evidence: `docs/deposit_preflight.md`.
 
 ---
 
@@ -19,22 +20,29 @@ DOI service is a user action; see §8.
 | `scripts/` | numbered pipeline stages + the Stage-6 rebuild driver |
 | `configs/project.yaml` | frozen v1 constants (SHA-256 fingerprinted) |
 | `configs/v2_freeze/` | v2 freeze snapshot + `freeze_manifest.csv` (SHA-256 per file) |
-| `docs/` | analysis plan (v1 frozen + v2 extension), deviations, experiment register, reproducibility guide, limitations (v1 frozen) |
+| `docs/` | analysis plan (v1 frozen + v2 extension), deviations, experiment register, reproducibility guide, chapter crosswalk |
 | `data/metadata/` | provenance manifest, corpus file hashes, universe selection, schema (metadata only) |
-| `outputs/tables/` | every derived table of record (v1 + v2) |
-| `outputs/figures/` | rendered figures (licence status: see §5) |
-| `outputs/logs/` | selected logs of record for v2 stages |
-| `outputs/manifests/` | output manifests |
-| `reports/` | data-quality, robustness, heterogeneity, event-study, limitations, chapter skeletons |
-| `notebooks/` | executable 00–03 notebooks (nbmake-tested) |
-| `tests/` | unit, leakage, SE-specification, freeze tests |
+| `outputs/tables/` | every derived table of record (v1 + v2; 76 CSVs) |
+| `reports/` | data-quality, robustness, heterogeneity, event-study, limitations, Ch.1–Ch.6 handoff packs |
+| `notebooks/` | executable 00–01 notebooks (nbmake-tested) |
+| `tests/` | unit, leakage, SE-specification, freeze, chapter-map integrity tests |
 | `requirements.txt`, `requirements-lock.txt`, `pyproject.toml` | environment pins |
 | `CITATION.cff`, `LICENSE`, `README.md` | citation, code licence, overview |
 
 **Not included:** raw floorsheet archives, raw OHLCV archives, the DuckDB store,
 and `data/processed/*.parquet` (all gitignored). They are inputs or rebuildable
-derived data, not part of the code deposit. Licences for the raw inputs are
-recorded per file in `data/metadata/provenance_manifest.csv`.
+derived data, not part of the code deposit. `outputs/figures/` is also excluded
+from the derived-only archive because the tier1 OHLCV licence is unconfirmed
+(§5, limitation L4). `outputs/logs/` is local rebuild evidence, not payload.
+Licences for the raw inputs are recorded per file in
+`data/metadata/provenance_manifest.csv`.
+
+The archive itself lives at
+`dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored,
+deterministically rebuildable with `scripts/build_deposit_archive.py`).
+`docs/deposit_preflight.md` records the archive hash, content-manifest hash,
+inventory and licence checks; it is a wrapper record and is not inside the
+payload.
 
 ---
 
@@ -117,8 +125,9 @@ Notebooks execute top-to-bottom against the rebuilt artifacts:
 nepse-msc/bin/python -m pytest tests notebooks/*_*.ipynb --nbmake
 ```
 
-The freeze run passed **154 tests, 0 failed** (unit/leakage/SE-spec/freeze +
-four executed notebooks).
+The v2.0.1 handoff run passed **161 tests, 0 failed** (unit/leakage/SE-spec/
+freeze/chapter-map integrity + four executed notebooks). The Stage-6 freeze run
+passed 154; the seven added tests are the chapter-map integrity guards.
 
 ---
 
@@ -131,7 +140,7 @@ four executed notebooks).
 |---|---|---|
 | kaggle viking303 floorsheets 2021–2023 | **CC0** (verified) | usable; raw not deposited here |
 | socrateai 2024 floorsheets | **MIT** (verified; LICENCE fetched) | usable with attribution; raw not deposited here |
-| tier1 Kaggle OHLCV | **PENDING** student UI confirmation | **figures are RESTRICTED until confirmed**; derived tables remain numerically derived |
+| tier1 Kaggle OHLCV | **PENDING** student UI confirmation | **figures are RESTRICTED until confirmed and are excluded from the derived-only archive**; derived tables remain numerically derived |
 | tier2 SamirWagle prices | no licence file; analytic use with attribution | gap-fill only; not redistributed |
 | NEPSE composite index | `unstated_in_repo` (GitHub API `license: null`) | secondary regime shading/benchmark only; swap-able |
 | code | MIT | this deposit |
@@ -149,13 +158,18 @@ records this as CRITICAL row L4 (`reports/limitations.md`).
 - `docs/analysis_plan_v2_extension.md` — v2 pre-declaration, written before any
   v2 result.
 - `docs/analysis_deviations.md` — every implementation/reclassification choice
-  with timestamp and reason (#1–#9 v1; #10–#30 v2).
+  with timestamp and reason (#1–#9 v1; #10–#30 v2; #31–#32 post-freeze
+  chapter-map defect and v2.0.1 handoff).
 - `docs/experiment_register.md` — every quotable number maps to one EXP row;
   numeric claims must cite an EXP id (EXP-0013 records the clean rebuild and
-  freeze).
-- `outputs/tables/v2_register_audit.csv` — final register-to-manifest audit:
-  697 artefact checks, 695 hash-aligned, 1 manifest self-reference, 1
-  historical EXP-0000 lock reference; no missing or mismatched artefact.
+  freeze; EXP-0014 records the chapter handoff and deposit preflight).
+- `outputs/tables/v2_register_audit.csv` — register-to-manifest audit, re-run
+  for v2.0.1; the current check count is in `docs/deposit_preflight.md`.
+- `docs/chapter_artifact_map.md` + `outputs/tables/v2_chapter_map_audit.csv` —
+  verified 67-claim crosswalk; every cited path exists and hash-matches the
+  latest provenance row.
+- `tests/test_chapter_map_integrity.py` — build-breaking guard for the
+  chapter→artefact surface that the Stage-6 register audit did not cover.
 - `outputs/tables/v2_final_headline_set.csv` — canonical 10-hypothesis final set
   (exact brief columns; composition rule Stage-1 ∩ Stage-2 ∩ Stage-3).
 - `configs/v2_freeze/freeze_manifest.csv` + `tests/test_freeze_v2.py` — SHA-256
@@ -183,14 +197,15 @@ README instead of the table.
 
 ## 8 · Deposit action (user)
 
-No upload, DOI registration, or repository push has been performed. Before
-uploading:
+No upload, DOI registration, or repository push has been performed. The
+derived-only archive is built, hashed and audited locally. Three user
+decisions remain before upload:
 
-1. Replace the placeholder author identity in `CITATION.cff` and `LICENSE`.
-2. Confirm the tier1 OHLCV licence; until then, keep `outputs/figures/`
-   restricted.
-3. Decide whether to deposit the derived `outputs/tables/` only (recommended)
-   or to include a licensed data subset; raw archives are not covered by the
-   code licence.
-4. Re-run `nepse-msc/bin/python -m pytest tests notebooks/*_*.ipynb --nbmake`
-   and archive the log with the deposit.
+1. **Author identity** — replace the placeholder author in `CITATION.cff` and
+   `LICENSE`, then rebuild the archive and preflight.
+2. **Tier1 OHLCV licence** — confirm the Kaggle UI licence. Until confirmed,
+   keep `outputs/figures/` restricted; the derived-only archive already
+   excludes it.
+3. **Deposit scope** — keep the derived-only archive (recommended), or decide
+   to add a licensed data subset. Raw archives are not covered by the code
+   licence and are never part of this archive.
