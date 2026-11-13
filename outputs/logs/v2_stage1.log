@@ -1,0 +1,124 @@
+==============================================================================
+STAGE 1 — statistical interpretation fixes (v2 plan V2-1)
+==============================================================================
+engine validation: 8 draws PASS (max rel 9.70e-14)
+panel rows: 7,116
+
+[1.1] base grid fits + frozen replication
+  frozen-grid replication: 10/10 PASS (max C1 rel 2.48e-16; scale 1.115535350368)
+  base fits: 0.6s
+
+[1.2] Romano-Wolf step-down (B=999, common row-level Rademacher draws)
+  bootstrap done (22.2s); draws=999 tests=10
+test_id         bp     p_dk  rw_p  rw_p_literal_minp_fullset  rw_sig_q10
+     H1  -1.556594 0.430629 0.915                      0.987       False
+     H2  -1.491177 0.575298 0.915                      0.998       False
+     H3   0.957087 0.750120 0.915                      1.000       False
+     H4   7.509961 0.027547 0.159                      0.190       False
+     H5  -1.856088 0.487523 0.915                      0.995       False
+     H6 -10.938552 0.019711 0.120                      0.129       False
+     H7   3.952373 0.027432 0.159                      0.189       False
+     H8  -4.470947 0.045888 0.203                      0.297       False
+     H9   1.817473 0.458719 0.915                      0.991       False
+    H10   9.492266 0.013755 0.081                      0.081        True
+  RW total: 22.2s
+
+[1.1] governance classification -> hypothesis_grid_results_v2.csv
+test_id result_classification              classification_reason  rw_p
+     H1           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+     H2           NULL_ROBUST    bh_fail_placebo_null_loo_stable 0.915
+     H3           NULL_ROBUST    bh_fail_placebo_null_loo_stable 0.915
+     H4  EXPLORATORY_POST_HOC    opposite_sign_to_predeclaration 0.159
+     H5           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+     H6          NULL_FRAGILE                       rw_p_gt_0.10 0.120
+     H7          NULL_FRAGILE                       rw_p_gt_0.10 0.159
+     H8          NULL_FRAGILE two_registered_robustness_failures 0.203
+     H9           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+    H10    CONFIRMED_HEADLINE        bh_sig_q10_sign_as_declared 0.081
+
+[1.3] MDE null classification
+          test_id   beta_bp  mde80_bp    ratio    classification
+               H1 -1.556594  5.529883 0.562976      NULL_POWERED
+               H2 -1.491177  7.451954 0.400211      NULL_POWERED
+               H3  0.957087  8.414077 0.227497      NULL_POWERED
+               H5 -1.856088  7.485373 0.495924      NULL_POWERED
+               H8 -4.470947  6.269327 1.426292 NULL_UNDERPOWERED
+               H9  1.817473  6.867614 0.529288      NULL_POWERED
+EVENT_CAR_OVERALL 12.860878 63.198372 0.407000      NULL_POWERED
+
+[1.4] DC13 placebo-OUTCOME (past |ret|)
+test_id   beta_bp         p_dk  n_obs                  verdict
+     H1 -3.937158 5.544010e-03   7116 SPECIFICATION_ERROR_FLAG
+     H2 -7.710462 1.066457e-03   7116 SPECIFICATION_ERROR_FLAG
+     H3 -7.710462 1.066457e-03   7116 SPECIFICATION_ERROR_FLAG
+     H4 -9.969683 3.718777e-07   7116 SPECIFICATION_ERROR_FLAG
+     H5 -9.969683 3.718777e-07   7116 SPECIFICATION_ERROR_FLAG
+     H6 19.689768 6.891479e-05   7116 SPECIFICATION_ERROR_FLAG
+     H7  1.679699 2.783918e-01   7116                     PASS
+     H8  1.679699 2.783918e-01   7116                     PASS
+     H9 -3.937158 5.544010e-03   7116 SPECIFICATION_ERROR_FLAG
+    H10 19.689768 6.891479e-05   7116 SPECIFICATION_ERROR_FLAG
+  DC13: 0.4s
+
+[1.5] expanded placebo battery
+  (a) 1000 score permutations (H2/H3)
+  C3 feature-permutation vs full refits: 3 draws x 2 outcomes, max rel 1.65e-13
+    200/1000 (0.7s)
+    400/1000 (1.2s)
+    600/1000 (1.7s)
+    800/1000 (2.3s)
+    1000/1000 (2.8s)
+    v1 head replication: H2 0.800 (frozen 0.800) | H3 0.640 (frozen 0.640)
+  score permutations: 2.8s
+  (b) 1000 within-symbol block permutations (H2/H3)
+    200/1000 (0.7s)
+    400/1000 (1.3s)
+    600/1000 (2.0s)
+    800/1000 (2.7s)
+    1000/1000 (3.3s)
+  block permutations: 3.3s
+  (c) negative-control feature (EoD lead-5 + within-block shuffle)
+    NEGCTRL_LEAD5_ABS: beta=-1.92 bp p=0.2633 n=7066
+    NEGCTRL_LEAD5_RET: beta=-0.05 bp p=0.9776 n=7066
+  C3 feature-permutation vs full refits: 3 draws x 2 outcomes, max rel 2.67e-14
+    negctrl shuffle 200/1000 (1.1s)
+    negctrl shuffle 400/1000 (1.9s)
+    negctrl shuffle 600/1000 (2.7s)
+    negctrl shuffle 800/1000 (3.5s)
+    negctrl shuffle 1000/1000 (4.3s)
+  negative-control block: 4.3s
+
+expanded placebo summary (share rows):
+            construction test_id    share_type  share  calib_share_p_lt_05
+              score_perm      H2         upper  0.780                0.036
+              score_perm      H2         lower  0.220                0.036
+              score_perm      H2     two_sided  0.440                0.036
+              score_perm      H2 calib_p_lt_05  0.036                0.036
+              score_perm      H3         upper  0.353                0.037
+              score_perm      H3         lower  0.647                0.037
+              score_perm      H3     two_sided  0.687                0.037
+              score_perm      H3 calib_p_lt_05  0.037                0.037
+              block_perm      H2         upper  0.745                0.039
+              block_perm      H2         lower  0.255                0.039
+              block_perm      H2     two_sided  0.467                0.039
+              block_perm      H2 calib_p_lt_05  0.039                0.039
+              block_perm      H3         upper  0.341                0.043
+              block_perm      H3         lower  0.659                0.043
+              block_perm      H3     two_sided  0.683                0.043
+              block_perm      H3 calib_p_lt_05  0.043                0.043
+negctrl_eod_blockshuffle      H7         upper  0.009                0.045
+negctrl_eod_blockshuffle      H7         lower  0.991                0.045
+negctrl_eod_blockshuffle      H7     two_sided  0.024                0.045
+negctrl_eod_blockshuffle      H7 calib_p_lt_05  0.045                0.045
+negctrl_eod_blockshuffle      H8         upper  0.994                0.031
+negctrl_eod_blockshuffle      H8         lower  0.006                0.031
+negctrl_eod_blockshuffle      H8     two_sided  0.013                0.031
+negctrl_eod_blockshuffle      H8 calib_p_lt_05  0.031                0.031
+
+negative-control lead-5:
+          test_id  beta_obs_bp    share  n_obs
+NEGCTRL_LEAD5_ABS    -1.917961 0.263254 7066.0
+NEGCTRL_LEAD5_RET    -0.053109 0.977586 7066.0
+
+STAGE 1 COMPLETE in 33.7s
+outputs: hypothesis_grid_results_v2.csv, hypothesis_grid_results_rw.csv, null_classification.csv, placebo_outcome_test.csv, placebo_distribution_expanded.csv

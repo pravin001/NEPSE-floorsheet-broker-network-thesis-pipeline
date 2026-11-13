@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software or its derived results, please cite it as below."
+type: software
+title: "NEPSE Floorsheet Microstructure: Broker Networks, Concentration, and Market Integrity in a Frontier Exchange"
+abstract: >-
+  Reproducible research pipeline for a predictive study of broker-network
+  structure in the most-traded tier of the Nepal Stock Exchange (NEPSE),
+  2021-2024. The v2.0 release adds Romano-Wolf multiplicity control, a
+  liquidity/SE/wild-bootstrap robustness battery, EGARCH-standardised
+  outcomes, quantile tails, an H7 specification curve, subgroup and
+  event-study upgrades, and a canonical final headline set. The thesis is
+  predictive, not causal.
+authors:
+  - name: "MSc Thesis Author (repository identity; replace with legal name before deposit)"
+version: "2.0.0"
+date-released: 2026-11-12
+license: MIT
+keywords:
+  - NEPSE
+  - floorsheet
+  - broker network
+  - market microstructure
+  - frontier market
+  - reproducibility

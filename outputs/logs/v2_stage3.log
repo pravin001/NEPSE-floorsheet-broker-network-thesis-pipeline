@@ -1,0 +1,103 @@
+base panel: 7,116 rows, 723 dates
+
+[3.0] gates
+  arch version: 8.0.0
+  EGARCH recursion max rel: 2.050e-16
+
+[3.1] EGARCH-standardized outcomes
+  fit 40 EGARCH models + forward filter: 0.5s
+  fits: 40, converged=37, degenerate=4, z rows=6,819
+status
+ok                         38
+ok_with_sigma_underflow     2
+                                      item  value
+                         raw_oos_grid_rows 7126.0
+                           base_panel_rows 7116.0
+           raw_oos_grid_rows_outside_panel   10.0
+                             egarch_z_rows 6819.0
+                         panel_rows_with_z 6819.0
+                      panel_rows_without_z  297.0
+                 panel_rows_excluded_total  297.0
+                                      fits   40.0
+                            fits_converged   37.0
+                           fits_degenerate    4.0
+                 fits_with_sigma_underflow    2.0
+         fits_with_boundary_exclusion_only   10.0
+          raw_oos_grid_rows_excluded_total  307.0
+raw_oos_grid_rows_excluded_sigma_underflow  297.0
+raw_oos_grid_rows_excluded_no_next_session   10.0
+                             z_numeric_max   20.0
+
+EGARCH primary:
+test_id                  feature outcome_egarch  base_bp_v1   beta_bp   p_dk  p_dc_v2  n_obs  sign_match_base survives_egarch
+     H1          self_loop_ratio     abs_z_fwd1     -1.5566   64.2212 0.5711   0.5387   6819            False           False
+     H2            anomaly_score     abs_z_fwd1     -1.4912   79.7841 0.5734   0.5291   6819            False           False
+     H3            anomaly_score         z_fwd1      0.9571   28.5672 0.8290   0.8699   6819             True           False
+     H4                buyer_hhi         z_fwd1      7.5100  256.8623 0.0544   0.0164   6819             True            True
+     H5                buyer_hhi     abs_z_fwd1     -1.8561 -118.9140 0.2972   0.2568   6819             True           False
+     H6              reciprocity         z_fwd1    -10.9386 -511.8732 0.0204   0.0268   6819             True            True
+     H7 end_of_day_concentration     abs_z_fwd1      3.9524  149.1528 0.0638   0.0717   6819             True            True
+     H8 end_of_day_concentration         z_fwd1     -4.4709 -157.9093 0.0745   0.0454   6819             True            True
+     H9          self_loop_ratio         z_fwd1      1.8175   68.4509 0.5925   0.4554   6819             True           False
+    H10              reciprocity     abs_z_fwd1      9.4923  412.4002 0.0383   0.0213   6819             True            True
+
+EGARCH sensitivity (primary outcome):
+               beta_bp                                                                           p_dk                                                                
+spec    egarch_primary egarch_primary_excl_degenerate egarch_primary_excl_nonconverged egarch_primary egarch_primary_excl_degenerate egarch_primary_excl_nonconverged
+test_id                                                                                                                                                              
+H1              64.221                          2.583                            4.115          0.571                          0.980                            0.968
+H10            412.400                        422.415                          417.323          0.038                          0.026                            0.033
+H2              79.784                        -22.401                           77.165          0.573                          0.844                            0.613
+H3              28.567                         -0.842                          -64.148          0.829                          0.994                            0.640
+H4             256.862                        203.919                          214.846          0.054                          0.141                            0.118
+H5            -118.914                       -129.781                          -89.543          0.297                          0.249                            0.440
+H6            -511.873                       -585.566                         -628.546          0.020                          0.009                            0.006
+H7             149.153                        122.634                          164.374          0.064                          0.116                            0.054
+H8            -157.909                       -182.556                         -189.395          0.075                          0.049                            0.047
+H9              68.451                         15.762                           14.605          0.593                          0.896                            0.905
+
+[3.2] quantile panel (10 tests x 5 taus, checkpointed)
+  design: 7116 rows x 737 cols
+  50 quantile fits: 0.0s
+
+quantile tail summary:
+test_id  median_bp  bp_tau10  bp_tau90  ci_lo_tau10  ci_hi_tau90 tail_classification
+     H1      0.850     0.798    -3.004       -0.288       -1.440          UPPER_TAIL
+    H10      4.891     3.083    18.696        1.498       20.735          BOTH_TAILS
+     H2     -1.364    -0.775    -3.835       -1.893       -2.148          UPPER_TAIL
+     H3     -0.162    -1.549     5.091       -3.260        6.995          UPPER_TAIL
+     H4      3.265     2.121     9.610        0.423       11.553          BOTH_TAILS
+     H5      0.653    -1.840    -1.559       -3.029        0.087          LOWER_TAIL
+     H6     -7.532   -12.988     0.544      -15.182        3.055          LOWER_TAIL
+     H7      2.202     0.706     1.212       -0.177        2.486                NONE
+     H8     -3.494    -3.171    -0.466       -4.476        1.058          LOWER_TAIL
+     H9     -1.444     0.828     3.079       -0.733        4.870          UPPER_TAIL
+
+[3.3] trade-size heterogeneity
+  trade-size DuckDB aggregation + standardization: 4.6s
+
+bucket summary (primary min=5):
+ min_bucket_trades bucket  bucket_days  used_days  suppressed_days   trades       volume  volume_share  trade_share  median_trades  hhi_mean  hhi_median  top3_mean  eod_mean  eod_median
+                 5  large        24917      24475              442  1916009 1526426016.0        0.4738       0.0951           50.0    0.1319      0.1029     0.4744    0.0633      0.0534
+                 5 medium        24948      24930               18 17128981 1683653137.0        0.5226       0.8498          485.0    0.0473      0.0394     0.2472    0.0521      0.0509
+                 5  small        23220      17709             5511  1111440   11411662.0        0.0035       0.0551           42.0    0.1221      0.0758     0.4361    0.0825      0.0597
+
+trade-size H7/H8 (primary EoD):
+test_id bucket  beta_bp  se_bp   p_dk  p_dc_v2  n_obs
+     H7  small  -1.3595 2.9929 0.6497   0.7595   5356
+     H8  small   5.8409 3.9002 0.1343   0.2744   5356
+     H7 medium   1.0657 1.4665 0.4674   0.3920   7114
+     H8 medium  -5.2656 1.8994 0.0056   0.0000   7114
+     H7  large   4.5190 2.1503 0.0356   0.0691   6951
+     H8  large  -4.4668 2.3846 0.0611   0.0855   6951
+
+success criterion (large vs small):
+test_id            metric  beta_large_bp  p_large  beta_small_bp  p_small  sign_large_matches_v1  sign_small_matches_v1  magnitude_large_ge_small  p_large_le_small  success_criterion  success_criterion_sign_aware
+     H7         buyer_hhi         0.2522   0.8985        -2.6848   0.5284                   True                  False                     False             False              False                         False
+     H8         buyer_hhi         2.7520   0.3091         3.1659   0.5021                  False                  False                     False              True              False                         False
+     H7  top3_buyer_share         0.9603   0.6545        -2.7224   0.6489                   True                  False                     False             False              False                         False
+     H8  top3_buyer_share         5.8421   0.0272         5.6048   0.4011                  False                  False                      True              True               True                         False
+     H7 eod_concentration         4.5190   0.0356        -1.3595   0.6497                   True                  False                      True              True               True                          True
+     H8 eod_concentration        -4.4668   0.0611         5.8409   0.1343                   True                  False                     False              True              False                         False
+
+Stage 3 total wall: 14.6s

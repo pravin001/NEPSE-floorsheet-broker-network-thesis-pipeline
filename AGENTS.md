@@ -8,10 +8,10 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
 - Deadline: 2026-11-27 · Today: 2026-11-12 · Engineering ends 21 Nov (writing 22-27)
-- **v2.0 A++ upgrade IN PROGRESS** (post-`v1.0-freeze`): binding pre-declaration
-  `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–5
-  COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012);
-  stage 6 pending; final tag `v2.0-a++-freeze`.
+- **v2.0 A++ upgrade COMPLETE** (post-`v1.0-freeze`): binding pre-declaration
+  `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–6
+  COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012,
+  EXP-0013); final tag `v2.0-a++-freeze` (2026-11-13).
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -78,9 +78,9 @@ Binding pre-declaration: `docs/analysis_plan_v2_extension.md` (V2-0..V2-6),
 written BEFORE any v2 computation. Governance: frozen v1 numeric files are
 NEVER edited; v2 adds new result files + governance columns + deviation rows.
 Every stage ends with a printed STATUS REPORT + commit; final tag
-`v2.0-a++-freeze`. Detailed deviation rows #10–#19 are in
-`docs/analysis_deviations.md`; experiment rows EXP-0008a–e, EXP-0009a–d and
-EXP-0010a–c in the register.
+`v2.0-a++-freeze`. Detailed deviation rows #10–#30 are in
+`docs/analysis_deviations.md`; experiment rows EXP-0008a–e, EXP-0009a–d,
+EXP-0010a–c, EXP-0011a–f, EXP-0012 and EXP-0013 in the register.
 
 | Stage | Status | Headline outcome |
 |---|---|---|
@@ -89,7 +89,7 @@ EXP-0010a–c in the register.
 | 3 · panel/outcome upgrades | **COMPLETE 2026-11-11** (`Stage 3: quantile panel, EGARCH outcomes, trade-size heterogeneity (v2.0-stage3)`) | EGARCH(1,1)-standardized outcomes (declared arch 8.0.0 call = symmetric `o=0`): 40 fits (37 converged, 4 degenerate), 6,819/7,116 usable z rows; all five BH-passing signs match v1, standardized-effect ratios 0.86–1.17 — H10 +412.40 z p .0383, H6 −511.87 p .0204, H7 +149.15 p .0638, H8 −157.91 p .0745, H4 +256.86 p .0544; H4/H7 fragile in exclusion sensitivities; nulls stay null. Quantile panel (50/50 converged, 7,116×737 two-way design): **H10 BOTH_TAILS INCREASING +3.08/+4.89/+18.70 bp at τ=.10/.50/.90 (ratio 6.06)**; H4 BOTH_TAILS; H6/H8 LOWER_TAIL; H7 NONE/HUMP; null tail labels unadjusted descriptive only. Trade-size (TRAIN-only p10/p90; min-5 guard): **H7 EoD large-bucket +4.519 bp p .0356** (sign-aware pass), H8 medium-bucket −5.266 p .0056 (not large-ticket); small bucket 0.35% volume/unusable. H7 specification curve deferred to V2-4/Stage 4 per binding plan. All Stage-3 tables byte-identical across reruns. pytest **120 passed** |
 | 4 · effective-N, broker panel, cost-benefit, subgroups | **COMPLETE 2026-11-12** (`Stage 4: effective-N, broker panel, cost-benefit, subgroups, event-study upgrade (v2.0-stage4)`) | Effective N: **6,383** (7,116 − 11 − 722), FM cross-sections 712–714; frozen β/p unchanged. H7 spec curve: **144 specs / 72 unique design betas** (plan arithmetic slip logged): 72/72 `abs_ret` positive, median +3.952 bp, CI-excl .583, p<.05 .542; full .958 vs bubble .292; `ret` 66/72 negative and 1% cutoff collapses; H7 stays NULL_FRAGILE. Broker panel: 57.9M trades, **91 canonical brokers, 3,026 broker-months**, active 50–90; core 11/219; transitions 183/28/36; 18/48 complete-graph months; source-format defect 275,590 rows/15 days, 37/7,126 OOS rows, leave-out signs unchanged (H8 p .0563). Subgroups: **no Bonferroni survivor** (min p_bonf .1434); circuit-breaker `NOT_EXECUTED`. Event study: reconstruction exact (max ΔCAR 0.0); mean CAR +12.86 bp p .569; BMP p .240; rank z 3.158 (date-clustered 2.522, p .012); market-adjusted −73.41 bp is a pre-window-alpha artifact. Cost-benefit: H7 7.59–12.65× / H10 3.16–5.27× / H4 3.99–6.66× **below** the 30–50 bp floor; not tradable at 1 SD. 22 artifacts byte-identical across consecutive runs; pytest **143 passed** |
 | 5 · final headline set + chapter skeletons | **COMPLETE 2026-11-12** (`Stage 5: canonical headline set, chapter skeletons, limitations (v2.0-stage5)`) | Canonical set 10 rows × exact brief columns; **H10 HEADLINE_MODERATE** sole headline (RW .081, WB .009, MODERATE concordance, liquidity+EGARCH pass, both tails increasing); H4 EXPLORATORY_POST_HOC (opposite sign, RW .159); H6/H7/H8 NULL_FRAGILE (RW .120/.159/.203; H8 also MDE-underpowered, ratio 1.426); H1/H2/H3/H5/H9 NULL_POWERED (RW .915; MDE powered). Composition/taxonomy in deviation #27, brief-structure fallback #28. Ch.5/Ch.6 bullet skeletons in `reports/chapter_assets/`; `reports/limitations.md` 24 rows L1–L24 (CRITICAL/MAJOR/MINOR); `chapter_section` column added to the register; EXP-0012; manifest +6 rows; canonical table byte-identical across two builds; pytest **149 passed** |
-| 6 · freeze v2.0 | pending | clean rebuild, test suite ≥80, `configs/v2_freeze/` hashes, lock regen, deposit prep, tag `v2.0-a++-freeze` |
+| 6 · freeze v2.0 | **COMPLETE 2026-11-13** (`Stage 6: clean rebuild, freeze, deposit prep, final audit`) | Clean rebuild 21/21 steps exit 0 in 3,749.9 s (62.5 min); `data/raw/` unchanged (577 files / 611,881,127 bytes); 73 table artefacts: 40 identical, 25 ≤3.55e-14, 4 reorder-only, 2 QuantReg drift 7.44e-7, 1 float aggregation ±1 unit, 1 descriptive sequential-fold threshold flip (146→141; anchored 686 unchanged); classifications identical. 7-file `configs/v2_freeze/` snapshot; lock 153 pins incl. `arch==8.0.0`; 629-row hash backfill; final register audit 697 checks = 695 OK + manifest self-reference + EXP-0000 historical lock; pytest 154 passed; deposit README/CITATION/LICENSE prepared (not uploaded); tag `v2.0-a++-freeze` |
 
 ## R10 gate status
 
@@ -103,6 +103,11 @@ registered, repo-local git identity set (global untouched), tag `v1.0-freeze`.
 ENGINEERING IS COMPLETE — Phase 7 is the LAST engineering phase; any post-freeze change
 requires a NEW registered experiment row (DC20).** Phase 8 (22-27 Nov) = chapter asset
 bundles + narrative skeleton; the student writes prose.
+
+**v2.0 A++ freeze (2026-11-13):** Stage 6 clean rebuild + freeze completed; EXP-0013
+registered, 7-file `configs/v2_freeze/` snapshot, 153-pin lock, final register audit
+695/695 hash-aligned artefacts (2 documented exemptions), tag `v2.0-a++-freeze`.
+Any post-v2 change now requires a new registered experiment row.
 
 ## Gotchas to remember (inherited + Phase-2)
 

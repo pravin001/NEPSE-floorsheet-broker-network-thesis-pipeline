@@ -1,0 +1,100 @@
+==============================================================================
+STAGE 2 — referee-proof robustness battery (v2 plan V2-2)
+==============================================================================
+
+[2.1] liquidity features + TRAIN-fold standardization
+  OOS panel rows with complete liquidity: 7,116
+       feature     mean   median      q99      max
+        amihud 0.000790 0.000347 0.005481 0.232132
+   roll_spread 0.007368 0.000000 0.058376 0.108965
+corwin_schultz 0.008341 0.007911 0.018250 0.032109
+effective_tick 0.002518 0.001945 0.006863 0.007886
+  frozen-grid replication: 10/10 PASS (max C1 rel 2.48e-16; scale 1.115535350368)
+  liquidity + base bundles: 1.0s
+
+[2.2] liquidity-controlled regressions
+test_id       bp   p_dk  base_bp  delta_bp
+     H1  -1.5566 0.4306  -1.5566    0.0000
+     H1  -0.9787 0.6165  -1.5566    0.5779
+     H2  -1.4912 0.5753  -1.4912    0.0000
+     H2  -1.1965 0.6470  -1.4912    0.2947
+     H3   0.9571 0.7501   0.9571    0.0000
+     H3   0.8821 0.7699   0.9571   -0.0750
+     H4   7.5100 0.0275   7.5100    0.0000
+     H4   7.3570 0.0306   7.5100   -0.1530
+     H5  -1.8561 0.4875  -1.8561    0.0000
+     H5  -1.8409 0.4959  -1.8561    0.0152
+     H6 -10.9386 0.0197 -10.9386    0.0000
+     H6 -10.9894 0.0187 -10.9386   -0.0509
+     H7   3.9524 0.0274   3.9524    0.0000
+     H7   3.7233 0.0354   3.9524   -0.2291
+     H8  -4.4709 0.0459  -4.4709    0.0000
+     H8  -4.5353 0.0425  -4.4709   -0.0643
+     H9   1.8175 0.4587   1.8175    0.0000
+     H9   1.9110 0.4325   1.8175    0.0935
+    H10   9.4923 0.0138   9.4923    0.0000
+    H10   9.5857 0.0117   9.4923    0.0934
+
+joint four-feature spec:
+     outcome                  feature       bp   p_dk
+    ret_fwd1                buyer_hhi   5.1879 0.0897
+    ret_fwd1          self_loop_ratio  13.1749 0.0097
+    ret_fwd1              reciprocity -24.8718 0.0047
+    ret_fwd1 end_of_day_concentration  -4.0899 0.0658
+    ret_fwd1                   amihud   3.0106 0.2784
+    ret_fwd1              roll_spread  -4.2834 0.1464
+    ret_fwd1           corwin_schultz   8.4893 0.1611
+abs_ret_fwd1                buyer_hhi   0.0484 0.9854
+abs_ret_fwd1          self_loop_ratio -11.4821 0.0050
+abs_ret_fwd1              reciprocity  21.5210 0.0023
+abs_ret_fwd1 end_of_day_concentration   3.4146 0.0518
+abs_ret_fwd1                   amihud  12.3860 0.0000
+abs_ret_fwd1              roll_spread  -7.1485 0.0011
+abs_ret_fwd1           corwin_schultz   6.0691 0.2500
+  liquidity regressions: 0.8s
+
+[2.3] wild cluster bootstrap (ReBWB, cluster=symbol, B=999)
+  engine validation: 3 designs x 3 draws, max rel 5.11e-13
+test_id       bp    t_dk  t_cluster_obs   p_dk  p_wb  n_clusters
+     H1  -1.5566 -0.7882        -1.1605 0.4306 0.257          12
+     H2  -1.4912 -0.5603        -0.6432 0.5753 0.541          12
+     H3   0.9571  0.3185         0.3172 0.7501 0.794          12
+     H4   7.5100  2.2042         3.5627 0.0275 0.002          12
+     H5  -1.8561 -0.6943        -0.8987 0.4875 0.357          12
+     H6 -10.9386 -2.3324        -3.4896 0.0197 0.002          12
+     H7   3.9524  2.2058         2.8806 0.0274 0.022          12
+     H8  -4.4709 -1.9968        -2.0403 0.0459 0.095          12
+     H9   1.8175  0.7410         1.5803 0.4587 0.100          12
+    H10   9.4923  2.4643         3.3264 0.0138 0.009          12
+  wild cluster bootstrap: 20.1s
+
+[2.4] true two-way clustered SEs + 4-estimator concordance
+test_id   p_dk  p_dc_v2   p_fm  p_wb  rw_p se_concordance  stage2_headline
+     H1 0.4306   0.2851 0.3404 0.257 0.915           NULL            False
+     H2 0.5753   0.5563 0.5304 0.541 0.915           NULL            False
+     H3 0.7501   0.7783 0.3243 0.794 0.915           NULL            False
+     H4 0.0275   0.0053 0.0082 0.002 0.159         STRONG            False
+     H5 0.4875   0.4117 0.6873 0.357 0.915           NULL            False
+     H6 0.0197   0.0021 0.5403 0.002 0.120       MODERATE            False
+     H7 0.0274   0.0086 0.0094 0.022 0.159         STRONG            False
+     H8 0.0459   0.0574 0.0587 0.095 0.203         STRONG            False
+     H9 0.4587   0.1845 0.3875 0.100 0.915           NULL            False
+    H10 0.0138   0.0028 0.2896 0.009 0.081       MODERATE             True
+  DC + concordance: 0.5s
+
+[2.5] VIF / correlation audit
+                   feature  r2_on_others   vif  max_abs_corr_with_feature  vif_flag_gt5  corr_flag_gt0.7
+             reciprocity_z         0.606 2.538                      0.529         False            False
+         self_loop_ratio_z         0.601 2.506                      0.529         False            False
+           anomaly_score_z         0.483 1.933                      0.635         False            False
+               buyer_hhi_z         0.379 1.611                      0.635         False            False
+              log_volume_z         0.299 1.427                      0.518         False            False
+                  amihud_z         0.091 1.101                      0.302         False            False
+end_of_day_concentration_z         0.069 1.075                      0.165         False            False
+          market_ret_loo_z         0.047 1.050                      0.083         False            False
+             roll_spread_z         0.017 1.017                      0.195         False            False
+          corwin_schultz_z         0.009 1.009                      0.405         False            False
+  no VIF>5 or |r|>0.7 flags: no drop-sensitivity run required
+  VIF audit: 0.2s
+
+STAGE 2 COMPLETE in 22.6s

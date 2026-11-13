@@ -1,0 +1,882 @@
+# v2 Stage-6 clean rebuild
+# started 2026-11-12T08:28:24Z
+# python 3.11.16 | Linux-7.0.0-43-generic-x86_64-with-glibc2.43
+# root /home/whacko/research/nepse-floorsheet-microstructure
+# clean=True
+# lock sha256 0de6eaf8f6b04c2589e784b314e57116f7ce28da768ec5005dc5caf9dc2ac061
+
+[clean] data/raw before: 577 files, 611881127 bytes
+[clean] removing data/processed (9 files, 33685688 bytes)
+[clean] removing data/duckdb (1 files, 1814573056 bytes)
+[clean] data/raw after:  577 files, 611881127 bytes
+==============================================================================
+[2026-11-12T08:28:24Z] STEP universe: scripts/select_top10.py
+==============================================================================
+calendar sessions 2021-01-01→2024-12-31: 940
+
+HEADLINE TOP-10 (declared, mean window turnover, DC2-passed):
+ 1. SHIVM    mean_turnover=    88,484,425 coverage=1.000
+ 2. API      mean_turnover=    84,222,605 coverage=1.000
+ 3. HDL      mean_turnover=    83,938,715 coverage=1.000
+ 4. AHPC     mean_turnover=    80,415,611 coverage=1.000
+ 5. NRIC     mean_turnover=    79,654,157 coverage=1.000
+ 6. NABIL    mean_turnover=    77,111,858 coverage=1.000
+ 7. NICA     mean_turnover=    72,330,488 coverage=1.000
+ 8. UPPER    mean_turnover=    69,887,417 coverage=1.000
+ 9. NLIC     mean_turnover=    68,616,450 coverage=0.999
+10. AKPL     mean_turnover=    63,054,073 coverage=1.000
+buffer (11-12): ['NHPC', 'HIDCL']
+UNIVERSE_DECLARED top10=10 top12=12 sessions=940
+[2026-11-12T08:28:25Z] STEP universe exit=0 wall=0.4s
+==============================================================================
+[2026-11-12T08:28:25Z] STEP ingest: scripts/ingest_corpus.py
+==============================================================================
+catalogued 1167 day files (kaggle [238, 242, 226, 229], socrateai-2024 232)
+kaggle 2021 loaded → total 17,769,216
+kaggle 2022 loaded → total 26,455,546
+kaggle 2023 loaded → total 36,706,934
+socrateai 2024 loaded → total 57,927,926
+          source     rows  days       dmin       dmax
+kaggle_viking303 36706934   706 2021-01-03 2023-12-28
+       socrateai 21220992   232 2024-01-01 2024-12-31
+calendar sessions=940 ingested sessions=938 gaps=2 → ingestion_session_gaps.csv
+gap dates: ['2021-09-01', '2023-11-27']
+extracts written: 576 per-stock-month files (top-12 buffer)
+PROVENANCE rows appended; total manifest entries: 114
+INGEST_DONE rows=57,927,926 in 18s
+[2026-11-12T08:28:43Z] STEP ingest exit=0 wall=18.6s
+==============================================================================
+[2026-11-12T08:28:43Z] STEP audit: scripts/audit_corpus.py
+==============================================================================
+A1/A2 duplicate (date,symbol,contract_no) keys: 752 (exact-page dups: 506, signature-conflicts: 246)
+A1 dedupe: raw=57,927,926 dedup=57,892,630 dropped=35,296
+A3 missing-broker-id (symbol,date) rows: 19
+A4 dealer-code (D…) rows: 35,941
+A5 (symbol,date) under 100 trades: 114,167 (min 1)
+A6 numeric sanity: {'negative_volume': 0, 'nonpositive_price': 8, 'null_contract_no': 2, 'negative_amount': 0}
+A7 daily summary rows: 938
+A8 symbols in corpus: 530
+AUDIT_DONE
+[2026-11-12T08:28:54Z] STEP audit exit=0 wall=10.4s
+==============================================================================
+[2026-11-12T08:28:54Z] STEP ohlcv: scripts/build_ohlcv.py
+==============================================================================
+tier1 rows=201,115 symbols=100 span=2012-01-01→2025-09-21
+tier2 rows=33,333 symbols=11 span=2005-01-20→2026-11-05
+union rows=205,533 (tier1 filled 28,915 of tier2)
+tier1∩tier2 (symbol,date) overlaps: 28,908 — tier1 kept
+median |close_t1-close_t2|/t2 across overlaps: 0.0000%
+OHLCV_DONE
+[2026-11-12T08:28:54Z] STEP ohlcv exit=0 wall=0.6s
+==============================================================================
+[2026-11-12T08:28:54Z] STEP reconcile: scripts/reconcile_volumes.py
+==============================================================================
+pairs=11,283 both-sides=10,909 volume in [0.95,1.25]: 96.6% in [0.98,1.02]: 94.7% median ratio=1.0000
+   y         v_fs         v_px    ratio
+2021 3661940236.0 1753453814.0 2.088416
+2022 1256890211.0  642825254.0 1.955260
+2023 1382021369.0  675118837.0 2.047079
+2024 3874890648.0 1668065478.0 2.322985
+RECON_DONE
+[2026-11-12T08:28:55Z] STEP reconcile exit=0 wall=0.4s
+==============================================================================
+[2026-11-12T08:28:55Z] STEP daily_features: scripts/build_daily_features.py
+==============================================================================
+drop accounting: {'n_rows_raw': 57892630, 'n_rows_after_filters': 57892602, 'dropped_rows': 28, 'volume_kept_share': 0.9999999587253705, 'policy': 'SV7: DROP rows (junk/NULL-volume; missing broker id); pre-declared, never switch'}
+SQL features: 233,706 (symbol,date) pairs [2021-01-03 00:00:00 → 2024-12-31 00:00:00] in 7s
+edges: 37,165,013 broker-pair rows (938 dates, 529 symbols)
+date slices prepared: 938
+  graph stage 200/938 dates (656s)
+  graph stage 400/938 dates (972s)
+  graph stage 600/938 dates (1366s)
+  graph stage 800/938 dates (2353s)
+graph metrics rows: 233,706 in 2874s
+eod NaN: 252 (defect days: 252) — expected 252
+FEATURES_DONE rows=233,706 total 2875s
+[2026-11-12T09:16:50Z] STEP daily_features exit=0 wall=2875.1s
+==============================================================================
+[2026-11-12T09:16:50Z] STEP outcomes: scripts/build_outcomes.py
+==============================================================================
+outcome coverage (window rows):
+ret                99.9%
+ret_fwd1           99.9%
+abs_ret_fwd1       99.9%
+parkinson_vol     100.0%
+market_ret_loo     99.9%
+rows=80,610 symbols=99 days=940
+OUTCOMES_DONE
+[2026-11-12T09:16:50Z] STEP outcomes exit=0 wall=0.4s
+==============================================================================
+[2026-11-12T09:16:50Z] STEP broker_persistence: scripts/broker_persistence_table.py
+==============================================================================
+top-10 broker rows: 2,172,784 (529 symbols, 938 days)
+transitions: 233,177 | market mean jaccard_top10 0.2339 | median 0.2500 [REAL]
+symbol  n_transitions     mean      p10  p50  p90
+SJLICP              2 1.000000 1.000000  1.0  1.0
+LGILPO              2 1.000000 1.000000  1.0  1.0
+MPFLPO              5 1.000000 1.000000  1.0  1.0
+ JBLBP              4 1.000000 1.000000  1.0  1.0
+ UNLBP              2 1.000000 1.000000  1.0  1.0
+PLICPO              6 0.833333 0.500000  1.0  1.0
+PROFLP             30 0.816667 0.483333  1.0  1.0
+GBBLPO             34 0.811275 0.333333  1.0  1.0
+SKBBLP              8 0.750000 0.333333  1.0  1.0
+SMATAP              7 0.714286 0.000000  1.0  1.0
+JSLBBP              3 0.666667 0.200000  1.0  1.0
+GRDBLP             12 0.638889 0.000000  1.0  1.0
+PERSISTENCE_DONE
+[2026-11-12T09:16:57Z] STEP broker_persistence exit=0 wall=6.3s
+==============================================================================
+[2026-11-12T09:16:57Z] STEP feature_summary: scripts/summarize_features.py
+==============================================================================
+      scope         regime  n_pairs  buyer_hhi_median  self_loop_median  reciprocity_median  eod_median  cp_median
+full_corpus bubble_2021_22   101939          0.113951          0.016833            0.096424    0.048068   0.674208
+full_corpus normal_2023_24   131767          0.136437          0.013143            0.074424    0.051112   0.686351
+      top12 bubble_2021_22     5491          0.050282          0.025435            0.253970    0.046085   0.617367
+      top12 normal_2023_24     5418          0.053343          0.022472            0.182935    0.047247   0.610677
+SUMMARY_DONE
+[2026-11-12T09:16:57Z] STEP feature_summary exit=0 wall=0.3s
+==============================================================================
+[2026-11-12T09:16:57Z] STEP anomaly_scoring: scripts/run_anomaly_scoring.py
+==============================================================================
+scoring rows: 233,706 → 233,454 (2023-02-16 excluded)
+turnover panel: 80,610 rows (99 symbols)
+ fold_id                                           universe  n_train_complete  n_test_complete  score_threshold_q90_train  n_test_events  event_share_test
+       0   AHPC,AKPL,API,HDL,NABIL,NBL,NICA,NLIC,NRIC,UPPER              1706             1748                   0.023161            143          0.081808
+       1  AHPC,AKPL,API,HDL,NABIL,NHPC,NICA,NLIC,NRIC,UPPER              3546             1789                   0.032557            264          0.147568
+       2  AHPC,AKPL,API,HDL,NABIL,NHPC,NICA,NLIC,NRIC,UPPER              5395             1769                   0.028781            168          0.094969
+       3 AHPC,API,HDL,NABIL,NHPC,NICA,NLIC,NRIC,SHIVM,UPPER              7175             1820                   0.029252            111          0.060989
+test rows scored OOS: 7,126 | event rows: 686
+SCORING_DONE
+[2026-11-12T09:16:59Z] STEP anomaly_scoring exit=0 wall=1.6s
+==============================================================================
+[2026-11-12T09:16:59Z] STEP panel_regressions: scripts/run_panel_regressions.py
+==============================================================================
+regression panel rows: 7,116
+κ(std design) = 3.3 | VIF max = 2.38 (reciprocity_z)
+IPS mean ADF t-bar: {'anomaly_score_z': -7.4, 'buyer_hhi_z': -5.52, 'self_loop_ratio_z': -14.91, 'reciprocity_z': -5.32, 'end_of_day_concentration_z': -22.93, 'log_volume_z': -4.29, 'market_ret_loo_z': -13.09}
+H1 self_loop_ratio→abs_ret_fwd1: β=-0.000156 (-1.6 bp/SD) t=-0.79 p=0.4306 mde=5.5bp dc_p=0.4306 fm_p=0.3404
+H2 anomaly_score→abs_ret_fwd1: β=-0.000149 (-1.5 bp/SD) t=-0.56 p=0.5753 mde=7.5bp dc_p=0.5753 fm_p=0.5304
+H3 anomaly_score→ret_fwd1: β=+0.000096 (+1.0 bp/SD) t=+0.32 p=0.7501 mde=8.4bp dc_p=0.7501 fm_p=0.3243
+H4 buyer_hhi→ret_fwd1: β=+0.000751 (+7.5 bp/SD) t=+2.20 p=0.0275 mde=9.5bp dc_p=0.0275 fm_p=0.0082
+H5 buyer_hhi→abs_ret_fwd1: β=-0.000186 (-1.9 bp/SD) t=-0.69 p=0.4875 mde=7.5bp dc_p=0.4875 fm_p=0.6873
+H6 reciprocity→ret_fwd1: β=-0.001094 (-10.9 bp/SD) t=-2.33 p=0.0197 mde=13.1bp dc_p=0.0197 fm_p=0.5403
+H7 end_of_day_concentration→abs_ret_fwd1: β=+0.000395 (+4.0 bp/SD) t=+2.21 p=0.0274 mde=5.0bp dc_p=0.0274 fm_p=0.0094
+H8 end_of_day_concentration→ret_fwd1: β=-0.000447 (-4.5 bp/SD) t=-2.00 p=0.0459 mde=6.3bp dc_p=0.0459 fm_p=0.0587
+H9 self_loop_ratio→ret_fwd1: β=+0.000182 (+1.8 bp/SD) t=+0.74 p=0.4587 mde=6.9bp dc_p=0.4587 fm_p=0.3875
+H10 reciprocity→abs_ret_fwd1: β=+0.000949 (+9.5 bp/SD) t=+2.46 p=0.0138 mde=10.8bp dc_p=0.0138 fm_p=0.2896
+  placebo H2: 50/200 (2s)
+  placebo H2: 150/200 (5s)
+H2 placebo share (upper-sided): 0.800 [REAL]
+  placebo H3: 50/200 (2s)
+  placebo H3: 150/200 (5s)
+H3 placebo share (lower-sided): 0.640 [REAL]
+GRID_DONE in 23s
+[2026-11-12T09:17:22Z] STEP panel_regressions exit=0 wall=23.5s
+==============================================================================
+[2026-11-12T09:17:22Z] STEP regime_split: scripts/run_regime_split.py
+==============================================================================
+regime panel rows: 7,116 | bubble rows: 2,737 (38.5%) [REAL]
+H1 self_loop_ratio→abs_ret_fwd1: interaction β=-0.000519 t=-1.32 p=0.1867 | bubble β=-0.000350 (n=2737) | normal β=-0.000010 (n=4379) [REAL]
+H2 anomaly_score→abs_ret_fwd1: interaction β=-0.000110 t=-0.23 p=0.8162 | bubble β=+0.000005 (n=2737) | normal β=-0.000106 (n=4379) [REAL]
+H3 anomaly_score→ret_fwd1: interaction β=-0.000251 t=-0.45 p=0.6547 | bubble β=-0.000044 (n=2737) | normal β=+0.000194 (n=4379) [REAL]
+H4 buyer_hhi→ret_fwd1: interaction β=-0.000827 t=-1.31 p=0.1898 | bubble β=-0.000026 (n=2737) | normal β=+0.001049 (n=4379) [REAL]
+H5 buyer_hhi→abs_ret_fwd1: interaction β=+0.000184 t=+0.31 p=0.7538 | bubble β=+0.000170 (n=2737) | normal β=-0.000269 (n=4379) [REAL]
+H6 reciprocity→ret_fwd1: interaction β=+0.001104 t=+1.10 p=0.2723 | bubble β=+0.000120 (n=2737) | normal β=-0.001748 (n=4379) [REAL]
+H7 end_of_day_concentration→abs_ret_fwd1: interaction β=-0.000137 t=-0.41 p=0.6789 | bubble β=+0.000261 (n=2737) | normal β=+0.000511 (n=4379) [REAL]
+H8 end_of_day_concentration→ret_fwd1: interaction β=+0.000013 t=+0.03 p=0.9749 | bubble β=-0.000439 (n=2737) | normal β=-0.000444 (n=4379) [REAL]
+H9 self_loop_ratio→ret_fwd1: interaction β=+0.000170 t=+0.37 p=0.7130 | bubble β=+0.000368 (n=2737) | normal β=+0.000110 (n=4379) [REAL]
+H10 reciprocity→abs_ret_fwd1: interaction β=-0.001275 t=-1.57 p=0.1171 | bubble β=+0.000357 (n=2737) | normal β=+0.001350 (n=4379) [REAL]
+REGIME_DONE
+[2026-11-12T09:17:24Z] STEP regime_split exit=0 wall=2.0s
+==============================================================================
+[2026-11-12T09:17:24Z] STEP event_study: scripts/run_event_study.py
+==============================================================================
+events processed: 686 | truncated windows: 5
+         method   n      mean    median       sd      t_p
+market_adjusted  16 -0.024477 -0.019172 0.025927 0.001830
+   market_model 670  0.001901  0.004280 0.059557 0.408903
+ALL-events CAR: mean +0.00129 | t +0.57 | p 0.5690 | n=686 [REAL] (overlapping-window caveat: upper bound on significance)
+EVENT_STUDY_DONE
+[2026-11-12T09:17:26Z] STEP event_study exit=0 wall=2.0s
+==============================================================================
+[2026-11-12T09:17:26Z] STEP robustness: scripts/run_robustness.py
+==============================================================================
+[b] alternative horizons t+2/t+3/t+5
+  t+2 horizon coverage: 7,106/7,116 panel rows (99.9%; within-window closes only)
+  t+2: heads BH-pass 0/5
+  t+3 horizon coverage: 7,096/7,116 panel rows (99.7%; within-window closes only)
+  t+3: heads BH-pass 0/5
+  t+5 horizon coverage: 7,076/7,116 panel rows (99.4%; within-window closes only)
+  t+5: heads BH-pass 1/5
+[c] alternative EoD thresholds (1%, 10%) vs base 5%
+  alt-eod SQL rows: 233,454 (day count 937, expectation 937 = 938 - defect)
+  H7 1%: bp +3.72 p 0.0296 (base 5% bp +3.95) [REAL]
+  H8 1%: bp -0.60 p 0.7634 (base 5% bp -4.47) [REAL]
+  H7 10%: bp +3.78 p 0.0387 (base 5% bp +3.95) [REAL]
+  H8 10%: bp -4.24 p 0.0633 (base 5% bp -4.47) [REAL]
+[a] leave-one-stock-out stability
+test_id  beta_full   p_full  n_same_sign  n_p_dk_lt_10  sign_stable
+     H1  -0.000156 0.430629           12             0         True
+     H2  -0.000149 0.575298           11             0        False
+     H3   0.000096 0.750120           10             0        False
+     H4   0.000751 0.027547           12            11         True
+     H5  -0.000186 0.487523           12             0         True
+     H6  -0.001094 0.019711           12            12         True
+     H7   0.000395 0.027432           12            12         True
+     H8  -0.000447 0.045888           12            10         True
+     H9   0.000182 0.458719           12             0         True
+    H10   0.000949 0.013755           12            12         True
+[d] SV5 alternative scorers vs IF (Spearman, per fold OOS)
+  per-fold alt-scorer rank-corr vs IF (spearman):
+               mean  median     min     max
+scorer                                     
+diag_z2_sum  0.9514  0.9525  0.9370  0.9638
+lof_novelty  0.6042  0.6125  0.4121  0.7797
+mahalanobis  0.8293  0.8502  0.6994  0.9175
+ocsvm        0.5357  0.5163  0.4534  0.6568
+[e] drop-bubble re-run (2023+ rows)
+  drop-bubble panel rows: 4,379 (dropped 2,737 bubble-era rows)
+test_id         bp     p_dk  bh_adj_p sign_agrees
+     H1  -0.103816 0.968423  0.968423       False
+     H2  -1.057091 0.760546  0.845051       False
+     H3   1.936536 0.621609  0.845051       False
+     H4  10.489360 0.009436  0.061137       False
+     H5  -2.690066 0.383512  0.639186       False
+     H6 -17.482835 0.012682  0.061137         NaN
+     H7   5.109677 0.030606  0.076515        True
+     H8  -4.441573 0.170266  0.340533        True
+     H9   1.097023 0.742752  0.845051       False
+    H10  13.498825 0.018341  0.061137        True
+[f] 5-stock external cross-section (ranks 11-15 of the DC1 ranking)
+  feature frame: 233,706 → 233,454 rows (defect excluded)
+  external top-5 universes: k0: NHPC,HIDCL,GBIME,SICL,KBL | k1: HIDCL,NTC,NBL,GBIME,SHIVM | k2: NTC,HIDCL,SHIVM,NBL,JBBL | k3: AKPL,NTC,HIDCL,NBL,CIT
+ fold_id                  universe  n_test_complete  n_test_events  event_share_test
+       0 GBIME,HIDCL,KBL,NHPC,SICL              851             95          0.111633
+       1 GBIME,HIDCL,NBL,NTC,SHIVM              774             67          0.086563
+       2  HIDCL,JBBL,NBL,NTC,SHIVM              879             56          0.063709
+       3    AKPL,CIT,HIDCL,NBL,NTC              910             46          0.050549
+test_id        bp     p_dk  bh_adj_p sign_agrees
+     H1 -0.646542 0.831484  0.956817       False
+     H2 -1.396237 0.727731  0.956817       False
+     H3  3.635606 0.394415  0.956817       False
+     H4  0.288333 0.941622  0.956817       False
+     H5 -0.188265 0.956817  0.956817       False
+     H6 -3.633469 0.446098  0.956817         NaN
+     H7  2.137749 0.353241  0.956817        True
+     H8 -0.701249 0.810565  0.956817        True
+     H9  1.639852 0.607111  0.956817       False
+    H10  5.398998 0.231527  0.956817        True
+[g] sequential fold-mode variant (D7)
+  feature frame: 233,706 → 233,454 rows (defect excluded)
+ fold_id            train_dates             test_dates  n_test_events  event_share_test
+       0 2021-01-03..2021-06-23 2021-07-04..2021-12-23            141          0.130314
+       1 2021-06-24..2021-12-23 2022-01-04..2022-06-21             81          0.075843
+       2 2021-12-26..2022-06-21 2022-06-29..2022-12-12            123          0.112637
+       3 2022-06-22..2022-12-12 2022-12-21..2023-06-14            105          0.096774
+  seq vs anchored (overlapping OOS rows n=2,731): spearman r=+0.8703 p=0.0000 [REAL]
+headline survival (rows variant x test): 46
+BATTERY_DONE in 12s
+[2026-11-12T09:17:39Z] STEP robustness exit=0 wall=12.6s
+==============================================================================
+[2026-11-12T09:17:39Z] STEP dashboard_cache: scripts/build_dashboard_cache.py
+==============================================================================
+dashboard cache: 10,909 feature rows · 7,126 OOS rows · 576 symbol-months · 940 sessions → /home/whacko/research/nepse-floorsheet-microstructure/data/processed/dashboard_cache
+provenance rows appended for the 4 cache artifacts
+[2026-11-12T09:17:41Z] STEP dashboard_cache exit=0 wall=2.1s
+==============================================================================
+[2026-11-12T09:17:41Z] STEP engine_validation: scripts/validate_v2_engine.py
+==============================================================================
+panel rows: 7116
+[H2] C1 base rel err = 1.96e-16 | p functional rel = 0.00e+00
+  [H2] draw 0: max rel 1.67e-14
+  [H2] draw 1: max rel 2.59e-14
+  [H2] draw 2: max rel 9.70e-14
+  [H2] draw 3: max rel 7.07e-14
+[H7] C1 base rel err = 2.79e-16 | p functional rel = 0.00e+00
+  [H7] draw 0: max rel 1.49e-14
+  [H7] draw 1: max rel 2.61e-14
+  [H7] draw 2: max rel 9.68e-14
+  [H7] draw 3: max rel 4.18e-14
+C2 OVERALL: PASS (8 draws, max 9.70e-14); wall 0.5s
+ROW: v2_engine_validation.csv written
+[2026-11-12T09:17:42Z] STEP engine_validation exit=0 wall=1.3s
+==============================================================================
+[2026-11-12T09:17:42Z] STEP v2_stage1: scripts/run_v2_stage1.py
+==============================================================================
+==============================================================================
+STAGE 1 — statistical interpretation fixes (v2 plan V2-1)
+==============================================================================
+engine validation: 8 draws PASS (max rel 9.70e-14)
+panel rows: 7,116
+
+[1.1] base grid fits + frozen replication
+  frozen-grid replication: 10/10 PASS (max C1 rel 2.48e-16; scale 1.115535350368)
+  base fits: 0.6s
+
+[1.2] Romano-Wolf step-down (B=999, common row-level Rademacher draws)
+  bootstrap done (23.3s); draws=999 tests=10
+test_id         bp     p_dk  rw_p  rw_p_literal_minp_fullset  rw_sig_q10
+     H1  -1.556594 0.430629 0.915                      0.987       False
+     H2  -1.491177 0.575298 0.915                      0.998       False
+     H3   0.957087 0.750120 0.915                      1.000       False
+     H4   7.509961 0.027547 0.159                      0.190       False
+     H5  -1.856088 0.487523 0.915                      0.995       False
+     H6 -10.938552 0.019711 0.120                      0.129       False
+     H7   3.952373 0.027432 0.159                      0.189       False
+     H8  -4.470947 0.045888 0.203                      0.297       False
+     H9   1.817473 0.458719 0.915                      0.991       False
+    H10   9.492266 0.013755 0.081                      0.081        True
+  RW total: 23.4s
+
+[1.1] governance classification -> hypothesis_grid_results_v2.csv
+test_id result_classification              classification_reason  rw_p
+     H1           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+     H2           NULL_ROBUST    bh_fail_placebo_null_loo_stable 0.915
+     H3           NULL_ROBUST    bh_fail_placebo_null_loo_stable 0.915
+     H4  EXPLORATORY_POST_HOC    opposite_sign_to_predeclaration 0.159
+     H5           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+     H6          NULL_FRAGILE                       rw_p_gt_0.10 0.120
+     H7          NULL_FRAGILE                       rw_p_gt_0.10 0.159
+     H8          NULL_FRAGILE two_registered_robustness_failures 0.203
+     H9           NULL_ROBUST            bh_fail_loo_stable_null 0.915
+    H10    CONFIRMED_HEADLINE        bh_sig_q10_sign_as_declared 0.081
+
+[1.3] MDE null classification
+          test_id   beta_bp  mde80_bp    ratio    classification
+               H1 -1.556594  5.529883 0.562976      NULL_POWERED
+               H2 -1.491177  7.451954 0.400211      NULL_POWERED
+               H3  0.957087  8.414077 0.227497      NULL_POWERED
+               H5 -1.856088  7.485373 0.495924      NULL_POWERED
+               H8 -4.470947  6.269327 1.426292 NULL_UNDERPOWERED
+               H9  1.817473  6.867614 0.529288      NULL_POWERED
+EVENT_CAR_OVERALL 12.860878 63.198372 0.407000      NULL_POWERED
+
+[1.4] DC13 placebo-OUTCOME (past |ret|)
+test_id   beta_bp         p_dk  n_obs                  verdict
+     H1 -3.937158 5.544010e-03   7116 SPECIFICATION_ERROR_FLAG
+     H2 -7.710462 1.066457e-03   7116 SPECIFICATION_ERROR_FLAG
+     H3 -7.710462 1.066457e-03   7116 SPECIFICATION_ERROR_FLAG
+     H4 -9.969683 3.718777e-07   7116 SPECIFICATION_ERROR_FLAG
+     H5 -9.969683 3.718777e-07   7116 SPECIFICATION_ERROR_FLAG
+     H6 19.689768 6.891479e-05   7116 SPECIFICATION_ERROR_FLAG
+     H7  1.679699 2.783918e-01   7116                     PASS
+     H8  1.679699 2.783918e-01   7116                     PASS
+     H9 -3.937158 5.544010e-03   7116 SPECIFICATION_ERROR_FLAG
+    H10 19.689768 6.891479e-05   7116 SPECIFICATION_ERROR_FLAG
+  DC13: 0.4s
+
+[1.5] expanded placebo battery
+  (a) 1000 score permutations (H2/H3)
+  C3 feature-permutation vs full refits: 3 draws x 2 outcomes, max rel 1.65e-13
+    200/1000 (0.7s)
+    400/1000 (1.3s)
+    600/1000 (1.8s)
+    800/1000 (2.3s)
+    1000/1000 (2.9s)
+    v1 head replication: H2 0.800 (frozen 0.800) | H3 0.640 (frozen 0.640)
+  score permutations: 2.9s
+  (b) 1000 within-symbol block permutations (H2/H3)
+    200/1000 (0.7s)
+    400/1000 (1.4s)
+    600/1000 (2.0s)
+    800/1000 (2.7s)
+    1000/1000 (3.4s)
+  block permutations: 3.4s
+  (c) negative-control feature (EoD lead-5 + within-block shuffle)
+    NEGCTRL_LEAD5_ABS: beta=-1.92 bp p=0.2633 n=7066
+    NEGCTRL_LEAD5_RET: beta=-0.05 bp p=0.9776 n=7066
+  C3 feature-permutation vs full refits: 3 draws x 2 outcomes, max rel 2.67e-14
+    negctrl shuffle 200/1000 (1.3s)
+    negctrl shuffle 400/1000 (2.1s)
+    negctrl shuffle 600/1000 (2.9s)
+    negctrl shuffle 800/1000 (3.7s)
+    negctrl shuffle 1000/1000 (4.5s)
+  negative-control block: 4.5s
+
+expanded placebo summary (share rows):
+            construction test_id    share_type  share  calib_share_p_lt_05
+              score_perm      H2         upper  0.780                0.036
+              score_perm      H2         lower  0.220                0.036
+              score_perm      H2     two_sided  0.440                0.036
+              score_perm      H2 calib_p_lt_05  0.036                0.036
+              score_perm      H3         upper  0.353                0.037
+              score_perm      H3         lower  0.647                0.037
+              score_perm      H3     two_sided  0.687                0.037
+              score_perm      H3 calib_p_lt_05  0.037                0.037
+              block_perm      H2         upper  0.745                0.039
+              block_perm      H2         lower  0.255                0.039
+              block_perm      H2     two_sided  0.467                0.039
+              block_perm      H2 calib_p_lt_05  0.039                0.039
+              block_perm      H3         upper  0.341                0.043
+              block_perm      H3         lower  0.659                0.043
+              block_perm      H3     two_sided  0.683                0.043
+              block_perm      H3 calib_p_lt_05  0.043                0.043
+negctrl_eod_blockshuffle      H7         upper  0.009                0.045
+negctrl_eod_blockshuffle      H7         lower  0.991                0.045
+negctrl_eod_blockshuffle      H7     two_sided  0.024                0.045
+negctrl_eod_blockshuffle      H7 calib_p_lt_05  0.045                0.045
+negctrl_eod_blockshuffle      H8         upper  0.994                0.031
+negctrl_eod_blockshuffle      H8         lower  0.006                0.031
+negctrl_eod_blockshuffle      H8     two_sided  0.013                0.031
+negctrl_eod_blockshuffle      H8 calib_p_lt_05  0.031                0.031
+
+negative-control lead-5:
+          test_id  beta_obs_bp    share  n_obs
+NEGCTRL_LEAD5_ABS    -1.917961 0.263254 7066.0
+NEGCTRL_LEAD5_RET    -0.053109 0.977586 7066.0
+
+STAGE 1 COMPLETE in 35.3s
+outputs: hypothesis_grid_results_v2.csv, hypothesis_grid_results_rw.csv, null_classification.csv, placebo_outcome_test.csv, placebo_distribution_expanded.csv
+[2026-11-12T09:18:18Z] STEP v2_stage1 exit=0 wall=36.1s
+==============================================================================
+[2026-11-12T09:18:18Z] STEP v2_stage2: scripts/run_v2_stage2.py
+==============================================================================
+==============================================================================
+STAGE 2 — referee-proof robustness battery (v2 plan V2-2)
+==============================================================================
+
+[2.1] liquidity features + TRAIN-fold standardization
+  OOS panel rows with complete liquidity: 7,116
+       feature     mean   median      q99      max
+        amihud 0.000790 0.000347 0.005481 0.232132
+   roll_spread 0.007368 0.000000 0.058376 0.108965
+corwin_schultz 0.008341 0.007911 0.018250 0.032109
+effective_tick 0.002518 0.001945 0.006863 0.007886
+  frozen-grid replication: 10/10 PASS (max C1 rel 2.48e-16; scale 1.115535350368)
+  liquidity + base bundles: 1.2s
+
+[2.2] liquidity-controlled regressions
+test_id       bp   p_dk  base_bp  delta_bp
+     H1  -1.5566 0.4306  -1.5566    0.0000
+     H1  -0.9787 0.6165  -1.5566    0.5779
+     H2  -1.4912 0.5753  -1.4912    0.0000
+     H2  -1.1965 0.6470  -1.4912    0.2947
+     H3   0.9571 0.7501   0.9571    0.0000
+     H3   0.8821 0.7699   0.9571   -0.0750
+     H4   7.5100 0.0275   7.5100    0.0000
+     H4   7.3570 0.0306   7.5100   -0.1530
+     H5  -1.8561 0.4875  -1.8561    0.0000
+     H5  -1.8409 0.4959  -1.8561    0.0152
+     H6 -10.9386 0.0197 -10.9386    0.0000
+     H6 -10.9894 0.0187 -10.9386   -0.0509
+     H7   3.9524 0.0274   3.9524    0.0000
+     H7   3.7233 0.0354   3.9524   -0.2291
+     H8  -4.4709 0.0459  -4.4709    0.0000
+     H8  -4.5353 0.0425  -4.4709   -0.0643
+     H9   1.8175 0.4587   1.8175    0.0000
+     H9   1.9110 0.4325   1.8175    0.0935
+    H10   9.4923 0.0138   9.4923    0.0000
+    H10   9.5857 0.0117   9.4923    0.0934
+
+joint four-feature spec:
+     outcome                  feature       bp   p_dk
+    ret_fwd1                buyer_hhi   5.1879 0.0897
+    ret_fwd1          self_loop_ratio  13.1749 0.0097
+    ret_fwd1              reciprocity -24.8718 0.0047
+    ret_fwd1 end_of_day_concentration  -4.0899 0.0658
+    ret_fwd1                   amihud   3.0106 0.2784
+    ret_fwd1              roll_spread  -4.2834 0.1464
+    ret_fwd1           corwin_schultz   8.4893 0.1611
+abs_ret_fwd1                buyer_hhi   0.0484 0.9854
+abs_ret_fwd1          self_loop_ratio -11.4821 0.0050
+abs_ret_fwd1              reciprocity  21.5210 0.0023
+abs_ret_fwd1 end_of_day_concentration   3.4146 0.0518
+abs_ret_fwd1                   amihud  12.3860 0.0000
+abs_ret_fwd1              roll_spread  -7.1485 0.0011
+abs_ret_fwd1           corwin_schultz   6.0691 0.2500
+  liquidity regressions: 0.9s
+
+[2.3] wild cluster bootstrap (ReBWB, cluster=symbol, B=999)
+  engine validation: 3 designs x 3 draws, max rel 5.11e-13
+test_id       bp    t_dk  t_cluster_obs   p_dk  p_wb  n_clusters
+     H1  -1.5566 -0.7882        -1.1605 0.4306 0.257          12
+     H2  -1.4912 -0.5603        -0.6432 0.5753 0.541          12
+     H3   0.9571  0.3185         0.3172 0.7501 0.794          12
+     H4   7.5100  2.2042         3.5627 0.0275 0.002          12
+     H5  -1.8561 -0.6943        -0.8987 0.4875 0.357          12
+     H6 -10.9386 -2.3324        -3.4896 0.0197 0.002          12
+     H7   3.9524  2.2058         2.8806 0.0274 0.022          12
+     H8  -4.4709 -1.9968        -2.0403 0.0459 0.095          12
+     H9   1.8175  0.7410         1.5803 0.4587 0.100          12
+    H10   9.4923  2.4643         3.3264 0.0138 0.009          12
+  wild cluster bootstrap: 21.0s
+
+[2.4] true two-way clustered SEs + 4-estimator concordance
+test_id   p_dk  p_dc_v2   p_fm  p_wb  rw_p se_concordance  stage2_headline
+     H1 0.4306   0.2851 0.3404 0.257 0.915           NULL            False
+     H2 0.5753   0.5563 0.5304 0.541 0.915           NULL            False
+     H3 0.7501   0.7783 0.3243 0.794 0.915           NULL            False
+     H4 0.0275   0.0053 0.0082 0.002 0.159         STRONG            False
+     H5 0.4875   0.4117 0.6873 0.357 0.915           NULL            False
+     H6 0.0197   0.0021 0.5403 0.002 0.120       MODERATE            False
+     H7 0.0274   0.0086 0.0094 0.022 0.159         STRONG            False
+     H8 0.0459   0.0574 0.0587 0.095 0.203         STRONG            False
+     H9 0.4587   0.1845 0.3875 0.100 0.915           NULL            False
+    H10 0.0138   0.0028 0.2896 0.009 0.081       MODERATE             True
+  DC + concordance: 0.6s
+
+[2.5] VIF / correlation audit
+                   feature  r2_on_others   vif  max_abs_corr_with_feature  vif_flag_gt5  corr_flag_gt0.7
+             reciprocity_z         0.606 2.538                      0.529         False            False
+         self_loop_ratio_z         0.601 2.506                      0.529         False            False
+           anomaly_score_z         0.483 1.933                      0.635         False            False
+               buyer_hhi_z         0.379 1.611                      0.635         False            False
+              log_volume_z         0.299 1.427                      0.518         False            False
+                  amihud_z         0.091 1.101                      0.302         False            False
+end_of_day_concentration_z         0.069 1.075                      0.165         False            False
+          market_ret_loo_z         0.047 1.050                      0.083         False            False
+             roll_spread_z         0.017 1.017                      0.195         False            False
+          corwin_schultz_z         0.009 1.009                      0.405         False            False
+  no VIF>5 or |r|>0.7 flags: no drop-sensitivity run required
+  VIF audit: 0.3s
+
+STAGE 2 COMPLETE in 23.9s
+[2026-11-12T09:18:43Z] STEP v2_stage2 exit=0 wall=24.9s
+==============================================================================
+[2026-11-12T09:18:43Z] STEP v2_stage3: scripts/run_v2_stage3.py
+==============================================================================
+base panel: 7,116 rows, 723 dates
+
+[3.0] gates
+  arch version: 8.0.0
+  EGARCH recursion max rel: 2.050e-16
+
+[3.1] EGARCH-standardized outcomes
+  fit 40 EGARCH models + forward filter: 0.5s
+  fits: 40, converged=37, degenerate=4, z rows=6,819
+status
+ok                         38
+ok_with_sigma_underflow     2
+                                      item  value
+                         raw_oos_grid_rows 7126.0
+                           base_panel_rows 7116.0
+           raw_oos_grid_rows_outside_panel   10.0
+                             egarch_z_rows 6819.0
+                         panel_rows_with_z 6819.0
+                      panel_rows_without_z  297.0
+                 panel_rows_excluded_total  297.0
+                                      fits   40.0
+                            fits_converged   37.0
+                           fits_degenerate    4.0
+                 fits_with_sigma_underflow    2.0
+         fits_with_boundary_exclusion_only   10.0
+          raw_oos_grid_rows_excluded_total  307.0
+raw_oos_grid_rows_excluded_sigma_underflow  297.0
+raw_oos_grid_rows_excluded_no_next_session   10.0
+                             z_numeric_max   20.0
+
+EGARCH primary:
+test_id                  feature outcome_egarch  base_bp_v1   beta_bp   p_dk  p_dc_v2  n_obs  sign_match_base survives_egarch
+     H1          self_loop_ratio     abs_z_fwd1     -1.5566   64.2212 0.5711   0.5387   6819            False           False
+     H2            anomaly_score     abs_z_fwd1     -1.4912   79.7841 0.5734   0.5291   6819            False           False
+     H3            anomaly_score         z_fwd1      0.9571   28.5672 0.8290   0.8699   6819             True           False
+     H4                buyer_hhi         z_fwd1      7.5100  256.8623 0.0544   0.0164   6819             True            True
+     H5                buyer_hhi     abs_z_fwd1     -1.8561 -118.9140 0.2972   0.2568   6819             True           False
+     H6              reciprocity         z_fwd1    -10.9386 -511.8732 0.0204   0.0268   6819             True            True
+     H7 end_of_day_concentration     abs_z_fwd1      3.9524  149.1528 0.0638   0.0717   6819             True            True
+     H8 end_of_day_concentration         z_fwd1     -4.4709 -157.9093 0.0745   0.0454   6819             True            True
+     H9          self_loop_ratio         z_fwd1      1.8175   68.4509 0.5925   0.4554   6819             True           False
+    H10              reciprocity     abs_z_fwd1      9.4923  412.4002 0.0383   0.0213   6819             True            True
+
+EGARCH sensitivity (primary outcome):
+               beta_bp                                                                           p_dk                                                                
+spec    egarch_primary egarch_primary_excl_degenerate egarch_primary_excl_nonconverged egarch_primary egarch_primary_excl_degenerate egarch_primary_excl_nonconverged
+test_id                                                                                                                                                              
+H1              64.221                          2.583                            4.115          0.571                          0.980                            0.968
+H10            412.400                        422.415                          417.323          0.038                          0.026                            0.033
+H2              79.784                        -22.401                           77.165          0.573                          0.844                            0.613
+H3              28.567                         -0.842                          -64.148          0.829                          0.994                            0.640
+H4             256.862                        203.919                          214.846          0.054                          0.141                            0.118
+H5            -118.914                       -129.781                          -89.543          0.297                          0.249                            0.440
+H6            -511.873                       -585.566                         -628.546          0.020                          0.009                            0.006
+H7             149.153                        122.634                          164.374          0.064                          0.116                            0.054
+H8            -157.909                       -182.556                         -189.395          0.075                          0.049                            0.047
+H9              68.451                         15.762                           14.605          0.593                          0.896                            0.905
+
+[3.2] quantile panel (10 tests x 5 taus, checkpointed)
+  design: 7116 rows x 737 cols
+    H1 tau=0.10: bp=+0.798 p=0.1499 (12.2s, 1/50)
+    H1 tau=0.25: bp=+0.076 p=0.9150 (26.8s, 2/50)
+    H1 tau=0.50: bp=+0.850 p=0.3131 (13.0s, 3/50)
+    H1 tau=0.75: bp=-1.239 p=0.1507 (9.8s, 4/50)
+    H1 tau=0.90: bp=-3.004 p=0.0002 (12.8s, 5/50)
+    H2 tau=0.10: bp=-0.775 p=0.1746 (10.9s, 6/50)
+    H2 tau=0.25: bp=+0.464 p=0.5477 (11.9s, 7/50)
+    H2 tau=0.50: bp=-1.364 p=0.1380 (7.5s, 8/50)
+    H2 tau=0.75: bp=-3.536 p=0.0002 (6.8s, 9/50)
+    H2 tau=0.90: bp=-3.835 p=0.0000 (12.0s, 10/50)
+    H3 tau=0.10: bp=-1.549 p=0.0759 (13.0s, 11/50)
+    H3 tau=0.25: bp=-0.634 p=0.5613 (17.9s, 12/50)
+    H3 tau=0.50: bp=-0.162 p=0.8936 (8.5s, 13/50)
+    H3 tau=0.75: bp=+1.334 p=0.2424 (12.6s, 14/50)
+    H3 tau=0.90: bp=+5.091 p=0.0000 (5.5s, 15/50)
+    H4 tau=0.10: bp=+2.121 p=0.0144 (14.8s, 16/50)
+    H4 tau=0.25: bp=+1.629 p=0.1257 (6.7s, 17/50)
+    H4 tau=0.50: bp=+3.265 p=0.0065 (5.8s, 18/50)
+    H4 tau=0.75: bp=+3.786 p=0.0009 (17.1s, 19/50)
+    H4 tau=0.90: bp=+9.610 p=0.0000 (6.6s, 20/50)
+    H5 tau=0.10: bp=-1.840 p=0.0024 (19.4s, 21/50)
+    H5 tau=0.25: bp=-0.288 p=0.7096 (12.6s, 22/50)
+    H5 tau=0.50: bp=+0.653 p=0.4750 (7.1s, 23/50)
+    H5 tau=0.75: bp=-1.492 p=0.1060 (6.3s, 24/50)
+    H5 tau=0.90: bp=-1.559 p=0.0634 (29.1s, 25/50)
+    H6 tau=0.10: bp=-12.988 p=0.0000 (8.5s, 26/50)
+    H6 tau=0.25: bp=-8.883 p=0.0000 (12.2s, 27/50)
+    H6 tau=0.50: bp=-7.532 p=0.0000 (8.2s, 28/50)
+    H6 tau=0.75: bp=-4.530 p=0.0027 (28.9s, 29/50)
+    H6 tau=0.90: bp=+0.544 p=0.6708 (8.7s, 30/50)
+    H7 tau=0.10: bp=+0.706 p=0.1169 (8.6s, 31/50)
+    H7 tau=0.25: bp=+0.582 p=0.3332 (20.1s, 32/50)
+    H7 tau=0.50: bp=+2.202 p=0.0024 (9.9s, 33/50)
+    H7 tau=0.75: bp=+3.114 p=0.0000 (8.2s, 34/50)
+    H7 tau=0.90: bp=+1.212 p=0.0623 (39.6s, 35/50)
+    H8 tau=0.10: bp=-3.171 p=0.0000 (11.7s, 36/50)
+    H8 tau=0.25: bp=-3.545 p=0.0000 (6.7s, 37/50)
+    H8 tau=0.50: bp=-3.494 p=0.0002 (5.0s, 38/50)
+    H8 tau=0.75: bp=-1.275 p=0.1566 (6.9s, 39/50)
+    H8 tau=0.90: bp=-0.466 p=0.5493 (5.4s, 40/50)
+    H9 tau=0.10: bp=+0.828 p=0.2985 (19.8s, 41/50)
+    H9 tau=0.25: bp=-0.374 p=0.7087 (11.9s, 42/50)
+    H9 tau=0.50: bp=-1.444 p=0.1881 (4.0s, 43/50)
+    H9 tau=0.75: bp=-0.304 p=0.7670 (8.0s, 44/50)
+    H9 tau=0.90: bp=+3.079 p=0.0008 (7.8s, 45/50)
+    H10 tau=0.10: bp=+3.083 p=0.0001 (12.9s, 46/50)
+    H10 tau=0.25: bp=+2.842 p=0.0063 (7.4s, 47/50)
+    H10 tau=0.50: bp=+4.891 p=0.0001 (20.7s, 48/50)
+    H10 tau=0.75: bp=+7.530 p=0.0000 (7.7s, 49/50)
+    H10 tau=0.90: bp=+18.696 p=0.0000 (29.4s, 50/50)
+  50 quantile fits: 626.1s
+
+quantile tail summary:
+test_id  median_bp  bp_tau10  bp_tau90  ci_lo_tau10  ci_hi_tau90 tail_classification
+     H1      0.850     0.798    -3.004       -0.288       -1.440          UPPER_TAIL
+    H10      4.891     3.083    18.696        1.498       20.735          BOTH_TAILS
+     H2     -1.364    -0.775    -3.835       -1.893       -2.148          UPPER_TAIL
+     H3     -0.162    -1.549     5.091       -3.260        6.995          UPPER_TAIL
+     H4      3.265     2.121     9.610        0.423       11.553          BOTH_TAILS
+     H5      0.653    -1.840    -1.559       -3.029        0.087          LOWER_TAIL
+     H6     -7.532   -12.988     0.544      -15.182        3.055          LOWER_TAIL
+     H7      2.202     0.706     1.212       -0.177        2.486                NONE
+     H8     -3.494    -3.171    -0.466       -4.476        1.058          LOWER_TAIL
+     H9     -1.444     0.828     3.079       -0.733        4.870          UPPER_TAIL
+
+[3.3] trade-size heterogeneity
+  trade-size DuckDB aggregation + standardization: 5.0s
+
+bucket summary (primary min=5):
+ min_bucket_trades bucket  bucket_days  used_days  suppressed_days   trades       volume  volume_share  trade_share  median_trades  hhi_mean  hhi_median  top3_mean  eod_mean  eod_median
+                 5  large        24917      24475              442  1916009 1526426016.0        0.4738       0.0951           50.0    0.1319      0.1029     0.4744    0.0633      0.0534
+                 5 medium        24948      24930               18 17128981 1683653137.0        0.5226       0.8498          485.0    0.0473      0.0394     0.2472    0.0521      0.0509
+                 5  small        23220      17709             5511  1111440   11411662.0        0.0035       0.0551           42.0    0.1221      0.0758     0.4361    0.0825      0.0597
+
+trade-size H7/H8 (primary EoD):
+test_id bucket  beta_bp  se_bp   p_dk  p_dc_v2  n_obs
+     H7  small  -1.3595 2.9929 0.6497   0.7595   5356
+     H8  small   5.8409 3.9002 0.1343   0.2744   5356
+     H7 medium   1.0657 1.4665 0.4674   0.3920   7114
+     H8 medium  -5.2656 1.8994 0.0056   0.0000   7114
+     H7  large   4.5190 2.1503 0.0356   0.0691   6951
+     H8  large  -4.4668 2.3846 0.0611   0.0855   6951
+
+success criterion (large vs small):
+test_id            metric  beta_large_bp  p_large  beta_small_bp  p_small  sign_large_matches_v1  sign_small_matches_v1  magnitude_large_ge_small  p_large_le_small  success_criterion  success_criterion_sign_aware
+     H7         buyer_hhi         0.2522   0.8985        -2.6848   0.5284                   True                  False                     False             False              False                         False
+     H8         buyer_hhi         2.7520   0.3091         3.1659   0.5021                  False                  False                     False              True              False                         False
+     H7  top3_buyer_share         0.9603   0.6545        -2.7224   0.6489                   True                  False                     False             False              False                         False
+     H8  top3_buyer_share         5.8421   0.0272         5.6048   0.4011                  False                  False                      True              True               True                         False
+     H7 eod_concentration         4.5190   0.0356        -1.3595   0.6497                   True                  False                      True              True               True                          True
+     H8 eod_concentration        -4.4668   0.0611         5.8409   0.1343                   True                  False                     False              True              False                         False
+
+Stage 3 total wall: 642.8s
+[2026-11-12T09:29:27Z] STEP v2_stage3 exit=0 wall=643.8s
+==============================================================================
+[2026-11-12T09:29:27Z] STEP v2_stage4: scripts/run_v2_stage4.py
+==============================================================================
+==============================================================================
+STAGE 4 — effective-N, specification curve, broker panel, subgroups, event-study upgrade (v2 plan V2-4)
+==============================================================================
+
+[4.0] panel + gates
+  EoD SQL rows 233,454 / days 937
+  Stage-4 panel 7,116 rows / 723 dates / 12 symbols
+  panel: 2.4s
+
+[4.1] effective-N columns
+/home/whacko/research/nepse-floorsheet-microstructure/scripts/run_v2_stage4.py:144: Pandas4Warning: The 'lsuffix' and 'rsuffix' keywords in DataFrame.join are deprecated and will be removed in a future version. Use the 'suffixes' keyword instead.
+  joined = aug.set_index("test_id").join(
+  hypothesis_grid_results_v2.csv: 10 rows, n_obs == frozen for all tests
+/home/whacko/research/nepse-floorsheet-microstructure/scripts/run_v2_stage4.py:144: Pandas4Warning: The 'lsuffix' and 'rsuffix' keywords in DataFrame.join are deprecated and will be removed in a future version. Use the 'suffixes' keyword instead.
+  joined = aug.set_index("test_id").join(
+  hypothesis_grid_results_rw.csv: 10 rows, n_obs == frozen for all tests
+
+[4.2] H7 specification curve (144 declared specs)
+  specification curve: 12/144
+  specification curve: 24/144
+  specification curve: 36/144
+  specification curve: 48/144
+  specification curve: 60/144
+  specification curve: 72/144
+  specification curve: 84/144
+  specification curve: 96/144
+  specification curve: 108/144
+  specification curve: 120/144
+  specification curve: 132/144
+  specification curve: 144/144
+  specification curve: 67.3s
+  gate: base DK +3.952373 bp p 0.027432 (frozen +3.952373 / 0.027432); DC p 0.0086; FM p 0.0094; WB p 0.0220
+
+[4.3] broker-level monthly panel (descriptive, R11)
+  broker panel: 3.7s
+  57,892,602 valid trades; 3,026 broker-months; 91 brokers; core broker-months 219
+                          item        value
+                  valid_trades 5.789260e+07
+                        months 4.800000e+01
+                       brokers 9.100000e+01
+                 broker_months 3.026000e+03
+                    active_min 5.000000e+01
+                    active_max 9.000000e+01
+                    hhi_median 1.701533e-02
+                       hhi_p99 2.515853e-01
+                       hhi_max 1.000000e+00
+                breadth_median 2.220000e+02
+                  core_brokers 1.100000e+01
+            core_broker_months 2.190000e+02
+            jaccard_top50_mean 9.668618e-01
+jaccard_top50_mean_active_gt50 9.661414e-01
+                  core_to_core 1.830000e+02
+             core_to_periphery 2.800000e+01
+             periphery_to_core 3.600000e+01
+                       entries 4.100000e+01
+                         exits 1.000000e+00
+  core-definition sensitivity:
+    rank_variable  core_brokers  core_broker_months  jaccard_vs_declared  n_core_only_here  n_core_only_declared
+      betweenness            11                 219             1.000000                 0                     0
+      eigenvector             9                 244             0.837302                33                     8
+total_value_paisa            10                 244             0.882114                27                     2
+
+[4.4b] broker-id source-format defect sensitivity
+  broker-id sensitivity: 0.8s
+test_id  beta_full_bp  beta_excl_affected_bp  p_full_dk  p_excl_affected_dk  pct_change_beta  sign_same
+     H1     -1.556594              -1.613406   0.430629            0.414965        -0.036497       True
+     H2     -1.491177              -1.522307   0.575298            0.563922        -0.020876       True
+     H3      0.957087               1.016357   0.750120            0.736746         0.061927       True
+     H4      7.509961               7.445158   0.027547            0.029773        -0.008629       True
+     H5     -1.856088              -1.854218   0.487523            0.489443         0.001008       True
+     H6    -10.938552             -10.902051   0.019711            0.020178         0.003337       True
+     H7      3.952373               4.053687   0.027432            0.023996         0.025634       True
+     H8     -4.470947              -4.260196   0.045888            0.056276         0.047138       True
+     H9      1.817473               1.768252   0.458719            0.471009        -0.027082       True
+    H10      9.492266               9.484773   0.013755            0.014093        -0.000789       True
+
+[4.4] pre-declared subgroup heterogeneity
+  subgroups: 2.0s
+  36 estimated rows + 4 NOT_EXECUTED row(s)
+test_id         split              group    row_type   beta_bp         t     p_dk   p_bonf
+     H4          size              small       group  9.380157  1.740090 0.081952 0.491713
+     H4          size              large       group  8.228700  1.658197 0.097389 0.584332
+     H4          size     large_vs_small interaction -2.855921 -0.585990 0.557903 1.000000
+     H4     liquidity             liquid       group  4.401459  0.976193 0.329053 1.000000
+     H4     liquidity           illiquid       group  8.700668  1.686453 0.091817 0.550904
+     H4     liquidity illiquid_vs_liquid interaction -0.454773 -0.084302 0.932819 1.000000
+     H4 turnover_tier            bottom7       group  8.683893  1.692934 0.090542 0.543249
+     H4 turnover_tier               top3       group 11.337634  1.867277 0.062069 0.372415
+     H4 turnover_tier    top3_vs_bottom7 interaction -3.226874 -0.603719 0.546052 1.000000
+     H7          size              small       group  7.020361  2.210419 0.027156 0.162936
+     H7          size              large       group  1.334585  0.541607 0.588132 1.000000
+     H7          size     large_vs_small interaction -5.556791 -1.849817 0.064386 0.193158
+     H7     liquidity             liquid       group  3.253548  1.220499 0.222379 1.000000
+     H7     liquidity           illiquid       group  3.010589  1.156148 0.247717 1.000000
+     H7     liquidity illiquid_vs_liquid interaction  2.214673  0.648515 0.516675 1.000000
+     H7 turnover_tier            bottom7       group  4.816543  1.953424 0.050835 0.305011
+     H7 turnover_tier               top3       group  0.393559  0.120533 0.904078 1.000000
+     H7 turnover_tier    top3_vs_bottom7 interaction -1.658822 -0.539201 0.589767 1.000000
+     H8          size              small       group -5.445756 -1.771558 0.076576 0.459455
+     H8          size              large       group -1.910551 -0.486312 0.626784 1.000000
+     H8          size     large_vs_small interaction  1.692284  0.433534 0.664641 1.000000
+     H8     liquidity             liquid       group -4.112330 -1.324222 0.185538 1.000000
+     H8     liquidity           illiquid       group -5.510506 -1.602098 0.109244 0.655464
+     H8     liquidity illiquid_vs_liquid interaction  1.229159  0.271878 0.785725 1.000000
+     H8 turnover_tier            bottom7       group -5.332185 -1.932592 0.053353 0.320119
+     H8 turnover_tier               top3       group  0.469173  0.110170 0.912290 1.000000
+     H8 turnover_tier    top3_vs_bottom7 interaction  0.264071  0.066746 0.946786 1.000000
+    H10          size              small       group  9.047763  1.614626 0.106503 0.639021
+    H10          size              large       group  5.603803  0.825818 0.408977 1.000000
+    H10          size     large_vs_small interaction -1.950754 -0.352444 0.724517 1.000000
+    H10     liquidity             liquid       group  8.148518  1.461595 0.143965 0.863789
+    H10     liquidity           illiquid       group 12.843713  1.812775 0.069971 0.419826
+    H10     liquidity illiquid_vs_liquid interaction -0.067138 -0.007477 0.994034 1.000000
+    H10 turnover_tier            bottom7       group 10.344069  2.259431 0.023907 0.143444
+    H10 turnover_tier               top3       group  2.698377  0.332483 0.739574 1.000000
+    H10 turnover_tier    top3_vs_bottom7 interaction -8.973270 -1.482235 0.138327 0.414982
+
+[4.5] event-study BMP + rank upgrade
+  event study: 0.6s
+  gate: 686 events, max |CAR diff| 0.00e+00, appendix 16
+              sample  n_events           model  mean_car   sd_car                                            note               test  statistic  p_value
+             all_686       686       v1_method  0.001286 0.059117     headline sample; overlapping windows caveat         mean_car_t   0.569800 0.569000
+             all_686       686       v1_method  0.001286 0.059117     headline sample; overlapping windows caveat          bmp_car_t   1.174995 0.240405
+             all_686       686       v1_method  0.001286 0.059117     headline sample; overlapping windows caveat          bmp_car_z   1.579983 0.114111
+             all_686       686       v1_method  0.001286 0.059117     headline sample; overlapping windows caveat corrado_rank_car_z   3.158488 0.001586
+             all_686       686 market_adjusted -0.007341 0.055094 uniform market-adjusted variant on same windows         mean_car_t  -3.489946 0.000514
+             all_686       686 market_adjusted -0.007341 0.055094 uniform market-adjusted variant on same windows          bmp_car_t  -2.517926 0.012032
+             all_686       686 market_adjusted -0.007341 0.055094 uniform market-adjusted variant on same windows          bmp_car_z  -2.725267 0.006425
+             all_686       686 market_adjusted -0.007341 0.055094 uniform market-adjusted variant on same windows corrado_rank_car_z   3.141403 0.001681
+illiquid_16_appendix        16       v1_method -0.024477 0.025927             appendix only; not a headline quote         mean_car_t  -3.776339 0.001830
+illiquid_16_appendix        16       v1_method -0.024477 0.025927             appendix only; not a headline quote          bmp_car_t  -3.763491 0.001878
+illiquid_16_appendix        16       v1_method -0.024477 0.025927             appendix only; not a headline quote          bmp_car_z  -0.623706 0.532821
+illiquid_16_appendix        16       v1_method -0.024477 0.025927             appendix only; not a headline quote corrado_rank_car_z   0.731721 0.464339
+  date-clustered descriptive inference:
+               statistic  n_dates     mean       se        t  p_value                                             note
+                mean_car      393 0.002076 0.002897 0.716606 0.474044 date-clustered descriptive; still an upper bound
+   corrado_rank_centered      393 7.089794 2.810634 2.522489 0.012048 date-clustered descriptive; still an upper bound
+corrado_rank_centered_ma      393 6.296480 2.766081 2.276318 0.023366 date-clustered descriptive; still an upper bound
+
+[4.6] cost-benefit arithmetic
+test_id  effect_bp_per_sd  cost_low_bp  cost_high_bp  cost_multiple_low  cost_multiple_high
+     H7          3.952373         30.0          50.0           7.590377           12.650628
+    H10          9.492266         30.0          50.0           3.160468            5.267446
+     H4          7.509961         30.0          50.0           3.994695            6.657824
+
+[4.7] headline numbers of record
+  specification curve: 144 specs; median +1.235 bp; CI-excluding-0 share 0.396
+          group  n_specs  median_bp   mean_bp     min_bp    max_bp  range_bp  share_ci_excludes_0  share_p_lt_05  share_positive  robustness_ratio  robustness_ratio_abs
+        overall      144   1.234926  0.521422 -19.279977 17.892875 37.172853             0.395833       0.354167        0.541667         30.101284             30.101284
+outcome=abs_ret       72   3.952373  5.331484   1.254163 17.892875 16.638712             0.583333       0.541667        1.000000          4.209803              4.209803
+    outcome=ret       72  -4.289072 -4.288640 -19.279977  1.215688 20.495666             0.208333       0.166667        0.083333         -4.778579              4.778579
+
+Stage 4 total wall: 86.2s
+STAGE4_DONE
+[2026-11-12T09:30:54Z] STEP v2_stage4 exit=0 wall=87.3s
+==============================================================================
+[2026-11-12T09:30:54Z] STEP final_headline_set: scripts/build_v2_final_headline_set.py
+==============================================================================
+final headline set written
+hypothesis pre_declared_direction  estimated_beta     dk_p  rw_p  wild_bootstrap_p se_concordance  survives_liquidity  survives_egarch       tail_concentration final_classification
+        H1               positive       -1.556594 0.430629 0.915             0.257     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H2               positive       -1.491177 0.575298 0.915             0.541     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H3               negative        0.957087 0.750120 0.915             0.794     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+        H4               negative        7.509961 0.027547 0.159             0.002         STRONG                True             True  BOTH_TAILS (INCREASING) EXPLORATORY_POST_HOC
+        H5               positive       -1.856088 0.487523 0.915             0.357     NULL (0/4)               False            False LOWER_TAIL (descriptive)         NULL_POWERED
+        H6              ambiguous      -10.938552 0.019711 0.120             0.002       MODERATE                True             True  LOWER_TAIL (INCREASING)         NULL_FRAGILE
+        H7               positive        3.952373 0.027432 0.159             0.022         STRONG                True             True              NONE (HUMP)         NULL_FRAGILE
+        H8               negative       -4.470947 0.045888 0.203             0.095         STRONG                True             True     LOWER_TAIL (U_SHAPE)         NULL_FRAGILE
+        H9               negative        1.817473 0.458719 0.915             0.100     NULL (0/4)               False            False UPPER_TAIL (descriptive)         NULL_POWERED
+       H10               positive        9.492266 0.013755 0.081             0.009       MODERATE                True             True  BOTH_TAILS (INCREASING)    HEADLINE_MODERATE
+
+composition audit
+hypothesis               stage1  stage2_headline stage2_concordance               mde  liquidity  egarch  rw_p                final
+        H1          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H2          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H3          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H4 EXPLORATORY_POST_HOC            False             STRONG               n/a       True    True 0.159 EXPLORATORY_POST_HOC
+        H5          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+        H6         NULL_FRAGILE            False           MODERATE               n/a       True    True 0.120         NULL_FRAGILE
+        H7         NULL_FRAGILE            False             STRONG               n/a       True    True 0.159         NULL_FRAGILE
+        H8         NULL_FRAGILE            False             STRONG NULL_UNDERPOWERED       True    True 0.203         NULL_FRAGILE
+        H9          NULL_ROBUST            False                NaN      NULL_POWERED      False   False 0.915         NULL_POWERED
+       H10   CONFIRMED_HEADLINE             True           MODERATE               n/a       True    True 0.081    HEADLINE_MODERATE
+[2026-11-12T09:30:54Z] STEP final_headline_set exit=0 wall=0.2s
+
+# finished 2026-11-12T09:30:54Z
+# all steps completed with exit 0

@@ -38,7 +38,7 @@ def _quote_row(row: dict) -> str:
     import io
     import csv as _csv
     buf = io.StringIO()
-    w = _csv.writer(buf, quoting=_csv.QUOTE_MINIMAL)
+    w = _csv.writer(buf, quoting=_csv.QUOTE_MINIMAL, lineterminator="\n")
     w.writerow([row[c] for c in COLUMNS])
     return buf.getvalue().rstrip("\n")
 

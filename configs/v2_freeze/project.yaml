@@ -1,0 +1,155 @@
+# ============================================================
+# Project config — SHA-256 fingerprinted on every load
+# (nepsemsc.utils.config.load_config attaches a config hash).
+# PRE-DECLARED 2026-11-08, BEFORE any test-fold data seen (DC20).
+# Change anything here => a new fingerprint => recorded in provenance.
+# ============================================================
+
+project: nepse-floorsheet-microstructure
+thesis: >
+  Broker Networks, Concentration, and Market Integrity in a Frontier
+  Exchange: Evidence from NEPSE Floorsheets.
+epistemic_frame: >
+  PREDICTIVE test, not causal identification. Anomaly scores are claimed to
+  PREDICT future returns/volatility, not to CAUSE them. Words forbidden in
+  formal writeup: "confirmed manipulation", "wash trading" (use "self-loop
+  volume"). (R12)
+
+timezone:
+  name: Asia/Kathmandu      # UTC+5:45 (DC4); verified offset 05:45 in tests
+  utc_offset_minutes: 345
+
+scope:
+  # ORIGINAL BRIEF WINDOW (bubble regime). Floorsheet coverage for 2021-2023
+  # is NOT yet evidenced; Phase 2 runs a bounded archive search (~2h).
+  # Trigger documented for the fork: if no 2021-2023 floorsheet archive is
+  # verified by 2026-11-12, adopt floorsheet_guaranteed window (2024-2026)
+  # and re-derive R8 regimes from OHLCV drawdown/momentum instead of the
+  # 2021-22 bubble epoch. Decision + evidence logged in docs/block_log.md.
+  floorsheet_target:
+    start: "2021-01-01"
+    end: "2024-12-31"
+  floorsheet_guaranteed:
+    start: "2024-01-01"
+    end: "2026-11-02"
+  n_stocks: 10
+  stock_selection: >
+    TOP-10 by mean daily turnover measured on TRAINING-FOLD data only,
+    re-selected per fold (DC1). Candidates reconciled against tier1_kaggle
+    OHLCV (already local; licence pending user UI check).
+  stocks_smoke: [NABIL]
+  smoke_month: "2024-12"
+
+universe:
+  inclusion_min_days_present: 0.90      # DC2 (share of NEPSE trading days)
+  low_activity_min_trades: 100          
+  missing_broker_id_policy: drop_and_flag   # SV7 pre-decision: DROP missing-ID
+    # rows (unbiased, loses volume), flag in audit; never switch mid-analysis
+  dedupe_keys: [date, symbol, contract_no]
+
+calendar:
+  source: ohlcv_derived                 # DC3: sessions = dates with non-null volume
+  ignore_bdate_range: true              # does NOT trade Mon-Fri; Sat closed
+
+walk_forward:                            # R5/R7/R1
+  n_folds: 4
+  purge_gap_sessions: 6                  # horizon(1) + embargo(5)
+  gap_definition: strict                 # purge_gap sessions STRICTLY between
+                                         # train_end pos and test_start pos:
+                                         # test_start_pos = train_end_pos + gap + 1
+  mode: anchored                         # fold f trains on [0, c_f), tests on
+                                         # purged chunk f (expanding); deviation
+                                         # from sequential logged 2026-11-09
+                                         # BEFORE any test-fold data observed
+                                         # (docs/analysis_deviations.md)
+                                         # sequential = Phase-5 robustness only
+  universe_per_fold: true                # DC1
+
+anomaly:                                 # Module 2 (R1/R7)
+  model: isolation_forest
+  n_estimators: 200
+  contamination: auto
+  score_orientation: higher_is_more_anomalous  # -decision_function
+  features:
+    - buyer_hhi
+    - seller_hhi
+    - self_loop_ratio
+    - end_of_day_concentration
+    - reciprocity
+    - density
+    - max_betweenness
+    - core_periphery_coeff
+  winsorization: [0.01, 0.99]            # DC8, training-fold percentiles only
+  vif_max: 10                            # DC8
+  fallbacks: [mahalanobis, zscore_sum_sq]  # SV5 (a)(b)
+
+regression:                              # Module 3 (R2/R3/R6)
+  outcomes: [ret_fwd1, abs_ret_fwd1]
+  se_primary: driscoll_kraay
+  se_maxlag_bandwidth: 5
+  se_fallbacks: [double_clustered, fama_macbeth, cluster_entity_only]  # SV2
+  forbidden_se: [robust, hc1, unadjusted, plain]   # R3 — wrapper REFUSES these
+  multiple_testing:
+    method: benjamini_hochberg
+    q: 0.10
+    n_tests: 10
+    grid: "5 anomaly features x 2 outcomes"        # R6
+  primary_hypothesis:
+    feature: self_loop_ratio
+    outcome: abs_ret_fwd1
+    expected_sign: positive
+    note: "H1. All other grid cells are SECONDARY (R6)."
+  controls: [log_volume, market_ret_loo]   # DC9: market retrn ex-self on 10 stocks
+  placebo:                                 # R2/DC13
+    n_permutations: 200
+    rule: "headline beta significant iff exceeds 95th pct of placebo betas AND survives BH-FDR"
+    outcome_lag_test: true                 # DC13: outcome at t-1 must NOT predict
+
+regime_split:                            # R8 (window depends on scope fork above)
+  definition_pending_phase2: >
+    If 2021-2024 scope adopted: regimes = 2021-2022 (bubble) vs 2023-2024
+    (normal) per brief. If 2024-2026 scope adopted: regimes derived from
+    OHLCV-portfolio drawdown/momentum time series (pre-declared rule to be
+    written into docs/analysis_plan.md BEFORE fold scorring).
+  report_interaction_p: true
+
+event_study:                             # SV3 chain
+  window: 5
+  estimation_window: 60
+  threshold: "train-fold anomaly 90th percentile (DC7 — never test-fold percentile)"
+  thresholds:
+    illiquidity_r2_min: 0.1
+    beta_abs_max: 3.0
+  fallbacks: [market_adjusted, leave_one_out_index, raw_returns_caveat]
+
+eod_proxy:                               # SV6 adapted — prior project evidence:
+  top_pct: 0.05                          # raw floorsheets are NOT tx-ordered in
+  ordering: contract_no_after_sort       # file order (reverse-pair rate 0.79-0.86
+  tolerance: document_gaps_per_day       # in 2024); ALWAYS sort by transaction.
+  low_coverage_fallback: top_10pct_row_order
+
+network:
+  graph: directed_weighted               # nodes=brokers, edges=broker-pair volume
+  eod_based_on_aggregated_edges: true    # never raw trades into NetworkX
+  core_periphery:
+    method: borgatti_everett_spectral_sweep
+  persistence_top_k: 10                  # R11 (descriptive only)
+
+data_sources:                            # SV1 chain evidence (see docs/block_log.md)
+  floorsheet_primary:
+    name: socrateai-official/nepse-open-data
+    licence: MIT (verified by sibling project 2026-11-08, full text fetched)
+    evidence: "https://raw.githubusercontent.com/socrateai-official/nepse-open-data/main/LICENSE"
+  nepalstock_direct: BLOCKED_HTTP000     # never direct-scrape (network-level block)
+  ohlcv_secondary:
+    name: rohankasichhwa/nepse-daily-stock-data-2012-2025 (Kaggle, LOCAL ALREADY)
+    licence: pending_user_ui_check
+  price_proxy:
+    name: SamirWagle/Nepse-All-Scraper (prices)
+    licence: none_file_attribution_required
+  third_party_raw_root: /home/whacko/research/nepse-kronos-thesis/data/raw
+
+hygiene:
+  gpu: not_required                      # CPU-bound thesis (DuckDB/NetworkX/Econometrics)
+  notebooks_executed_top_to_bottom: true # DC19 (nbmake)
+  placebo_seed_policy: single source src/nepsemsc/utils/seeds.py (DC14)
