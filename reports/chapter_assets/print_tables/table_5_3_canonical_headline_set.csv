@@ -1,0 +1,11 @@
+hypothesis,pre_declared_direction,estimated_beta_bp,dk_p,rw_p,wild_bootstrap_p,se_concordance,survives_liquidity,survives_egarch,tail_concentration,final_classification
+H1,positive,-1.557,0.4306,0.9150,0.2570,NULL (0/4),no,no,UPPER_TAIL (descriptive),NULL_POWERED
+H2,positive,-1.491,0.5753,0.9150,0.5410,NULL (0/4),no,no,UPPER_TAIL (descriptive),NULL_POWERED
+H3,negative,0.957,0.7501,0.9150,0.7940,NULL (0/4),no,no,UPPER_TAIL (descriptive),NULL_POWERED
+H4,negative,7.510,0.0275,0.1590,0.0020,STRONG,yes,yes,BOTH_TAILS (INCREASING),EXPLORATORY_POST_HOC
+H5,positive,-1.856,0.4875,0.9150,0.3570,NULL (0/4),no,no,LOWER_TAIL (descriptive),NULL_POWERED
+H6,ambiguous,-10.939,0.0197,0.1200,0.0020,MODERATE,yes,yes,LOWER_TAIL (INCREASING),NULL_FRAGILE
+H7,positive,3.952,0.0274,0.1590,0.0220,STRONG,yes,yes,NONE (HUMP),NULL_FRAGILE
+H8,negative,-4.471,0.0459,0.2030,0.0950,STRONG,yes,yes,LOWER_TAIL (U_SHAPE),NULL_FRAGILE
+H9,negative,1.817,0.4587,0.9150,0.1000,NULL (0/4),no,no,UPPER_TAIL (descriptive),NULL_POWERED
+H10,positive,9.492,0.0138,0.0810,0.0090,MODERATE,yes,yes,BOTH_TAILS (INCREASING),HEADLINE_MODERATE

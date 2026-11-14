@@ -1,0 +1,9 @@
+date,event,artifact,note
+2026-11-08,v1 analysis plan frozen before any test-fold data was scored,docs/analysis_plan.md,DC20; initial config fingerprint 29a43e8c.
+2026-11-09,Fold mode amended sequential -> anchored before scoring,commit 26ad798; deviation #1,Purge gap remains 6 sessions.
+2026-11-10,v2 extension pre-declared before any v2 result,docs/analysis_plan_v2_extension.md,Binding v2 protocols and seed ranges.
+2026-11-11 to 2026-11-12,v2 Stages 1-4 executed,EXP-0008a to EXP-0011f,"Classification, dependence, distributional and heterogeneity checks."
+2026-11-12,Stage-5 canonical headline set and chapter skeletons,EXP-0012,Final composition rule applied.
+2026-11-12/13,Stage-6 clean rebuild and numerical-equivalence audit,EXP-0013; docs/reproducibility.md,"21/21 steps exit 0; 3,749.9 s."
+2026-11-13,v2.0.1 verified chapter-to-artefact crosswalk,EXP-0014; docs/chapter_artifact_map.md,67 claims; hash audit.
+2026-11-13,v2.0.2 pre-write asset sprint,this sprint,"No new analysis; assets, skeletons, tables, figures and checks only."

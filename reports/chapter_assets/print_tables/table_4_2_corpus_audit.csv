@@ -1,0 +1,17 @@
+metric,value,unit,exp_id,note
+Raw floorsheet rows ingested,57927926,rows,EXP-0002b,"36,706,934 Kaggle + 21,220,992 socrateai."
+Rows after deduplication,57892630,rows,EXP-0002c,Page-split duplicates dropped.
+Duplicate rows dropped,35296,rows,EXP-0002c,"Dedupe key = (date, symbol, contract_no)."
+Day files ingested,1167,files,EXP-0002b,576 raw-slice extracts plus archive files.
+Distinct symbols,530,symbols,EXP-0002c,"Corpus-wide, not the headline panel."
+Calendar sessions covered,938,sessions of 940,EXP-0002b,Gaps: 2021-09-01 and 2023-11-27.
+Duplicate keys,752,keys,EXP-0002c,"Duplicate (date, symbol, contract_no) keys."
+Exact duplicate keys dropped,506,keys,EXP-0002c,Full-signature duplicates.
+Signature-conflict keys kept non-merged,246,keys,EXP-0002c,Deterministic full-signature pick.
+"Junk (symbol, date) pairs",19,pairs,EXP-0002c,All numerics empty; kept in raw with NULL volume.
+Empty-symbol rows,4,rows,EXP-0002c,Junk scrape rows.
+2023-02-16 contract-id defect rows,35043,rows,EXP-0002c,All share one transaction id; ordering features exclude the day.
+Low-activity symbol-days,114167,pairs,EXP-0002f,Fewer than 100 trades; included by default.
+Missing broker-ID symbol-days,19,pairs,EXP-0002c,NULL volume; no aggregation touches them.
+Dotted broker-ID rows,275590,rows,EXP-0011c,15 days; canonicalised Xs.0 -> zero-padded integer.
+Out-of-sample rows affected by dotted IDs,37,rows of 7116,EXP-0011c,"0.52%; leave-out signs unchanged, H8 p .0563."

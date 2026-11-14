@@ -45,7 +45,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | Ch.4 Data Engineering | 4.1 | CH4-4.1-PIPELINE | `reports/chapter_assets/ch4_pipeline_diagram.md` | EXP-0013 | `b043e3a066aee065c07c56f2b408505d3deeba3832b51e5279d0f7348428093f` | v2 | SCAFFOLD |
 | Ch.4 Data Engineering | 4.1 | CH4-4.1-DRIVER | `scripts/run_stage6_rebuild.py` | EXP-0013 | `01748ac61512065392375bdf441fe7ccb507d18b1c4430cdc17c9cd71f562a3a` | v2 | VERIFIED |
 | Ch.4 Data Engineering | 4.2 | CH4-4.2-PROVENANCE | `data/metadata/corpus_files_sha256.csv` | EXP-0002b | `e78df58d539b59e4e8e8636437a8870ffb3a727a9095c7c00d9e0931cffbedac` | v1 | VERIFIED_V1_IMMUTABLE |
-| Ch.4 Data Engineering | 4.2 | CH4-4.2-LICENCE | `docs/ai_use_policy.md` | EXP-0002d | `2ae1525324177b04af9e2898430b5ae37bc0c77f240549380ae656a9a731f223` | v1 | VERIFIED_V1_IMMUTABLE |
+| Ch.4 Data Engineering | 4.2 | CH4-4.2-LICENCE | `docs/ai_use_policy.md` | EXP-0002d | `86497cdbcb5b6e87bb2356fb8cbf1faaf00451da62313449534fbb22c8c35c13` | v2 | VERIFIED |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-CORPUS-AUDIT | `notebooks/01_data_quality_audit.ipynb` | EXP-0002f | `4fb7abe2b9aa2a176e00a58c5cb043e6236629a558e00e4ccc068e864165bb56` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-DUP | `outputs/tables/corpus_duplicate_keys.csv` | EXP-0002c | `398b0c6d0da268675ea9c9878aeb1f6f97a330c1c39d8f90300c5903859336a5` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-MISSING | `outputs/tables/corpus_missing_broker_ids.csv` | EXP-0002c | `c1232f5686922124230152fa9a2a0918725fef19ef1bc392391ac41e99f5e586` | v1 | VERIFIED_V1_IMMUTABLE |

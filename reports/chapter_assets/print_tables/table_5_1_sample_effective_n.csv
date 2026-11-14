@@ -1,0 +1,11 @@
+hypothesis,feature,outcome,n_obs,n_stocks,n_dates,n_effective,n_fm_cross_sections
+H1,Self-loop volume ratio,|Return| (t+1),7116,12,723,6383,712
+H2,IF anomaly score,|Return| (t+1),7116,12,723,6383,714
+H3,IF anomaly score,Return (t+1),7116,12,723,6383,714
+H4,Buyer HHI,Return (t+1),7116,12,723,6383,714
+H5,Buyer HHI,|Return| (t+1),7116,12,723,6383,714
+H6,Reciprocity,Return (t+1),7116,12,723,6383,712
+H7,End-of-day concentration,|Return| (t+1),7116,12,723,6383,714
+H8,End-of-day concentration,Return (t+1),7116,12,723,6383,714
+H9,Self-loop volume ratio,Return (t+1),7116,12,723,6383,712
+H10,Reciprocity,|Return| (t+1),7116,12,723,6383,712

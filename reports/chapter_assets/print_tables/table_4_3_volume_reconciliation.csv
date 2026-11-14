@@ -1,0 +1,8 @@
+metric,value,unit,note
+Reconciliation pairs in file,11283,pairs,All symbol-days in the top-12 scope.
+Both-side pairs with volume ratio,10909,pairs,374 pairs lack one side.
+Median volume ratio,1.0000,ratio,Floorsheet volume counts the buyer side.
+"Pairs in [0.95, 1.25]",10538,pairs,96.5991% of both-side pairs.
+"Pairs in [0.98, 1.02]",10332,pairs,94.7108% of both-side pairs.
+Median amount ratio,1.0000,ratio,Rupee amount reconciliation.
+Maximum volume ratio,1597.020,ratio,Outlier; full-market ~2x ratio is a tier1 coverage artifact.

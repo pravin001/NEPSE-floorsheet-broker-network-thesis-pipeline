@@ -110,9 +110,14 @@ Machine-readable: `reports/chapter_assets/ch4_asset_manifest.csv`.
 |---|---|---|---|
 | `scripts/run_stage6_rebuild.py` | 21-step driver | v2 | EXP-0013 |
 | `data/metadata/corpus_files_sha256.csv` | per-file provenance | v1 | EXP-0002b |
-| `docs/ai_use_policy.md` | licence register | v1 | EXP-0002d |
+| `docs/ai_use_policy.md` | licence register | v2 | EXP-0002d |
 | `notebooks/01_data_quality_audit.ipynb` | executable audit | v1 | EXP-0002f |
 | `outputs/tables/volume_reconciliation.csv` | volume check | v1 | EXP-0002e |
 | `outputs/tables/v2_clean_rebuild_audit.csv` | drift evidence | v2 | EXP-0013 |
 | `docs/reproducibility.md` | rebuild record | v2 | EXP-0013 |
 | `reports/chapter_assets/ch4_pipeline_diagram.md` | Figure 4.1 scaffold | v2 handoff | EXP-0013 |
+
+**Note.** The licence register was rewritten in the v2.0.2 pre-write sprint
+(Phase D), so its crosswalk row is now `v2 | VERIFIED`. The v1 file remains in
+git history and its old hash remains in the append-only provenance manifest;
+no numeric result changed.

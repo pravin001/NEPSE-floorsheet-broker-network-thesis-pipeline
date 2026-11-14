@@ -1,0 +1,7 @@
+estimator,assumption_or_construction,role,decision_rule,exp_id
+Driscoll-Kraay (DK),Bartlett kernel HAC; bandwidth 5; entity and time FE absorbed,Primary,alpha=.05; BH q=.10,EXP-0004b
+Two-way cluster (DC-v2),Entity and time two-way cluster covariance,Concordance,p<.10 in the four-estimator count,EXP-0009d
+Fama-MacBeth (FM),Cross-sectional slope series; full-rank date slices only,Concordance,p<.10 in the four-estimator count,EXP-0004b; EXP-0009d
+Wild cluster bootstrap (WB),Entity/symbol clusters; B=999; ReBWB,Concordance,p<.10; 12-cluster small-G caveat,EXP-0009c
+Romano-Wolf (RW),Stepdown max-t over the family of 10; B=999,Family-wise gate,q=.10,EXP-0008b
+Benjamini-Hochberg (BH),Step-up FDR over the family of 10,v1 gate,q=.10,EXP-0004b

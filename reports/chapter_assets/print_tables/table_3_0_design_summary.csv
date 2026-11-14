@@ -1,0 +1,15 @@
+item,value,source,note
+Observation unit,symbol-session (daily),docs/analysis_plan.md §1,Floorsheet rows are aggregated to one row per symbol and session.
+Window,2021-01-03 to 2024-12-31,docs/analysis_plan.md §1; docs/reproducibility.md,940 DC3 calendar sessions; 938 have corpus coverage.
+Headline panel,"12 symbols; 723 dates; 7,116 rows",outputs/tables/hypothesis_grid_results_v2.csv,"The panel is the per-fold top-10 universe, not the 530-symbol market."
+Effective N,"6,383",outputs/tables/hypothesis_grid_results_v2.csv,"n_obs - (n_stocks - 1) - (n_dates - 1) = 7,116 - 11 - 722."
+Network features,self-loop ratio; buyer HHI; reciprocity; end-of-day concentration,docs/analysis_plan.md §2,Definitions in Table 3.3.
+Anomaly feature,"Isolation Forest score (200 trees, TRAIN-fold fit)",docs/analysis_plan.md §4,Scored with -decision_function on both sides.
+Outcomes,ret_fwd1; abs_ret_fwd1,docs/analysis_plan.md §2,Next-session close-to-close return and its absolute value.
+Baseline controls,log_volume; market_ret_loo,docs/analysis_plan.md §2,Leave-one-out equal-weight market return.
+v2 liquidity controls,Amihud; Roll; Corwin-Schultz,docs/analysis_plan_v2_extension.md §V2-2,Three trailing proxies; no quoted spreads.
+Fixed effects,symbol + date,docs/analysis_plan.md §3,PanelOLS with absorbed entity and time effects.
+Primary inference,"Driscoll-Kraay, Bartlett bandwidth 5",docs/analysis_plan.md §3,DK(bw=5) is the primary standard error.
+Concordance inference,DC-v2; Fama-MacBeth; wild cluster bootstrap,docs/analysis_plan_v2_extension.md §V2-1,"Each is a concordance check, not a replacement primary."
+Multiplicity,BH q=.10 (v1); Romano-Wolf q=.10 (v2),docs/analysis_plan.md §2; docs/analysis_plan_v2_extension.md §V2-1,BH is the v1 gate; RW is the family-wise v2 gate.
+Validation design,"4 anchored folds; 6-session purge; 7,126 OOS rows; 686 events",docs/analysis_plan.md §4,Warm-up chunk is never tested.

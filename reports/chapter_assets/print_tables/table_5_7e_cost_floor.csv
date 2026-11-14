@@ -1,0 +1,4 @@
+hypothesis,effect_bp_per_sd,direction,cost_floor_low_bp,cost_floor_high_bp,multiple_below_floor_low,multiple_below_floor_high,standalone_tradable_at_1sd,note
+H7,3.952,positive,30,50,7.59,12.65,no,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
+H10,9.492,positive,30,50,3.16,5.27,no,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
+H4,7.510,opposite_sign_post_hoc,30,50,3.99,6.66,no,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"

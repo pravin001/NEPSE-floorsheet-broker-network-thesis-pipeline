@@ -22,7 +22,7 @@ CH3-3.6-EVENT,Ch.3 Methodology,3.6,docs/analysis_plan.md,EXP-0004e,v1,VERIFIED_V
 CH4-4.1-PIPELINE,Ch.4 Data Engineering,4.1,reports/chapter_assets/ch4_pipeline_diagram.md,EXP-0013,v2,SCAFFOLD,true,true,true,true,OK,hash-aligned
 CH4-4.1-DRIVER,Ch.4 Data Engineering,4.1,scripts/run_stage6_rebuild.py,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH4-4.2-PROVENANCE,Ch.4 Data Engineering,4.2,data/metadata/corpus_files_sha256.csv,EXP-0002b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
-CH4-4.2-LICENCE,Ch.4 Data Engineering,4.2,docs/ai_use_policy.md,EXP-0002d,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH4-4.2-LICENCE,Ch.4 Data Engineering,4.2,docs/ai_use_policy.md,EXP-0002d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH4-4.3-CORPUS-AUDIT,Ch.4 Data Engineering,4.3,notebooks/01_data_quality_audit.ipynb,EXP-0002f,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
 CH4-4.3-DUP,Ch.4 Data Engineering,4.3,outputs/tables/corpus_duplicate_keys.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
 CH4-4.3-MISSING,Ch.4 Data Engineering,4.3,outputs/tables/corpus_missing_broker_ids.csv,EXP-0002c,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned

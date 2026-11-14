@@ -1,0 +1,74 @@
+artifact,frozen_sha256_12,rebuilt_sha256_12,frozen_rows,rebuilt_rows,status,max_abs_diff,max_rel_diff,notes
+outputs/tables/anomaly_scores_preview.csv,6337c119ce1d,52e40e3ec37d,200,200,NUMERIC_EPSILON,8.33e-17,7.74e-16,floating-point aggregation/computation order; worst=buyer_hhi
+outputs/tables/anomaly_scoring_summary.csv,e809fbf0fc4e,e809fbf0fc4e,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_core_definition_sensitivity.csv,e09406ecb9b6,e09406ecb9b6,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_core_transitions.csv,1f800f073e81,1f800f073e81,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_id_defect_sensitivity.csv,ab151a9e0be3,ef8d9130c671,10,10,NUMERIC_EPSILON,7.11e-15,2.03e-12,floating-point aggregation/computation order; worst=beta_excl_affected_bp
+outputs/tables/broker_level_panel.csv,56f7e205a119,56f7e205a119,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_panel_summary.csv,ca510a6989d7,ca510a6989d7,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_persistence_by_symbol.csv,6db0931df1f0,6db0931df1f0,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_persistence_transitions.csv,d5c6ee69a7fc,d5c6ee69a7fc,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_snapshot_summary.csv,d14cb27f6b21,d14cb27f6b21,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/broker_top50_persistence.csv,ad99f03d4eff,ad99f03d4eff,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/condition_vif_ips_report.csv,f4edfbc3325a,40fc5e37085e,7,7,NUMERIC_EPSILON,4.09e-14,7.40e-15,floating-point aggregation/computation order; worst=ips_mean_adf_t
+outputs/tables/corpus_daily_summary.csv,f79e328ea33a,bf21084d1c6f,938,938,REORDERED_ONLY,0.00e+00,0.00e+00,same row multiset; order differs
+outputs/tables/corpus_duplicate_keys.csv,398b0c6d0da2,fbc685619323,752,752,REORDERED_ONLY,0.00e+00,0.00e+00,same row multiset; order differs
+outputs/tables/corpus_low_activity_days.csv,8e6b43b1493f,3092d7a385dd,114167,114167,REORDERED_ONLY,0.00e+00,0.00e+00,same row multiset; order differs
+outputs/tables/corpus_missing_broker_ids.csv,c1232f568692,3c6a9b4d1f28,19,19,REORDERED_ONLY,0.00e+00,0.00e+00,same row multiset; order differs
+outputs/tables/corpus_symbol_coverage.csv,3e758f6ff81d,aa277f0a0e17,530,530,FLOAT_AGGREGATION,1.00e+00,9.09e-08,11 symbol totals differ by 1 unit (max rel 9.1e-8) in a ~1e8-scale sum
+outputs/tables/daily_features_preview.csv,f6abac1c523a,9c7cfb56d066,200,200,NUMERIC_EPSILON,2.78e-16,8.92e-16,floating-point aggregation/computation order; worst=seller_hhi
+outputs/tables/daily_outcomes_preview.csv,596ac4e27aee,596ac4e27aee,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/economic_magnitude.csv,e1b7a0ff2301,e1b7a0ff2301,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/egarch_fit_log.csv,9ab5b8e37cb2,9ab5b8e37cb2,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/egarch_outcome_accounting.csv,cdd123a46f72,cdd123a46f72,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_cars.csv,27403c672c84,27403c672c84,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_clustered_inference.csv,b3e0ffafd355,b3e0ffafd355,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_daily_ars.csv,22a7aef39a15,22a7aef39a15,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_summary.csv,4b722ceb2d1c,4b722ceb2d1c,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_upgrade_gate.csv,de701f4b7f43,de701f4b7f43,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_upgraded.csv,4ccc8059f154,4ccc8059f154,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_upgraded_ars.csv,46a7e9b1cefc,46a7e9b1cefc,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/event_study_upgraded_events.csv,6ff806329bd0,6ff806329bd0,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/feature_correlation.csv,106c49c4cda3,106c49c4cda3,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/feature_regime_summary.csv,7e5b1cf100c4,52b36dbff5c8,4,4,NUMERIC_EPSILON,5.55e-17,4.07e-16,floating-point aggregation/computation order; worst=buyer_hhi_median
+outputs/tables/feature_row_filter_accounting.csv,f1716e24a9dc,f1716e24a9dc,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/headline_with_egarch_outcome.csv,1847d5a091cb,81002430ef3e,50,50,NUMERIC_EPSILON,2.84e-13,1.45e-14,floating-point aggregation/computation order; worst=ci_lo_bp
+outputs/tables/headline_with_liquidity_controls.csv,5511697348cd,b7372aaf3f6a,42,42,NUMERIC_EPSILON,5.33e-15,2.92e-13,floating-point aggregation/computation order; worst=bp
+outputs/tables/heterogeneity_subgroups.csv,5d910a0ea9a3,eed6e5e6e18e,40,40,NUMERIC_EPSILON,1.78e-14,1.16e-14,floating-point aggregation/computation order; worst=ci_lo_bp
+outputs/tables/hypothesis_grid_results.csv,9f916e3ea567,ff5c281f8acb,10,10,NUMERIC_EPSILON,1.03e-14,3.55e-14,floating-point aggregation/computation order; worst=p_fm
+outputs/tables/hypothesis_grid_results_rw.csv,e1ad375faf23,562eb8a5c99d,10,10,NUMERIC_EPSILON,1.03e-14,3.55e-14,floating-point aggregation/computation order; worst=p_fm
+outputs/tables/hypothesis_grid_results_v2.csv,e8d0e050d6e5,c264a58cb1a6,10,10,NUMERIC_EPSILON,1.03e-14,3.55e-14,floating-point aggregation/computation order; worst=p_fm
+outputs/tables/ingestion_session_gaps.csv,f4d37578ce87,f4d37578ce87,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/liquidity_row_accounting.csv,413bc44d4c01,413bc44d4c01,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/liquidity_summary.csv,209979e6f524,209979e6f524,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/null_classification.csv,c74977dbf7d8,5261f70d24c2,7,7,NUMERIC_EPSILON,5.33e-15,2.87e-15,floating-point aggregation/computation order; worst=beta_bp
+outputs/tables/placebo_distribution_expanded.csv,07f2f4e2ec62,07f2f4e2ec62,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/placebo_outcome_test.csv,1081142a33f5,adcf7ca6ddfb,10,10,NUMERIC_EPSILON,1.78e-15,9.97e-15,floating-point aggregation/computation order; worst=beta_bp
+outputs/tables/quantile_regression.csv,e2751327ec3a,e02088e20a36,50,50,OPTIMIZER_DRIFT,2.01e-07,7.44e-07,statsmodels QuantReg convergence path; tail labels/shapes identical
+outputs/tables/quantile_tail_summary.csv,bd2a3dca9a40,d00824c69317,10,10,OPTIMIZER_DRIFT,2.01e-07,7.44e-07,statsmodels QuantReg convergence path; tail labels/shapes identical
+outputs/tables/regime_split_results.csv,c59d96655b0b,34413683b9e8,10,10,NUMERIC_EPSILON,1.89e-15,8.57e-15,floating-point aggregation/computation order; worst=p_bubble
+outputs/tables/robustness_alt_eod_thresholds.csv,3932eb2e75e2,3932eb2e75e2,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/robustness_alt_horizons.csv,49f84088b45b,8fe8a158ae62,10,10,NUMERIC_EPSILON,3.55e-15,8.91e-16,floating-point aggregation/computation order; worst=bp
+outputs/tables/robustness_alt_scorers_rankcorr.csv,ddbc17739e7c,ddbc17739e7c,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/robustness_drop_bubble_grid.csv,dbe6b3b4950b,c1c99558c596,10,10,NUMERIC_EPSILON,1.07e-14,8.09e-15,floating-point aggregation/computation order; worst=bp
+outputs/tables/robustness_headline_survival.csv,82f3cc4d92b4,9b2bfa04269f,46,46,NUMERIC_EPSILON,1.07e-14,1.91e-14,floating-point aggregation/computation order; worst=bp
+outputs/tables/robustness_loo_detail.csv,18108c710cf9,10001a2b9ff3,120,120,NUMERIC_EPSILON,8.88e-15,7.67e-15,floating-point aggregation/computation order; worst=bp
+outputs/tables/robustness_loo_stability.csv,b50993d5c015,2cdb3a8632ea,10,10,NUMERIC_EPSILON,1.22e-15,2.92e-15,floating-point aggregation/computation order; worst=p_full
+outputs/tables/robustness_sequential_variant.csv,97a01c3443f5,2c2c5c75ddbf,4,4,THRESHOLD_FLIP,5.00e+00,3.42e-02,"fold-0 event count 146→141 (5 rows, 0.46%); anchored primary event count stays 686; pooled rank corr +.8706→+.8703; descriptive variant only (EXP-0005g)"
+outputs/tables/robustness_top5_external_grid.csv,83863cf181d9,56656d053601,10,10,NUMERIC_EPSILON,5.50e-15,1.92e-14,floating-point aggregation/computation order; worst=bp
+outputs/tables/sample_hhi_selfloop.csv,70451a9ca053,70451a9ca053,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/se_concordance.csv,ec6440154118,0b030bd40dfc,10,10,NUMERIC_EPSILON,1.03e-14,1.50e-14,floating-point aggregation/computation order; worst=p_fm
+outputs/tables/specification_curve_h7.csv,5419c02b2d2f,5419c02b2d2f,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/specification_curve_h7_summary.csv,21278bf268fb,21278bf268fb,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/subgroup_assignments.csv,861d9056cef8,861d9056cef8,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/trade_size_bucket_summary.csv,ce8ba2958fde,ce8ba2958fde,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/trade_size_heterogeneity.csv,7aab1e6f9d3d,7aab1e6f9d3d,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/trade_size_success_criterion.csv,e373b7047779,e373b7047779,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/trade_size_thresholds.csv,9067f4d4ba60,9067f4d4ba60,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/universe_exclusions.csv,ac547acc5371,ac547acc5371,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/universe_selected_top10.csv,5f1ff249050a,5f1ff249050a,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/v2_engine_validation.csv,ce81eb8f1a7b,ce81eb8f1a7b,,,IDENTICAL,0.00e+00,0.00e+00,byte-identical
+outputs/tables/v2_final_headline_set.csv,228c4ec82da4,264a00f22fae,10,10,NUMERIC_EPSILON,5.33e-15,2.87e-15,floating-point aggregation/computation order; worst=estimated_beta
+outputs/tables/vif_audit.csv,2a3fcd21a385,e2ed2f1203dc,10,10,NUMERIC_EPSILON,6.66e-16,2.35e-15,floating-point aggregation/computation order; worst=vif
+outputs/tables/volume_reconciliation.csv,e4246fef017e,21656f053704,11283,11283,NUMERIC_EPSILON,3.58e-07,7.77e-16,floating-point aggregation/computation order; worst=fs_amount
+outputs/tables/wild_cluster_bootstrap.csv,6f15ccdc3960,54f36cab5a88,10,10,NUMERIC_EPSILON,5.33e-15,3.01e-15,floating-point aggregation/computation order; worst=bp

@@ -1,0 +1,41 @@
+hypothesis,split,group,row_type,effect_bp,dk_p,dc_v2_p,n_obs,bonferroni_family,p_bonf,status,note
+H4,liquidity,illiquid,group,8.701,0.0918,0.0140,3601,6,0.5509,ESTIMATED,
+H4,liquidity,liquid,group,4.401,0.3291,0.2648,3515,6,1.0000,ESTIMATED,
+H4,size,large,group,8.229,0.0974,0.0473,3558,6,0.5843,ESTIMATED,
+H4,size,small,group,9.380,0.0820,0.0238,3558,6,0.4917,ESTIMATED,
+H4,turnover_tier,bottom7,group,8.684,0.0905,0.0156,4967,6,0.5432,ESTIMATED,
+H4,turnover_tier,top3,group,11.338,0.0621,0.0598,2149,6,0.3724,ESTIMATED,
+H4,liquidity,illiquid_vs_liquid,interaction,-0.455,0.9328,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H4,size,large_vs_small,interaction,-2.856,0.5579,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H4,turnover_tier,top3_vs_bottom7,interaction,-3.227,0.5461,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H4,circuit_breaker,not_applicable,not_executed,,,,0,,,NOT_EXECUTED,"no circuit-breaker/limit-hit flag exists in the corpus or any verified archive; row registered, not fabricated"
+H7,liquidity,illiquid,group,3.011,0.2477,0.1319,3601,6,1.0000,ESTIMATED,
+H7,liquidity,liquid,group,3.254,0.2224,0.1881,3515,6,1.0000,ESTIMATED,
+H7,size,large,group,1.335,0.5881,0.5075,3558,6,1.0000,ESTIMATED,
+H7,size,small,group,7.020,0.0272,0.0124,3558,6,0.1629,ESTIMATED,
+H7,turnover_tier,bottom7,group,4.817,0.0508,0.0379,4967,6,0.3050,ESTIMATED,
+H7,turnover_tier,top3,group,0.394,0.9041,0.8686,2149,6,1.0000,ESTIMATED,
+H7,liquidity,illiquid_vs_liquid,interaction,2.215,0.5167,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H7,size,large_vs_small,interaction,-5.557,0.0644,,7116,3,0.1932,ESTIMATED,heterogeneity test = group x feature interaction
+H7,turnover_tier,top3_vs_bottom7,interaction,-1.659,0.5898,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H7,circuit_breaker,not_applicable,not_executed,,,,0,,,NOT_EXECUTED,"no circuit-breaker/limit-hit flag exists in the corpus or any verified archive; row registered, not fabricated"
+H8,liquidity,illiquid,group,-5.511,0.1092,0.1486,3601,6,0.6555,ESTIMATED,
+H8,liquidity,liquid,group,-4.112,0.1855,0.0273,3515,6,1.0000,ESTIMATED,
+H8,size,large,group,-1.911,0.6268,0.6886,3558,6,1.0000,ESTIMATED,
+H8,size,small,group,-5.446,0.0766,0.0434,3558,6,0.4595,ESTIMATED,
+H8,turnover_tier,bottom7,group,-5.332,0.0534,0.0255,4967,6,0.3201,ESTIMATED,
+H8,turnover_tier,top3,group,0.469,0.9123,0.9084,2149,6,1.0000,ESTIMATED,
+H8,liquidity,illiquid_vs_liquid,interaction,1.229,0.7857,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H8,size,large_vs_small,interaction,1.692,0.6646,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H8,turnover_tier,top3_vs_bottom7,interaction,0.264,0.9468,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H8,circuit_breaker,not_applicable,not_executed,,,,0,,,NOT_EXECUTED,"no circuit-breaker/limit-hit flag exists in the corpus or any verified archive; row registered, not fabricated"
+H10,liquidity,illiquid,group,12.844,0.0700,0.0122,3601,6,0.4198,ESTIMATED,
+H10,liquidity,liquid,group,8.149,0.1440,0.1043,3515,6,0.8638,ESTIMATED,
+H10,size,large,group,5.604,0.4090,0.2573,3558,6,1.0000,ESTIMATED,
+H10,size,small,group,9.048,0.1065,0.1594,3558,6,0.6390,ESTIMATED,
+H10,turnover_tier,bottom7,group,10.344,0.0239,0.0134,4967,6,0.1434,ESTIMATED,
+H10,turnover_tier,top3,group,2.698,0.7396,0.6495,2149,6,1.0000,ESTIMATED,
+H10,liquidity,illiquid_vs_liquid,interaction,-0.067,0.9940,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H10,size,large_vs_small,interaction,-1.951,0.7245,,7116,3,1.0000,ESTIMATED,heterogeneity test = group x feature interaction
+H10,turnover_tier,top3_vs_bottom7,interaction,-8.973,0.1383,,7116,3,0.4150,ESTIMATED,heterogeneity test = group x feature interaction
+H10,circuit_breaker,not_applicable,not_executed,,,,0,,,NOT_EXECUTED,"no circuit-breaker/limit-hit flag exists in the corpus or any verified archive; row registered, not fabricated"

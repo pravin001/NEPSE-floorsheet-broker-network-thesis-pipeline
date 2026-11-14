@@ -1,0 +1,47 @@
+variant,hypothesis,effect_bp_per_sd,dk_p,bh_pass_q10,sign_agrees
+base t+1 (EXP-0004b),H4,7.510,0.0275,yes,yes
+base t+1 (EXP-0004b),H6,-10.939,0.0197,yes,
+base t+1 (EXP-0004b),H7,3.952,0.0274,yes,yes
+base t+1 (EXP-0004b),H8,-4.471,0.0459,yes,yes
+base t+1 (EXP-0004b),H10,9.492,0.0138,yes,yes
+t+2,H4,12.884,0.0105,no,yes
+t+2,H6,-10.011,0.2065,no,
+t+2,H7,4.535,0.0813,no,yes
+t+2,H8,-3.244,0.2884,no,yes
+t+2,H10,10.912,0.0926,no,yes
+t+3,H4,14.183,0.0321,no,yes
+t+3,H6,-10.771,0.3047,no,
+t+3,H7,7.767,0.0185,no,yes
+t+3,H8,-4.637,0.2329,no,yes
+t+3,H10,13.606,0.1081,no,yes
+t+5,H4,13.078,0.1557,no,yes
+t+5,H6,-13.515,0.3371,no,
+t+5,H7,10.218,0.0061,yes,yes
+t+5,H8,-7.353,0.1041,no,yes
+t+5,H10,24.528,0.0317,no,yes
+eod 1%,H7,3.718,0.0296,yes,yes
+eod 1%,H8,-0.601,0.7634,yes,yes
+"eod 5% (base, EXP-0003a)",H7,3.952,0.0274,,
+"eod 5% (base, EXP-0003a)",H8,-4.471,0.0459,,
+eod 10%,H7,3.785,0.0387,yes,yes
+eod 10%,H8,-4.243,0.0633,yes,yes
+loo_full_sample,H4,7.510,0.0275,yes,yes
+loo_beta_spread,H4,6.570,,,yes
+loo_full_sample,H6,-10.939,0.0197,yes,
+loo_beta_spread,H6,-12.738,,,yes
+loo_full_sample,H7,3.952,0.0274,yes,yes
+loo_beta_spread,H7,2.950,,,yes
+loo_full_sample,H8,-4.471,0.0459,yes,yes
+loo_beta_spread,H8,-6.154,,,yes
+loo_full_sample,H10,9.492,0.0138,yes,yes
+loo_beta_spread,H10,7.968,,,yes
+drop_bubble,H4,10.489,0.0094,yes,yes
+drop_bubble,H6,-17.483,0.0127,yes,
+drop_bubble,H7,5.110,0.0306,yes,yes
+drop_bubble,H8,-4.442,0.1703,no,yes
+drop_bubble,H10,13.499,0.0183,yes,yes
+top5_external,H4,0.288,0.9416,no,yes
+top5_external,H6,-3.633,0.4461,no,
+top5_external,H7,2.138,0.3532,no,yes
+top5_external,H8,-0.701,0.8106,no,yes
+top5_external,H10,5.399,0.2315,no,yes

@@ -7,7 +7,7 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-13 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-14 · Engineering ends 21 Nov (writing 22-27)
 - **v2.0 A++ upgrade COMPLETE** (post-`v1.0-freeze`): binding pre-declaration
   `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–6
   COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012,
@@ -16,6 +16,13 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
   crosswalk, Ch.1–Ch.6 handoff packs, chapter-map integrity guard, derived-only
   deposit archive + preflight (EXP-0014); tag `v2.0.1-handoff`. Frozen
   `v2.0-a++-freeze` tag and all v1/v2 numeric files unchanged.
+- **ANALYSIS FROZEN / PRE-WRITE ASSETS COMPLETE** (v2.0.2 pre-write sprint,
+  Phases A–F, 2026-11-13 → 2026-11-14): canonical H10 reproduced exactly;
+  licences reviewed from live sources; F1–F10 produced as 300-dpi PNG + PDF;
+  AI-use policy rewritten; 39 metadata-verified reference candidates; 28
+  print-ready table CSVs; full suite **161 passed**; tag `v2.0.2-prewrite`.
+  No new regression, test, re-fit, robustness check or specification search
+  was run. The statistical layer remains frozen.
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
 
@@ -119,6 +126,36 @@ outside its input. Logged as deviations #31 (defect + audit gap) and #32
 `git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
 tag `v2.0.1-handoff`. No frozen v1 numeric file, binding freeze file, final
 classification, or existing tag was moved.
+
+## v2.0.2 pre-write sprint (2026-11-13 → 2026-11-14)
+
+**State: ANALYSIS FROZEN / PRE-WRITE ASSETS COMPLETE.** Phases A–F executed
+under the pre-write contract: no new analyses, regressions, tests, re-fits or
+robustness checks; no thesis prose; no invented citations; no uploads.
+
+| item | value |
+|---|---|
+| canonical verification | H10 exact: β `+9.492266420621041 bp`, DK p `.013754510527417598`, n `7,116`, n_eff `6,383`; secondary liquidity-controlled β `+9.585688569659226 bp`, p `.011719355980632`; 3/3 spot checks (H7 `+3.9523733421516263 bp`, H10 RW p `.081`, event-study CAR `+12.860877654854391 bp`, p `.5689998994`) |
+| licence review | live, verbatim two-layer finding: tier1 Kaggle declares `MIT` + “educational and research purposes” + “scraped from NEPSE Alpha”; upstream NEPSE Alpha rights `UNCERTAIN`; viking303 `CC0`; socrateai MIT-style/`NOASSERTION`; SamirWagle `license:null`/Educational; menaceXnadin `license:null`/unofficial mirror |
+| figures | F1–F10 in `outputs/figures/static/`; 300 dpi PNG + PDF; footer `EXP-id · data <12-hex> · v2.0.1`; `figure_manifest.csv`; 10/10 blank-check PASS |
+| AI policy | `docs/ai_use_policy.md` v2.0.2-prewrite: OpenCode+GLM, OpenCode+DeepSeek, `DeepSeek V4.1 Flash Free`; permitted/prohibited roles; approval gates; provenance/citation/licence controls; University disclosure TODO |
+| references | 39 Crossref-verified candidates (11 NET, 10 LIQ, 6 MAN, 7 EM, 5 NP); all Crossref 200 / DOI 302 on 2026-11-14; `content_review_status = NOT_REVIEWED` on every row; one SSRN `POSTED_CONTENT_NOT_FINAL` |
+| print tables | 28 CSVs + `table_manifest.csv` in `reports/chapter_assets/print_tables/`; all hashes/rows/columns validated; canonical numbering in `table_numbering_plan.md` |
+| chapter map | 67/67 OK, 50 distinct artefacts; `docs/ai_use_policy.md` reclassified `v2/VERIFIED` after the Phase-D rewrite; provenance manifest append-only |
+| suite | **161 passed** (159 tests + 2 notebooks); `outputs/tables/v2_chapter_map_audit.csv` 67/67 OK |
+| deviations | #33–#40 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair) |
+| tag | `v2.0.2-prewrite` on the Phase-F commit |
+
+**Next:** the student writes Chapters 1–6 in the 22–27 Nov window using
+`reports/chapter_assets/writing_order_memo.md` (Ch.4 → Ch.3 → Ch.5 → Ch.6 →
+Ch.1, with Ch.2 reading in parallel) and `key_claims_sheet.md`. Every chapter is
+student prose. No new analysis is permitted.
+
+**Remaining student TODOs:** (1) decide whether Kaggle-declared MIT plus the
+education/research statement is sufficient, or whether upstream NEPSE Alpha
+permission is needed; (2) complete the University disclosure wording/sign-off;
+(3) decide whether and where to deposit the derived-only archive (no upload has
+been performed).
 
 ## R10 gate status
 

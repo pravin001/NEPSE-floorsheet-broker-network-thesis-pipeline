@@ -1,0 +1,7 @@
+spot_check,item,quoted_value,source_file,source_value,abs_diff,tolerance,match,note
+H7_BETA,canonical vs frozen v1 grid bp,3.9523733421516263,hypothesis_grid_results.csv:H7:bp,3.9523733421516263,0.0,1e-12,True,
+H7_BETA,register quote (3 dp) vs canonical,3.952,docs/experiment_register.md:EXP-0011f,3.952,0.0,1e-12,True,register quotes +3.952 bp/SD; canonical = 3.95237334215163
+H10_RW_P,canonical vs frozen RW table,0.081,hypothesis_grid_results_rw.csv:H10:rw_p,0.081,0.0,1e-12,True,register EXP-0008b quotes rw_p .081
+EVENT_STUDY_CAR,mean CAR bp: upgraded table vs 686-event cars reconstruction,12.86,event_study_upgraded.csv:all_686:v1_method,12.860877654854391,0.0008776548543920626,0.005,True,full-precision 12.8608776548544 bp; event_study_cars.csv mean = 12.8608776548544 bp
+EVENT_STUDY_CAR,p-value: upgraded table vs quoted .569,0.569,event_study_upgraded.csv:all_686:v1_method,0.5689998994387828,1.0056121713120092e-07,0.0005,True,full precision 0.568999899438783
+EVENT_STUDY_CAR,686-event car mean vs upgraded table,12.860877654854391,event_study_cars.csv:car:mean,12.860877654854391,0.0,1e-12,True,v1 event_study_cars.csv reconstructs the upgraded v1_method row exactly

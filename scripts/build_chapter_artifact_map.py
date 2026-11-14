@@ -90,8 +90,11 @@ CLAIMS = [
     ("Ch.4 Data Engineering", "4.2", "CH4-4.2-PROVENANCE",
      "data/metadata/corpus_files_sha256.csv", "EXP-0002b", "v1",
      "VERIFIED_V1_IMMUTABLE"),
+    # Rewritten in the v2.0.2 pre-write sprint (Phase D); the v1 hash is
+    # recorded in git history and in the provenance manifest, but the live
+    # licence register is a v2 governance artefact.
     ("Ch.4 Data Engineering", "4.2", "CH4-4.2-LICENCE",
-     "docs/ai_use_policy.md", "EXP-0002d", "v1", "VERIFIED_V1_IMMUTABLE"),
+     "docs/ai_use_policy.md", "EXP-0002d", "v2", "VERIFIED"),
     ("Ch.4 Data Engineering", "4.3", "CH4-4.3-CORPUS-AUDIT",
      "notebooks/01_data_quality_audit.ipynb", "EXP-0002f", "v1",
      "VERIFIED_V1_IMMUTABLE"),
@@ -238,7 +241,7 @@ PACKS = {
     "ch4": [
         ("CH4-A1", "scripts/run_stage6_rebuild.py", "21-step rebuild driver", "EXP-0013", "v2"),
         ("CH4-A2", "data/metadata/corpus_files_sha256.csv", "per-file provenance", "EXP-0002b", "v1"),
-        ("CH4-A3", "docs/ai_use_policy.md", "licence register", "EXP-0002d", "v1"),
+        ("CH4-A3", "docs/ai_use_policy.md", "licence register", "EXP-0002d", "v2"),
         ("CH4-A4", "notebooks/01_data_quality_audit.ipynb", "executable corpus audit", "EXP-0002f", "v1"),
         ("CH4-A5", "outputs/tables/volume_reconciliation.csv", "volume reconciliation", "EXP-0002e", "v1"),
         ("CH4-A6", "outputs/tables/v2_clean_rebuild_audit.csv", "drift evidence", "EXP-0013", "v2"),
