@@ -22,7 +22,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 
 | chapter | section | claim_id | artifact_path | exp_id | sha256 | claim_version | status |
 |---|---|---|---|---|---|---|---|
-| Ch.1 Introduction | 1.1 | CH1-1.1-SCOPE | `README.md` | EXP-0002b,EXP-0012 | `1410d2c8a02314b3d73760782738afe376a99ababb9eb72d178417a4a73745c7` | v2 | VERIFIED |
+| Ch.1 Introduction | 1.1 | CH1-1.1-SCOPE | `README.md` | EXP-0002b,EXP-0012 | `4616c18e97f9184b6bf283bbd4cc781f5fd807f35ab79ffbec056116f89f45ab` | v2 | VERIFIED |
 | Ch.1 Introduction | 1.1 | CH1-1.1-LIMITS | `reports/limitations.md` | EXP-0012 | `be91dad74c29639361c04f7e4c7e18890e1f420af7f14a6f18f13765ff18ea7d` | v2 | VERIFIED |
 | Ch.1 Introduction | 1.2 | CH1-1.2-HYPOTHESES | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.1 Introduction | 1.3 | CH1-1.3-HEADLINE | `outputs/tables/v2_final_headline_set.csv` | EXP-0012 | `228c4ec82da451ab4b139031bc6de299d49d302c736d12fe9429b6110051e00f` | v2 | VERIFIED |
@@ -45,7 +45,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | Ch.4 Data Engineering | 4.1 | CH4-4.1-PIPELINE | `reports/chapter_assets/ch4_pipeline_diagram.md` | EXP-0013 | `b043e3a066aee065c07c56f2b408505d3deeba3832b51e5279d0f7348428093f` | v2 | SCAFFOLD |
 | Ch.4 Data Engineering | 4.1 | CH4-4.1-DRIVER | `scripts/run_stage6_rebuild.py` | EXP-0013 | `01748ac61512065392375bdf441fe7ccb507d18b1c4430cdc17c9cd71f562a3a` | v2 | VERIFIED |
 | Ch.4 Data Engineering | 4.2 | CH4-4.2-PROVENANCE | `data/metadata/corpus_files_sha256.csv` | EXP-0002b | `e78df58d539b59e4e8e8636437a8870ffb3a727a9095c7c00d9e0931cffbedac` | v1 | VERIFIED_V1_IMMUTABLE |
-| Ch.4 Data Engineering | 4.2 | CH4-4.2-LICENCE | `docs/ai_use_policy.md` | EXP-0002d | `d7f9c3427446c053d82a2faddeb70198f576bad715c6ca79a1c0a076f114c4ad` | v2 | VERIFIED |
+| Ch.4 Data Engineering | 4.2 | CH4-4.2-LICENCE | `docs/ai_use_policy.md` | EXP-0002d | `3a4f46d33a0ebbea8c9cfa308d1433f877a8ea281c402392a81dd172800106cd` | v2 | VERIFIED |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-CORPUS-AUDIT | `notebooks/01_data_quality_audit.ipynb` | EXP-0002f | `4fb7abe2b9aa2a176e00a58c5cb043e6236629a558e00e4ccc068e864165bb56` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-DUP | `outputs/tables/corpus_duplicate_keys.csv` | EXP-0002c | `398b0c6d0da268675ea9c9878aeb1f6f97a330c1c39d8f90300c5903859336a5` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.4 Data Engineering | 4.3 | CH4-4.3-MISSING | `outputs/tables/corpus_missing_broker_ids.csv` | EXP-0002c | `c1232f5686922124230152fa9a2a0918725fef19ef1bc392391ac41e99f5e586` | v1 | VERIFIED_V1_IMMUTABLE |

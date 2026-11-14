@@ -97,11 +97,12 @@ Floorsheet inputs: Kaggle viking303 2021–2023 (**CC0**) and socrateai
 educational/research statement, but its prices are “scraped from NEPSE Alpha”
 and upstream terms remain **UNCERTAIN** (`reports/licence_review.md`). Three
 historical manifest rows still carry the superseded `pending_user_ui_check`
-label. `outputs/figures/` remains excluded from this derived-only payload
-pending the author's public-redistribution decision. The NEPSE index is a
-secondary input with an unstated repository licence. Raw archives, DuckDB,
-processed parquet, prediction parquet, logs, and figures are **not
-redistributed**.
+label. The author accepted the AMBER public-redistribution caveat for the code
+repository on 2026-11-14; this derived-only payload still excludes
+`outputs/figures/`, and upstream verification remains outstanding. The NEPSE
+index is a secondary input with an unstated repository licence. Raw archives,
+DuckDB, processed parquet, prediction parquet, logs, and figures are **not
+redistributed by this deposit**.
 
 ---
 
@@ -146,17 +147,17 @@ Current suite: **161 passed, 0 failed**
 
 ## 7 · Remaining user decisions
 
-Two user decisions remain (item 1 is retained as the resolution record).
+One deposit decision remains (items 1–2 are retained as resolution records).
 
 1. **RESOLVED (2026-11-14): author identity.** `CITATION.cff` and `LICENSE`
    now name `Prabin Shrestha <itsme_prabin@outlook.com>`. The recorded archive
    hashes above predate this metadata-only update; rebuild the archive and
    this preflight before deposit.
-2. **TODO(user): tier1 OHLCV upstream.** Confirm the upstream NEPSE Alpha
-   position. Kaggle declares MIT and states an educational/research purpose,
-   but that grant may not exhaust upstream rights. Until the position is
-   resolved or explicitly accepted, keep `outputs/figures/` restricted; it is
-   already outside this payload.
+2. **RESOLVED (2026-11-14): tier1 OHLCV upstream caveat.** The author accepted
+   the AMBER caveat for public release of figures in the code repository.
+   Kaggle declares MIT and states an educational/research purpose, but that
+   grant may not exhaust upstream NEPSE Alpha rights; verification remains
+   outstanding. This deposit payload still excludes figures.
 3. **TODO(user): deposit scope.** Keep the derived-only payload
    (recommended), or decide to add a licensed data subset. Raw archives
    are not covered by the code licence and are never in this archive.

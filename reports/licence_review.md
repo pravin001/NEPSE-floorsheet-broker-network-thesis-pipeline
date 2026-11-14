@@ -303,3 +303,15 @@ decision or attribution required; 🔴 not permitted without explicit permission
 No licence conclusion in this document is based on memory or on a secondary
 summary. Every quoted sentence above was returned by the cited URL on
 2026-11-13.
+
+---
+
+## 9. Author decision (2026-11-14)
+
+The author reviewed this review and **accepted the tier1 AMBER caveat** for
+public release of the thesis repository, including price-derived figures. The
+public GitHub repository therefore includes `outputs/figures/` (33 tracked
+files). This acceptance is not a finding that upstream NEPSE Alpha rights are
+cleared; the upstream position remains `UNCERTAIN`, and the derived-only
+deposit archive continues to exclude figures. Recorded in
+`docs/analysis_deviations.md` #42.

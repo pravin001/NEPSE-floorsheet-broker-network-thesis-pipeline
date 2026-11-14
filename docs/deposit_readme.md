@@ -144,17 +144,18 @@ passed 154; the seven added tests are the chapter-map integrity guards.
 |---|---|---|
 | kaggle viking303 floorsheets 2021–2023 | **CC0** (verified) | usable; raw not deposited here |
 | socrateai 2024 floorsheets | **MIT** (verified; LICENCE fetched) | usable with attribution; raw not deposited here |
-| tier1 Kaggle OHLCV | **MIT** declared on Kaggle; upstream NEPSE Alpha `UNCERTAIN` | academic use is covered by the declared grant and the dataset's educational/research statement; **public figure redistribution remains AMBER pending the upstream check**, so figures are excluded from this derived-only archive; derived tables remain numerically derived |
+| tier1 Kaggle OHLCV | **MIT** declared on Kaggle; upstream NEPSE Alpha `UNCERTAIN` | academic use is covered by the declared grant and the dataset's educational/research statement; the author accepted the **AMBER** public-redistribution caveat for the code repository on 2026-11-14, but the derived-only deposit archive still excludes figures; derived tables remain numerically derived |
 | tier2 SamirWagle prices | no licence file; analytic use with attribution | gap-fill only; not redistributed |
 | NEPSE composite index | `unstated_in_repo` (GitHub API `license: null`) | secondary regime shading/benchmark only; swap-able |
 | code | MIT | this deposit |
 
 `data/metadata/provenance_manifest.csv` is authoritative; if this summary and
-the manifest differ, the manifest wins. Do not publish `outputs/figures/`
-publicly until the upstream NEPSE Alpha position is resolved or explicitly
-accepted by the author. The v2 limitations table records this as CRITICAL row
-L4 (`reports/limitations.md`); the current two-layer review is in
-`reports/licence_review.md`.
+the manifest differ, the manifest wins. The author accepted the AMBER caveat
+and authorised public release of `outputs/figures/` in the code repository on
+2026-11-14; that acceptance does not resolve the upstream NEPSE Alpha position,
+and this derived-only deposit archive still excludes figures. The v2
+limitations table records this as CRITICAL row L4 (`reports/limitations.md`);
+the current two-layer review is in `reports/licence_review.md`.
 
 ---
 
@@ -207,13 +208,14 @@ No archive upload, DOI registration, or deposit push has been performed. The
 derived-only archive is built, hashed and audited locally. The author identity
 was resolved on 2026-11-14 (`Prabin Shrestha <itsme_prabin@outlook.com>`);
 because the sealed v2.0.1 archive predates that metadata update, rebuild it
-before deposit. Two user decisions remain before upload:
+before deposit. One deposit decision remains before upload:
 
-1. **Tier1 OHLCV upstream** — the Kaggle metadata declares MIT and the
-   dataset states an educational/research purpose, but its prices are scraped
-   from NEPSE Alpha, whose terms are `UNCERTAIN`. Resolve or explicitly accept
-   that position before publishing price-derived figures; the derived-only
-   archive already excludes them.
+1. **RESOLVED (2026-11-14): tier1 OHLCV upstream caveat.** The Kaggle metadata
+   declares MIT and the dataset states an educational/research purpose, but its
+   prices are scraped from NEPSE Alpha, whose terms are `UNCERTAIN`. The author
+   accepted the AMBER caveat and authorised public release of figures in the
+   code repository; upstream verification remains outstanding, and this
+   derived-only archive still excludes figures.
 2. **Deposit scope** — keep the derived-only archive (recommended), or decide
    to add a licensed data subset. Raw archives are not covered by the code
    licence and are never part of this archive.

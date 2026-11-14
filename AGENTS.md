@@ -121,7 +121,7 @@ outside its input. Logged as deviations #31 (defect + audit gap) and #32
 | guard | `tests/test_chapter_map_integrity.py` — 7 tests; suite now **161 passed** |
 | packs | `reports/chapter_assets/ch1_introduction_pack.md` … `ch4_data_engineering_pack.md`; Ch.5/Ch.6 skeletons path-refreshed; Ch.2 is an empty literature/gap/comparison scaffold with **no invented citations** |
 | deposit | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; derived tables/code/docs only; raw/duckdb/processed/figures/logs excluded; 76/76 tables hash-aligned |
-| TODOs | tier1 OHLCV upstream licence; derived-only vs licensed-subset deposit scope (author identity resolved 2026-11-14) |
+| TODOs | tier1 OHLCV upstream verification (public-repo caveat accepted 2026-11-14); derived-only vs licensed-subset deposit scope (author identity resolved 2026-11-14) |
 
 `git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
 tag `v2.0.1-handoff`. No frozen v1 numeric file, binding freeze file, final
@@ -144,7 +144,7 @@ robustness checks; no thesis prose; no invented citations; no uploads.
 | chapter map | 67/67 OK, 50 distinct artefacts; `docs/ai_use_policy.md` reclassified `v2/VERIFIED` after the Phase-D rewrite; provenance manifest append-only |
 | suite | **161 passed** (159 tests + 2 notebooks); `outputs/tables/v2_chapter_map_audit.csv` 67/67 OK |
 | deviations | #33–#40 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair) |
-| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; push awaits explicit authorisation |
+| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; full public push incl. figures authorised 2026-11-14 with the upstream caveat accepted; push awaits GitHub authentication |
 | tag | `v2.0.2-prewrite` on the metadata-finalisation commit |
 
 **Next:** the student writes Chapters 1–6 in the 22–27 Nov window using
@@ -152,11 +152,12 @@ robustness checks; no thesis prose; no invented citations; no uploads.
 Ch.1, with Ch.2 reading in parallel) and `key_claims_sheet.md`. Every chapter is
 student prose. No new analysis is permitted.
 
-**Remaining student TODOs:** (1) decide whether Kaggle-declared MIT plus the
-education/research statement is sufficient, or whether upstream NEPSE Alpha
-permission is needed; (2) complete the University disclosure wording/sign-off;
-(3) decide whether and where to deposit the derived-only archive (no upload has
-been performed).
+**Remaining student TODOs:** (1) upstream NEPSE Alpha permission remains
+unverified; the author accepted the caveat for the public repository on
+2026-11-14, so this is a thesis/deposit-clearance item rather than a blocker for
+the public code repo; (2) complete the University disclosure wording/sign-off;
+(3) decide whether and where to deposit the derived-only archive (no archive
+upload has been performed).
 
 ## R10 gate status
 

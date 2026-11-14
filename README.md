@@ -56,4 +56,6 @@ Code is MIT-licensed; see `CITATION.cff` and `LICENSE`. Input-data licences are
 recorded per file in `data/metadata/provenance_manifest.csv` and reviewed in
 `reports/licence_review.md`. The Kaggle-declared tier1 OHLCV licence is MIT,
 but public redistribution of price-derived figures remains subject to the
-unverified upstream NEPSE Alpha terms. No raw data is redistributed here.
+unverified upstream NEPSE Alpha terms. The author accepted that caveat and
+authorised release of the figures in this public repository on 2026-11-14;
+upstream terms remain unverified. No raw data is redistributed here.
