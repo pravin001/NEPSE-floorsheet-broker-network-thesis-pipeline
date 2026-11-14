@@ -3,6 +3,6 @@ configs/project.yaml,project.yaml,9a60208f16040c8246108f79060fa81b69f0fa5609a4a3
 docs/analysis_plan.md,analysis_plan.md,7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2,6119,2026-11-13T08:27:49Z,"v1 plan — byte-frozen, never edited by v2"
 docs/analysis_plan_v2_extension.md,analysis_plan_v2_extension.md,5599c5a33d3801cc28143716db40ea186d70dc8a1d8b02e8016b4aff5f9d9d98,23768,2026-11-13T08:27:49Z,"v2 pre-declaration, written before any v2 result"
 requirements-lock.txt,requirements-lock.txt,0de6eaf8f6b04c2589e784b314e57116f7ce28da768ec5005dc5caf9dc2ac061,2824,2026-11-13T08:27:49Z,live venv freeze after all Stage-3 installs; 153 pins incl. arch==8.0.0
-pyproject.toml,pyproject.toml,a7956986a94d4004eb0e680ea70f95d40e314536304b50a80ac7110ceee6dcc3,966,2026-11-13T08:27:49Z,package metadata + declared dependencies (incl. arch>=8.0)
+pyproject.toml,pyproject.toml,39aee10017aa9de4e64e31a9ac15af7c1052e23fd7b5215552e716c42f3fd059,1048,2026-11-14T08:10:40Z,"package metadata + declared dependencies (incl. arch>=8.0); author metadata refreshed 2026-11-14 (metadata-only, no dependency change)"
 src/nepsemsc/utils/seeds.py,seeds.py,2705b672306a492ed8692e6af81fc85875d2214894424fecc4392b370fad75ba,1502,2026-11-13T08:27:49Z,v1 seed constants (DC14)
 src/nepsemsc/utils/seeds_v2.py,seeds_v2.py,71d1024d8d9337c0b12979e488c9dca30101971976a389afe213d0bde3874073,833,2026-11-13T08:27:49Z,v2 seed ranges (plan V2-0)

@@ -6,6 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "nepsemsc"
 version = "0.1.0"
 description = "Broker Networks, Concentration, and Market Integrity in a Frontier Exchange: Evidence from NEPSE Floorsheets (MSc thesis pipeline)"
+authors = [
+  { name = "Prabin Shrestha", email = "itsme_prabin@outlook.com" },
+]
 requires-python = ">=3.11,<3.12"
 dependencies = [
   "numpy>=2.0",

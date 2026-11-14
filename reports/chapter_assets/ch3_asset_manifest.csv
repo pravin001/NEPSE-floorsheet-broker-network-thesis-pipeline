@@ -1,6 +1,6 @@
 asset_id,artifact_path,role,exp_id,claim_version,sha256
 CH3-A1,docs/analysis_plan.md,v1 frozen design,"EXP-0004a,EXP-0004b",v1,7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2
 CH3-A2,docs/analysis_plan_v2_extension.md,v2 pre-declaration,"EXP-0008a,EXP-0013",v2,5599c5a33d3801cc28143716db40ea186d70dc8a1d8b02e8016b4aff5f9d9d98
-CH3-A3,configs/v2_freeze/freeze_manifest.csv,binding-file hashes,EXP-0013,v2,f610ba67af7737c5682b679556d42004c4e8676cdb263977ec2c647058103acd
+CH3-A3,configs/v2_freeze/freeze_manifest.csv,binding-file hashes,EXP-0013,v2,386273a2976f24b4a2da4f13ea5cbea5f918711d734f8292f249273308cc890b
 CH3-A4,reports/chapter_assets/ch3_walk_forward_diagram.md,Figure 3.1 scaffold,"EXP-0004a,EXP-0013",v2,2ed6714d79191de32f57490c323ea80cd637504b439ef64c6985a4a4636ae1a9
 CH3-A5,reports/chapter_assets/ch3_feature_dictionary.csv,Table 3.3 scaffold,"EXP-0003a,EXP-0009a",v2,2105c90c0947ec0371640d775704fe404ab2ccfbc3dfb9b85fdeebd3c51a01fe

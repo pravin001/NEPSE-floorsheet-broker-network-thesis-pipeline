@@ -1,14 +1,17 @@
 # Deposit README — NEPSE Floorsheet Microstructure (v2.0)
 
 **Release:** `v2.0.1-handoff` (post-`v2.0-a++-freeze`) · 2026-11-13
+**Metadata update:** 2026-11-14 — legal author identity and public-repository
+metadata. The sealed v2.0.1 archive predates this update and must be rebuilt
+before any deposit.
 **Thesis:** *Broker Networks, Concentration, and Market Integrity in a Frontier
 Exchange: Evidence from NEPSE Floorsheets.*
 **Scope:** predictive associations in the most-traded NEPSE tier, 2021–2024.
 Not causal identification, not a trading strategy.
 
 **Deposit status:** derived-only archive built and verified locally, **NOT
-uploaded**. Uploading to a repository or DOI service is a user action; see §8.
-Packaging evidence: `docs/deposit_preflight.md`.
+deposited**. Uploading the archive to a repository or DOI service is a user
+action; see §8. Packaging evidence: `docs/deposit_preflight.md`.
 
 ---
 
@@ -32,8 +35,10 @@ Packaging evidence: `docs/deposit_preflight.md`.
 **Not included:** raw floorsheet archives, raw OHLCV archives, the DuckDB store,
 and `data/processed/*.parquet` (all gitignored). They are inputs or rebuildable
 derived data, not part of the code deposit. `outputs/figures/` is also excluded
-from the derived-only archive because the tier1 OHLCV licence is unconfirmed
-(§5, limitation L4). `outputs/logs/` is local rebuild evidence, not payload.
+from the derived-only archive because public redistribution of price-derived
+figures remains subject to the upstream NEPSE Alpha terms, which are
+`UNCERTAIN` (`reports/licence_review.md`; §5, limitation L4).
+`outputs/logs/` is local rebuild evidence, not payload.
 Licences for the raw inputs are recorded per file in
 `data/metadata/provenance_manifest.csv`.
 
@@ -133,22 +138,23 @@ passed 154; the seven added tests are the chapter-map integrity guards.
 
 ## 5 · Licence and redistribution status
 
-**Code:** MIT — see `LICENSE`. Copyright holder is the repository identity
-`MSc Thesis Author`; replace with the student's legal name before deposit.
+**Code:** MIT — see `LICENSE`. Copyright © 2026 Prabin Shrestha.
 
 | input | licence | deposit consequence |
 |---|---|---|
 | kaggle viking303 floorsheets 2021–2023 | **CC0** (verified) | usable; raw not deposited here |
 | socrateai 2024 floorsheets | **MIT** (verified; LICENCE fetched) | usable with attribution; raw not deposited here |
-| tier1 Kaggle OHLCV | **PENDING** student UI confirmation | **figures are RESTRICTED until confirmed and are excluded from the derived-only archive**; derived tables remain numerically derived |
+| tier1 Kaggle OHLCV | **MIT** declared on Kaggle; upstream NEPSE Alpha `UNCERTAIN` | academic use is covered by the declared grant and the dataset's educational/research statement; **public figure redistribution remains AMBER pending the upstream check**, so figures are excluded from this derived-only archive; derived tables remain numerically derived |
 | tier2 SamirWagle prices | no licence file; analytic use with attribution | gap-fill only; not redistributed |
 | NEPSE composite index | `unstated_in_repo` (GitHub API `license: null`) | secondary regime shading/benchmark only; swap-able |
 | code | MIT | this deposit |
 
 `data/metadata/provenance_manifest.csv` is authoritative; if this summary and
 the manifest differ, the manifest wins. Do not publish `outputs/figures/`
-publicly while the tier1 OHLCV licence is unconfirmed. The v2 limitations table
-records this as CRITICAL row L4 (`reports/limitations.md`).
+publicly until the upstream NEPSE Alpha position is resolved or explicitly
+accepted by the author. The v2 limitations table records this as CRITICAL row
+L4 (`reports/limitations.md`); the current two-layer review is in
+`reports/licence_review.md`.
 
 ---
 
@@ -197,15 +203,17 @@ README instead of the table.
 
 ## 8 · Deposit action (user)
 
-No upload, DOI registration, or repository push has been performed. The
-derived-only archive is built, hashed and audited locally. Three user
-decisions remain before upload:
+No archive upload, DOI registration, or deposit push has been performed. The
+derived-only archive is built, hashed and audited locally. The author identity
+was resolved on 2026-11-14 (`Prabin Shrestha <itsme_prabin@outlook.com>`);
+because the sealed v2.0.1 archive predates that metadata update, rebuild it
+before deposit. Two user decisions remain before upload:
 
-1. **Author identity** — replace the placeholder author in `CITATION.cff` and
-   `LICENSE`, then rebuild the archive and preflight.
-2. **Tier1 OHLCV licence** — confirm the Kaggle UI licence. Until confirmed,
-   keep `outputs/figures/` restricted; the derived-only archive already
-   excludes it.
-3. **Deposit scope** — keep the derived-only archive (recommended), or decide
+1. **Tier1 OHLCV upstream** — the Kaggle metadata declares MIT and the
+   dataset states an educational/research purpose, but its prices are scraped
+   from NEPSE Alpha, whose terms are `UNCERTAIN`. Resolve or explicitly accept
+   that position before publishing price-derived figures; the derived-only
+   archive already excludes them.
+2. **Deposit scope** — keep the derived-only archive (recommended), or decide
    to add a licensed data subset. Raw archives are not covered by the code
    licence and are never part of this archive.

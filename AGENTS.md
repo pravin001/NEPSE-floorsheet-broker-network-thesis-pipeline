@@ -32,7 +32,7 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 |---|---|
 | OS | Ubuntu 26.04 (24 cores, 45 Gi RAM, RTX 5070 8 GB — GPU idle: CPU-bound thesis) |
 | Python | 3.11.16 via uv-managed toolchain (`uv` 0.13.7 at ~/.local/bin) |
-| git | 2.53.0; REPO-LOCAL identity only — global identity intentionally untouched (sibling D-note); replace placeholder in Phase 7 |
+| git | 2.53.0; REPO-LOCAL identity `Prabin Shrestha <itsme_prabin@outlook.com>` set 2026-11-14; all commits and annotated tags rewritten to that identity; global identity intentionally untouched |
 | Sys packages | no system-wide pip installs — everything lives in `nepse-msc/` |
 | disk | 144G free |
 
@@ -121,7 +121,7 @@ outside its input. Logged as deviations #31 (defect + audit gap) and #32
 | guard | `tests/test_chapter_map_integrity.py` — 7 tests; suite now **161 passed** |
 | packs | `reports/chapter_assets/ch1_introduction_pack.md` … `ch4_data_engineering_pack.md`; Ch.5/Ch.6 skeletons path-refreshed; Ch.2 is an empty literature/gap/comparison scaffold with **no invented citations** |
 | deposit | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; derived tables/code/docs only; raw/duckdb/processed/figures/logs excluded; 76/76 tables hash-aligned |
-| TODOs | author identity in `CITATION.cff`/`LICENSE`; tier1 OHLCV licence; derived-only vs licensed-subset deposit scope |
+| TODOs | tier1 OHLCV upstream licence; derived-only vs licensed-subset deposit scope (author identity resolved 2026-11-14) |
 
 `git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
 tag `v2.0.1-handoff`. No frozen v1 numeric file, binding freeze file, final
@@ -144,7 +144,8 @@ robustness checks; no thesis prose; no invented citations; no uploads.
 | chapter map | 67/67 OK, 50 distinct artefacts; `docs/ai_use_policy.md` reclassified `v2/VERIFIED` after the Phase-D rewrite; provenance manifest append-only |
 | suite | **161 passed** (159 tests + 2 notebooks); `outputs/tables/v2_chapter_map_audit.csv` 67/67 OK |
 | deviations | #33–#40 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair) |
-| tag | `v2.0.2-prewrite` on the Phase-F commit |
+| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; push awaits explicit authorisation |
+| tag | `v2.0.2-prewrite` on the metadata-finalisation commit |
 
 **Next:** the student writes Chapters 1–6 in the 22–27 Nov window using
 `reports/chapter_assets/writing_order_memo.md` (Ch.4 → Ch.3 → Ch.5 → Ch.6 →
@@ -275,7 +276,7 @@ Any post-v2 change now requires a new registered experiment row.
 | fingerprint (DC20) | configs/project.yaml: initial `29a43e8c…` (2026-11-08) → frozen **`9a60208f16040c8246108f79060fa81b69f0fa5609a4a365c4c898898d6b012f`** (only amendment ever = pre-declared fold-mode change, commit `26ad798`); `tests/test_freeze.py::test_config_fingerprint_is_frozen` fails loudly on ANY byte change |
 | freeze audit tests | `tests/test_freeze.py` (6 tests): fingerprint bite, 9 battery tables + 46 survival rows + 10-grid + 4 folds, register EXP-0000–0007 completeness, manifest ≥46 with battery+cache kinds (47 actual), limitations/lock presence incl. kagglehub pinned, headline set + SIGN DIRECTIONS pinned (H7/H10+, H8−, H4+ opposite, H6−, H2/H3 null) |
 | limitations | docs/limitations.md — 7 sections: corpus gaps/relabel/defect, licences (tier1 RESTRICTED pending, index unstated), floorsheet structure (buyer-side volume, scope artifact), D7/D9 conventions, findings-level limits (score nullity, tier-locality, horizon, H8×2 fragility, H4 opposite-sign normal-era, H6/H10 DK-only, no era interactions, n=16 illiquid caveat), presentation scope, falsification conditions — all with EXP citations |
-| identity | repo-local `msc-thesis-author <msc-thesis-author@local>` (placeholder replaced; GLOBAL git identity untouched per sibling D-note — student may amend to the real name pre-submission) |
+| identity | repo-local `Prabin Shrestha <itsme_prabin@outlook.com>` (set 2026-11-14; all 17 commits and annotated tags rewritten; GLOBAL git identity untouched per sibling D-note) |
 | pytest | **68 passed, 0 failed** (66 unit incl. 6 freeze-audit + SE-spec, 2 notebooks) |
 | [] STATE | ENGINEERING COMPLETE (all of R1–R12, SV1–SV7, DC1–DC20 satisfied or documented). Phase 8: chapter asset bundles (figures/table packs per chapter) + narrative skeleton — the student writes 22–27 Nov; aid on request. ANY change now = new EXP row |
 

@@ -1,8 +1,12 @@
 # Deposit preflight — v2.0.1 derived-only archive
 
 **Release:** `v2.0.1-handoff` (post-`v2.0-a++-freeze`) · 2026-11-13
-**Status:** archive built and verified locally; **NOT uploaded**, no DOI,
-no repository push. Upload is a user action.
+**Metadata update:** 2026-11-14 — legal author identity recorded. The archive
+hashes below are the v2.0.1 seal and predate this metadata-only update; rebuild
+the archive and this preflight before any deposit.
+**Status:** archive built and verified locally; **NOT deposited**, no DOI.
+Deposit upload is a user action; the public code repository is separate from
+this derived-only archive.
 
 This file is a wrapper record. It is excluded from the archive payload so
 the archive SHA-256 is not self-referential; the payload's embedded
@@ -85,15 +89,19 @@ before an archive is written.
 |---|---|
 | code licence | MIT (`LICENSE`, `CITATION.cff`) |
 | restricted raw/figure paths in payload | 0 |
-| tier1 OHLCV pending-licence manifest rows | 3 |
+| tier1 OHLCV manifest rows carrying the superseded pending label | 3 |
 | NEPSE index unstated-licence manifest rows | 1 |
 
 Floorsheet inputs: Kaggle viking303 2021–2023 (**CC0**) and socrateai
-2024 (**MIT**). Tier1 OHLCV remains **pending user UI confirmation**, so
-`outputs/figures/` is excluded from this derived-only payload. The NEPSE
-index is a secondary input with an unstated repository licence. Raw
-archives, DuckDB, processed parquet, prediction parquet, logs, and
-figures are **not redistributed**.
+2024 (**MIT**). Tier1 OHLCV is **MIT-declared on Kaggle** with an explicit
+educational/research statement, but its prices are “scraped from NEPSE Alpha”
+and upstream terms remain **UNCERTAIN** (`reports/licence_review.md`). Three
+historical manifest rows still carry the superseded `pending_user_ui_check`
+label. `outputs/figures/` remains excluded from this derived-only payload
+pending the author's public-redistribution decision. The NEPSE index is a
+secondary input with an unstated repository licence. Raw archives, DuckDB,
+processed parquet, prediction parquet, logs, and figures are **not
+redistributed**.
 
 ---
 
@@ -138,14 +146,17 @@ Current suite: **161 passed, 0 failed**
 
 ## 7 · Remaining user decisions
 
-Exactly three decisions remain; none is answered by this preflight.
+Two user decisions remain (item 1 is retained as the resolution record).
 
-1. **TODO(user): author identity.** Replace the placeholder author in
-   `CITATION.cff` and `LICENSE`, then rebuild the archive and this
-   preflight.
-2. **TODO(user): tier1 OHLCV licence.** Confirm the Kaggle UI licence.
-   Until then, keep `outputs/figures/` restricted; it is already outside
-   this payload.
+1. **RESOLVED (2026-11-14): author identity.** `CITATION.cff` and `LICENSE`
+   now name `Prabin Shrestha <itsme_prabin@outlook.com>`. The recorded archive
+   hashes above predate this metadata-only update; rebuild the archive and
+   this preflight before deposit.
+2. **TODO(user): tier1 OHLCV upstream.** Confirm the upstream NEPSE Alpha
+   position. Kaggle declares MIT and states an educational/research purpose,
+   but that grant may not exhaust upstream rights. Until the position is
+   resolved or explicitly accepted, keep `outputs/figures/` restricted; it is
+   already outside this payload.
 3. **TODO(user): deposit scope.** Keep the derived-only payload
    (recommended), or decide to add a licensed data subset. Raw archives
    are not covered by the code licence and are never in this archive.

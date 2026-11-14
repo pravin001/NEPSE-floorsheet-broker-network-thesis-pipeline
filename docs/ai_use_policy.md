@@ -267,16 +267,18 @@ result is marked `UNCERTAIN` or `NOT_FOUND`, not asserted.
 | D — policy | Rewrote this document from the actual tool/model history | Student completes the University disclosure and confirms accuracy | `docs/ai_use_policy.md` |
 | E — writing assets | Built the table plan, 28 print CSVs, a 39-record verified reference scaffold, checklists, memo and claims sheet; no prose | Student selects references and writes the chapters | `reports/chapter_assets/` |
 | F — freeze | Ran the full suite (161 passed), appended deviations #35–#40, updated `AGENTS.md`, rebuilt the chapter-map hashes, committed and tagged | Student authorises any push/upload; none is performed by AI | Git history; tag `v2.0.2-prewrite` |
+| G — public metadata | Rewrote the 17 commit author/committer identities and three annotated tags to the student's legal name/email; updated `CITATION.cff`, `LICENSE`, `pyproject.toml`, `README.md` and deposit docs; re-sealed only the `pyproject.toml` freeze snapshot after the metadata-only edit | Student supplied the legal name/email on 2026-11-14; push/upload still requires explicit authorisation | Git history; `CITATION.cff`; deviation #41 |
 
 The sprint rule **A1** (statistical layer frozen) and **A2** (no thesis prose)
-were enforced throughout. Deviations #33–#40 record the figure-representation
+were enforced throughout. Deviations #33–#41 record the figure-representation
 choices (#33: F7 uses frozen placebo quantiles because draw-level values were
 not persisted; #34: F10 composites the two frozen network renders), the
 Phase-A verification-only recomputation (#35), the two-layer licence finding
 (#36), the static-figure production conventions (#37), the metadata-only
 reference verification scope (#38), the canonical table numbering/print
-projections (#39) and the Phase-F chapter-map hash repair (#40). No deviation
-changed a frozen estimate, p-value, classification or seeded draw.
+projections (#39), the Phase-F chapter-map hash repair (#40) and the
+public-metadata/identity finalisation (#41). No deviation changed a frozen
+estimate, p-value, classification or seeded draw.
 
 ---
 
@@ -326,6 +328,7 @@ checklist is a prompt, not a substitute for the institution's form:
 | 1.0 | 2026-11-08 | Initial R9 note (OpenCode/GLM; licence table; scraping etiquette) |
 | 2.0.2-prewrite | 2026-11-13 | Full rewrite for the pre-write sprint: model inventory (GLM, DeepSeek, DeepSeek V4.1 Flash Free), permitted/prohibited roles, approval gates, provenance controls, citation/licence integrity, data handling, limitations, sprint record, University disclosure TODO |
 | 2.0.2-prewrite (Phase-F close-out) | 2026-11-14 | Phase E/F gates closed; full suite 161 passed; deviations #35–#40; chapter-map hash repair; tag `v2.0.2-prewrite` |
+| 2.0.2-prewrite (public metadata) | 2026-11-14 | Legal author identity finalised in `CITATION.cff`/`LICENSE`/`pyproject.toml`; 17 commits and three annotated tags rewritten; deposit-doc and README licence wording aligned with `reports/licence_review.md`; targeted `pyproject.toml` freeze re-seal; deviation #41 |
 
 This policy is reviewed whenever a new model, provider or AI-assisted artifact
 class is introduced. The review is recorded as a new version row; the policy is

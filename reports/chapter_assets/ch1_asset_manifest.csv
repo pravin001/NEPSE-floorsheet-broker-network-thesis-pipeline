@@ -1,5 +1,5 @@
 asset_id,artifact_path,role,exp_id,claim_version,sha256
-CH1-A1,README.md,scope + epistemic frame,"EXP-0002b,EXP-0012",v2,c96c6950f9e07b24c85c893b64a2672063b5ed507d999db3e0cdd9ec35ffbe29
+CH1-A1,README.md,scope + epistemic frame,"EXP-0002b,EXP-0012",v2,1410d2c8a02314b3d73760782738afe376a99ababb9eb72d178417a4a73745c7
 CH1-A2,docs/analysis_plan.md,pre-declared design,EXP-0004b,v1,7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2
 CH1-A3,reports/limitations.md,boundary conditions,EXP-0012,v2,be91dad74c29639361c04f7e4c7e18890e1f420af7f14a6f18f13765ff18ea7d
 CH1-A4,outputs/tables/v2_final_headline_set.csv,canonical headline set,EXP-0012,v2,228c4ec82da451ab4b139031bc6de299d49d302c736d12fe9429b6110051e00f
