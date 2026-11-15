@@ -16,13 +16,13 @@ provenance manifest predates the final wrapper hash row.
 | item | value |
 |---|---|
 | archive | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored) |
-| SHA-256 | `e483330de20fe750719c674726a0d3e38c642b9bac7806555c4abda11fd7610e` |
-| compressed size | 2,772,831 bytes |
+| SHA-256 | `d222ab1aec3a0704c4437a4ba528c81e384a48cd1a4eafef55c91cedddbd5f04` |
+| compressed size | 2,772,950 bytes |
 | payload files | 307 |
-| uncompressed payload | 14,188,801 bytes |
+| uncompressed payload | 14,189,694 bytes |
 | content manifest | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.contents.csv` |
-| content-manifest SHA-256 | `2bd7a3b02908cce00081f6e52d4a036056d6079c63d7eb07b432bac03f37ca60` |
-| provenance rows at seal | 1,035 |
+| content-manifest SHA-256 | `c43e55042449bbe225950a05bfc056153129b60a30b0505ba3bd36aa5ac4842e` |
+| provenance rows at seal | 1,038 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:

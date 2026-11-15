@@ -120,7 +120,7 @@ outside its input. Logged as deviations #31 (defect + audit gap) and #32
 | audit | `scripts/audit_chapter_map.py` → `outputs/tables/v2_chapter_map_audit.csv`; 67/67 OK, 0 FAIL, stable SHA-256 |
 | guard | `tests/test_chapter_map_integrity.py` — 7 tests; suite now **161 passed** |
 | packs | `reports/chapter_assets/ch1_introduction_pack.md` … `ch4_data_engineering_pack.md`; Ch.5/Ch.6 skeletons path-refreshed; Ch.2 is an empty literature/gap/comparison scaffold with **no invented citations** |
-| deposit | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; 309 files, 78/78 tables hash-aligned, SHA-256 `deaf0493…784e`; raw/duckdb/processed/figures/logs excluded. Built locally; **not uploaded**, no DOI |
+| deposit | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; 307 files, 78/78 tables hash-aligned; the current archive SHA-256 and provenance-row count are recorded in `docs/deposit_preflight.md`; raw/duckdb/processed/figures/logs excluded. Built locally; **not uploaded**, no DOI |
 | TODOs | tier1 OHLCV upstream verification (public-repo caveat accepted 2026-11-14); derived-only vs licensed-subset deposit scope (author identity resolved 2026-11-14) |
 
 `git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
@@ -144,7 +144,7 @@ robustness checks; no thesis prose; no invented citations; no uploads.
 | chapter map | 67/67 OK, 50 distinct artefacts; `docs/ai_use_policy.md` reclassified `v2/VERIFIED` after the Phase-D rewrite; provenance manifest append-only |
 | suite | **161 passed** (159 tests + 2 notebooks); `outputs/tables/v2_chapter_map_audit.csv` 67/67 OK |
 | deviations | #33–#44 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair, identity/public release, upstream terms, University disclosure) |
-| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; public repo live at `https://github.com/pravin001/NEPSE-floorsheet-broker-network-thesis-pipeline` with figures; `main` includes `499f8c2` and the post-publication documentation commit; tags `v1.0-freeze` … `v2.0.2-prewrite` pushed; no tag moved |
+| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; public repo live at `https://github.com/pravin001/NEPSE-floorsheet-broker-network-thesis-pipeline` with figures; `main` is the post-publication documentation commit after `499f8c2`; tags `v1.0-freeze` … `v2.0.2-prewrite` pushed; no tag moved |
 | tag | `v2.0.2-prewrite` on the metadata-finalisation commit |
 
 **Next:** the student writes Chapters 1–6 in the 22–27 Nov window using
