@@ -1,7 +1,7 @@
 asset_id,artifact_path,role,exp_id,claim_version,sha256
 CH4-A1,scripts/run_stage6_rebuild.py,21-step rebuild driver,EXP-0013,v2,01748ac61512065392375bdf441fe7ccb507d18b1c4430cdc17c9cd71f562a3a
 CH4-A2,data/metadata/corpus_files_sha256.csv,per-file provenance,EXP-0002b,v1,e78df58d539b59e4e8e8636437a8870ffb3a727a9095c7c00d9e0931cffbedac
-CH4-A3,docs/ai_use_policy.md,licence register,EXP-0002d,v2,3a4f46d33a0ebbea8c9cfa308d1433f877a8ea281c402392a81dd172800106cd
+CH4-A3,docs/ai_use_policy.md,licence register,EXP-0002d,v2,db7afeeb69552fa767460984374349e7ffddf1580b5deb1fcd4ee7fc10c015e9
 CH4-A4,notebooks/01_data_quality_audit.ipynb,executable corpus audit,EXP-0002f,v1,4fb7abe2b9aa2a176e00a58c5cb043e6236629a558e00e4ccc068e864165bb56
 CH4-A5,outputs/tables/volume_reconciliation.csv,volume reconciliation,EXP-0002e,v1,e4246fef017e7d28a2481357ee5b1f683879fb3f6c7d8c35a0f1d5920372ee0c
 CH4-A6,outputs/tables/v2_clean_rebuild_audit.csv,drift evidence,EXP-0013,v2,e7c913a8c8401a55bde3c7fe31f71667e9a4047b40f6ee9165f5208b6d6d2ef2

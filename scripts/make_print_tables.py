@@ -446,10 +446,10 @@ licence_rows = [
         "Kaggle rohankasichhwa OHLCV (tier1)",
         "Prices / outcomes",
         "MIT (Kaggle metadata); description says educational/research",
-        "UNCERTAIN: NEPSE Alpha",
-        "Permitted",
-        "Permitted for thesis; conditional for public redistribution",
-        "Derived tables permitted; raw OHLCV not deposited",
+        "UNCERTAIN: NEPSE Alpha; no explicit redistribution grant (retrieved 2026-11-14)",
+        "Permitted on the declared grant",
+        "Public code repo includes figures by the author's accepted risk",
+        "Derived tables permitted; raw OHLCV and figures not deposited",
         "https://www.kaggle.com/api/v1/datasets/view/rohankasichhwa/nepse-daily-stock-data-2012-2025",
     ),
     (
@@ -506,7 +506,7 @@ emit(
     src("reports/licence_review.md", "LICENSE", "data/metadata/provenance_manifest.csv"),
     "Manual transcription of the live licence review into a six-source matrix; every quoted status is traceable to reports/licence_review.md.",
     "Text only; no numeric rounding.",
-    "Supersedes the 'tier1 pending' wording in reports/limitations.md L4 and the Ch.4 pack: the live Kaggle metadata declares MIT, while upstream NEPSE Alpha remains UNCERTAIN. The provenance manifest remains authoritative per file. Retrieved 2026-11-13T10:21:13Z.",
+    "Dataset and repository licences retrieved 2026-11-13T10:21:13Z; the upstream NEPSE Alpha terms were retrieved 2026-11-14T09:12:54Z and grant no explicit redistribution right (reports/licence_review.md §10). The Kaggle tier1 metadata declares MIT, while upstream clearance remains UNCERTAIN. The provenance manifest remains authoritative per file.",
     status="MANUAL_TRANSCRIPTION_FROM_VERIFIED_SOURCE",
 )
 

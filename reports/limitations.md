@@ -21,7 +21,7 @@ threat to the thesis's stated claims, not by how easy the limitation is to fix.
 | L1 | **CRITICAL** | **Predictive, not causal.** All estimates are conditional associations on an observational panel; no instrument, exogenous broker shock, or event timing identifies a causal effect of network structure. | DK/DC/FM/WB + panel FE only; no identification strategy. Any "effect of concentration" wording must be "predictive association". | EXP-0004b, EXP-0009c/d, EXP-0011b/d |
 | L2 | **CRITICAL** | **Tier-10 coverage.** The OOS panel is the per-fold top-10 universe (12 symbols), not the 530-symbol market. | External ranks 11–15: 3,414 rows / 264 events; **0/5 BH pass**, raw p ≥ .23; magnitudes shrink 2–4×. Results are tier-local (liquidity/attention), not market-wide. | EXP-0004a, EXP-0005f |
 | L3 | **CRITICAL** | **No intraday timestamps.** Floorsheet rows are not in execution order; `contract_no` is daily-global. No order-flow, sequence, or intraday-timing statistic is identified. | Per-(symbol,date) contract-id gaps are expected; ordering features sort by `contract_no` and exclude 2023-02-16. | EXP-0002b/c, EXP-0003a |
-| L4 | **CRITICAL** | **Licence chain.** tier1 Kaggle OHLCV licence is PENDING student UI confirmation → **figures RESTRICTED until confirmed**; NEPSE index repo licence is `unstated_in_repo`; data licences remain per `provenance_manifest.csv`; code MIT (Stage 6). | Deposit cannot proceed on an unverified tier1 licence; index is secondary/shading only and swap-able. | EXP-0002d, EXP-0007 |
+| L4 | **CRITICAL** | **Licence chain.** Tier1 Kaggle OHLCV declares MIT and an educational/research purpose, but the upstream NEPSE Alpha terms (retrieved 2026-11-14) grant no explicit redistribution right and reserve all rights; upstream status remains `UNCERTAIN`. The author accepted the figure-redistribution caveat for the public code repository on 2026-11-14, so figures are public there, but the derived-only deposit still excludes them. NEPSE index repo licence is `unstated_in_repo`; data licences remain per `provenance_manifest.csv`; code MIT (v2.0.2). | Upstream clearance is not claimed. Any deposit that redistributes materially tier1-derived tables or figures remains exposed unless written permission is obtained or the series is replaced; the index is secondary/shading only and swap-able. | EXP-0002d, EXP-0007; `reports/licence_review.md` §10; deviation #43 |
 | L5 | **MAJOR** | **Single exchange.** NEPSE only; no cross-market or cross-country replication. | External validity is bounded to one frontier market and one 2021–2024 window. | EXP-0002b |
 | L6 | **MAJOR** | **Corpus gaps.** 938/940 window sessions covered (99.79%); 2021-09-01 and 2023-11-27 exist in no verified source. | Non-imputable; no aggregate crosses the gaps. | EXP-0002b |
 | L7 | **MAJOR** | **2023-02-16 `contract_no_defect`.** All 35,043 rows share one transaction id. | Ordering-dependent features (incl. EoD concentration) exclude the day; level aggregates keep it. | EXP-0002c, EXP-0003a |
@@ -118,10 +118,10 @@ to other markets is a hypothesis for future work, not a finding.
 |---|---|---|---|
 | kaggle viking303 floorsheets 2021–2023 | CC0 | verified | usable |
 | socrateai 2024 floorsheets | MIT | verified | usable |
-| tier1 Kaggle OHLCV | pending student UI check | **RESTRICTED** | figures blocked until confirmed |
+| tier1 Kaggle OHLCV | Kaggle MIT declared; upstream NEPSE Alpha no explicit redistribution grant | **UNCERTAIN upstream** | academic use per declared grant; figures public in the code repo by the author's accepted risk; excluded from the derived deposit |
 | tier2 SamirWagle prices | attribution | verified | gap-fill only |
 | NEPSE composite index | `unstated_in_repo` | secondary | shading/benchmark only; swap-able |
-| code | MIT (Stage 6) | to add | code deposit |
+| code | MIT (v2.0.2) | verified | code deposit |
 
 The provenance manifest is the authoritative per-file record
 (`data/metadata/provenance_manifest.csv`); the licence column there overrides

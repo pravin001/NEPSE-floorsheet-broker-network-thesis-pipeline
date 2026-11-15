@@ -16,8 +16,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-SUMMARY = DIST / "nepse-floorsheet-microstructure-v2.0.1-derived.summary.json"
-CONTENTS = DIST / "nepse-floorsheet-microstructure-v2.0.1-derived.contents.csv"
+SUMMARY = DIST / "nepse-floorsheet-microstructure-v2.0.2-derived.summary.json"
+CONTENTS = DIST / "nepse-floorsheet-microstructure-v2.0.2-derived.contents.csv"
 OUT = ROOT / "docs" / "deposit_preflight.md"
 TIMINGS = ROOT / "outputs" / "logs" / "v2_stage6_rebuild_timings.csv"
 CHAPTER_AUDIT = ROOT / "outputs" / "tables" / "v2_chapter_map_audit.csv"
@@ -61,11 +61,12 @@ def build() -> str:
     register_ok = register.get("OK", 0)
 
     lines = [
-        "# Deposit preflight — v2.0.1 derived-only archive",
+        "# Deposit preflight — v2.0.2 derived-only archive",
         "",
-        "**Release:** `v2.0.1-handoff` (post-`v2.0-a++-freeze`) · 2026-11-13",
+        "**Release:** `v2.0.2-prewrite` + post-publication documentation · 2026-11-14",
         "**Status:** archive built and verified locally; **NOT uploaded**, no DOI,",
-        "no repository push. Upload is a user action.",
+        "no deposit-repository push. Upload is a user action; the public code",
+        "repository is separate from this derived-only archive.",
         "",
         "This file is a wrapper record. It is excluded from the archive payload so",
         "the archive SHA-256 is not self-referential; the payload's embedded",
@@ -145,15 +146,20 @@ def build() -> str:
         "|---|---|",
         f"| code licence | {licence['code_licence']} (`LICENSE`, `CITATION.cff`) |",
         f"| restricted raw/figure paths in payload | {licence['restricted_paths_in_archive']} |",
-        f"| tier1 OHLCV pending-licence manifest rows | {licence['pending_tier1_licence_rows_in_manifest']} |",
+        f"| historical tier1 manifest rows carrying the superseded pending label | {licence['pending_tier1_licence_rows_in_manifest']} |",
         f"| NEPSE index unstated-licence manifest rows | {licence['unstated_index_licence_rows_in_manifest']} |",
         "",
         "Floorsheet inputs: Kaggle viking303 2021–2023 (**CC0**) and socrateai",
-        "2024 (**MIT**). Tier1 OHLCV remains **pending user UI confirmation**, so",
-        "`outputs/figures/` is excluded from this derived-only payload. The NEPSE",
-        "index is a secondary input with an unstated repository licence. Raw",
-        "archives, DuckDB, processed parquet, prediction parquet, logs, and",
-        "figures are **not redistributed**.",
+        "2024 (**MIT**). Tier1 OHLCV is **MIT-declared on Kaggle** with an",
+        "educational/research statement, but its prices are “scraped from NEPSE",
+        "Alpha”; the provider's terms (retrieved 2026-11-14) grant no explicit",
+        "redistribution right and reserve all rights. Upstream status remains",
+        "**UNCERTAIN**, so `outputs/figures/` is excluded from this derived-only",
+        "payload. The author accepted the figure-redistribution caveat for the",
+        "public code repository; this preflight does not treat that as upstream",
+        "clearance. The NEPSE index is a secondary input with an unstated",
+        "repository licence. Raw archives, DuckDB, processed parquet, prediction",
+        "parquet, logs, and figures are **not redistributed by this deposit**.",
         "",
         "---",
         "",
@@ -165,8 +171,9 @@ def build() -> str:
         "`outputs/logs/` · `outputs/predictions/` · `outputs/manifests/` ·",
         "`dash/` · `dist/` · venv/cache/pyc files.",
         "",
-        "Also excluded: `data/metadata/tier*_state.json` (environment state) and",
-        "this preflight wrapper.",
+        "Also excluded: `data/metadata/tier*_state.json` (environment state),",
+        "this preflight wrapper, and the internal viva-preparation note",
+        "(`reports/viva_prep.md`).",
         "",
         "---",
         "",
@@ -197,17 +204,23 @@ def build() -> str:
         "",
         "## 7 · Remaining user decisions",
         "",
-        "Exactly three decisions remain; none is answered by this preflight.",
+        "Two items are resolved; one deposit decision remains. None is answered",
+        "by this preflight.",
         "",
-        "1. **TODO(user): author identity.** Replace the placeholder author in",
-        "   `CITATION.cff` and `LICENSE`, then rebuild the archive and this",
-        "   preflight.",
-        "2. **TODO(user): tier1 OHLCV licence.** Confirm the Kaggle UI licence.",
-        "   Until then, keep `outputs/figures/` restricted; it is already outside",
-        "   this payload.",
-        "3. **TODO(user): deposit scope.** Keep the derived-only payload",
-        "   (recommended), or decide to add a licensed data subset. Raw archives",
-        "   are not covered by the code licence and are never in this archive.",
+        "1. **RESOLVED (2026-11-14): author identity.** `CITATION.cff` and",
+        "   `LICENSE` name `Prabin Shrestha <itsme_prabin@outlook.com>`. The",
+        "   v2.0.2 archive and this preflight are built from that tree.",
+        "2. **RESOLVED FOR THE PUBLIC REPO (2026-11-14): tier1 upstream caveat.**",
+        "   The author accepted public release of figures with the upstream",
+        "   NEPSE Alpha position unresolved. The terms were retrieved and grant",
+        "   no explicit redistribution right; upstream clearance is not claimed.",
+        "   This deposit still excludes figures and does not redistribute raw",
+        "   OHLCV.",
+        "3. **TODO(user): deposit scope and destination.** Keep the derived-only",
+        "   payload (recommended), or decide to add a licensed data subset, and",
+        "   name the repository/DOI service. Upload requires explicit",
+        "   authorisation. Raw archives are not covered by the code licence and",
+        "   are never in this archive.",
         "",
     ]
     return "\n".join(lines)
@@ -217,7 +230,7 @@ def main() -> None:
     text = build()
     OUT.write_text(text, encoding="utf-8")
     todos = text.count("TODO(user)")
-    assert todos == 3, todos
+    assert todos == 1, todos
     print(f"preflight written: {OUT.relative_to(ROOT)}")
     print(f"TODO markers: {todos}")
     print(f"bytes: {OUT.stat().st_size}")

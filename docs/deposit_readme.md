@@ -1,9 +1,9 @@
 # Deposit README — NEPSE Floorsheet Microstructure (v2.0)
 
-**Release:** `v2.0.1-handoff` (post-`v2.0-a++-freeze`) · 2026-11-13
-**Metadata update:** 2026-11-14 — legal author identity and public-repository
-metadata. The sealed v2.0.1 archive predates this update and must be rebuilt
-before any deposit.
+**Release:** `v2.0.2-prewrite` + post-publication documentation · 2026-11-14
+**Metadata update:** 2026-11-14 — legal author identity, public repository, and
+the upstream NEPSE Alpha terms. The archive was rebuilt as v2.0.2 after these
+documentation changes and verified locally. It has **not** been uploaded.
 **Thesis:** *Broker Networks, Concentration, and Market Integrity in a Frontier
 Exchange: Evidence from NEPSE Floorsheets.*
 **Scope:** predictive associations in the most-traded NEPSE tier, 2021–2024.
@@ -25,7 +25,7 @@ action; see §8. Packaging evidence: `docs/deposit_preflight.md`.
 | `configs/v2_freeze/` | v2 freeze snapshot + `freeze_manifest.csv` (SHA-256 per file) |
 | `docs/` | analysis plan (v1 frozen + v2 extension), deviations, experiment register, reproducibility guide, chapter crosswalk |
 | `data/metadata/` | provenance manifest, corpus file hashes, universe selection, schema (metadata only) |
-| `outputs/tables/` | every derived table of record (v1 + v2; 76 CSVs) |
+| `outputs/tables/` | every derived table of record (v1 + v2; 78 CSVs) |
 | `reports/` | data-quality, robustness, heterogeneity, event-study, limitations, Ch.1–Ch.6 handoff packs |
 | `notebooks/` | executable 00–01 notebooks (nbmake-tested) |
 | `tests/` | unit, leakage, SE-specification, freeze, chapter-map integrity tests |
@@ -43,11 +43,12 @@ Licences for the raw inputs are recorded per file in
 `data/metadata/provenance_manifest.csv`.
 
 The archive itself lives at
-`dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored,
+`dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored,
 deterministically rebuildable with `scripts/build_deposit_archive.py`).
 `docs/deposit_preflight.md` records the archive hash, content-manifest hash,
 inventory and licence checks; it is a wrapper record and is not inside the
-payload.
+payload. The v2.0.1 archive files, if still present locally, are superseded and
+must not be deposited.
 
 ---
 
@@ -80,7 +81,7 @@ licence, evidence for every file). The original workstation used these roots:
 |---|---|
 | kaggle viking303 floorsheets 2021–2023 (CC0) | `/home/whacko/.cache/kagglehub/datasets/viking303/nepse-historical-floorsheet/versions/14/NEPSE_data` |
 | socrateai 2024 floorsheets (MIT) | `/home/whacko/research/nepse-kronos-thesis/data/raw/tier3_floorsheets_socrateai` |
-| tier1 Kaggle OHLCV (100 symbols; licence pending) | `/home/whacko/research/nepse-kronos-thesis/data/raw/tier1_kaggle` |
+| tier1 Kaggle OHLCV (100 symbols; Kaggle MIT declared, upstream NEPSE Alpha `UNCERTAIN`) | `/home/whacko/research/nepse-kronos-thesis/data/raw/tier1_kaggle` |
 | tier2 SamirWagle prices (gap-fill) | `/home/whacko/research/nepse-kronos-thesis/data/raw/tier2_samirwagle_prices` |
 
 Those absolute paths are embedded in `scripts/select_top10.py`,
@@ -144,7 +145,7 @@ passed 154; the seven added tests are the chapter-map integrity guards.
 |---|---|---|
 | kaggle viking303 floorsheets 2021–2023 | **CC0** (verified) | usable; raw not deposited here |
 | socrateai 2024 floorsheets | **MIT** (verified; LICENCE fetched) | usable with attribution; raw not deposited here |
-| tier1 Kaggle OHLCV | **MIT** declared on Kaggle; upstream NEPSE Alpha `UNCERTAIN` | academic use is covered by the declared grant and the dataset's educational/research statement; the author accepted the **AMBER** public-redistribution caveat for the code repository on 2026-11-14, but the derived-only deposit archive still excludes figures; derived tables remain numerically derived |
+| tier1 Kaggle OHLCV | **MIT** declared on Kaggle; upstream NEPSE Alpha: **no explicit redistribution grant** (retrieved 2026-11-14) | academic use rests on the declared grant and the dataset's educational/research statement; the author accepted the **AMBER** public-redistribution caveat for the code repository on 2026-11-14, but the derived-only deposit still excludes figures; derived tables remain numerically derived and upstream clearance is **not** claimed |
 | tier2 SamirWagle prices | no licence file; analytic use with attribution | gap-fill only; not redistributed |
 | NEPSE composite index | `unstated_in_repo` (GitHub API `license: null`) | secondary regime shading/benchmark only; swap-able |
 | code | MIT | this deposit |
@@ -152,10 +153,13 @@ passed 154; the seven added tests are the chapter-map integrity guards.
 `data/metadata/provenance_manifest.csv` is authoritative; if this summary and
 the manifest differ, the manifest wins. The author accepted the AMBER caveat
 and authorised public release of `outputs/figures/` in the code repository on
-2026-11-14; that acceptance does not resolve the upstream NEPSE Alpha position,
-and this derived-only deposit archive still excludes figures. The v2
-limitations table records this as CRITICAL row L4 (`reports/limitations.md`);
-the current two-layer review is in `reports/licence_review.md`.
+2026-11-14; that acceptance does not resolve the upstream NEPSE Alpha position.
+The provider's “Terms & Conditions” modal (retrieved `2026-11-14T09:12:54Z`)
+describes the data as its own work, reserves all rights, and grants no open
+licence or redistribution right; no separate `/terms` page exists. This
+derived-only deposit still excludes figures. The v2 limitations table records
+this as CRITICAL row L4 (`reports/limitations.md`); the verbatim terms and
+two-layer analysis are in `reports/licence_review.md` §10.
 
 ---
 
@@ -166,12 +170,13 @@ the current two-layer review is in `reports/licence_review.md`.
   v2 result.
 - `docs/analysis_deviations.md` — every implementation/reclassification choice
   with timestamp and reason (#1–#9 v1; #10–#30 v2; #31–#32 post-freeze
-  chapter-map defect and v2.0.1 handoff).
+  chapter-map defect and v2.0.1 handoff; #33–#41 v2.0.2 pre-write sprint;
+  #42–#43 public release and upstream NEPSE Alpha terms).
 - `docs/experiment_register.md` — every quotable number maps to one EXP row;
   numeric claims must cite an EXP id (EXP-0013 records the clean rebuild and
   freeze; EXP-0014 records the chapter handoff and deposit preflight).
 - `outputs/tables/v2_register_audit.csv` — register-to-manifest audit, re-run
-  for v2.0.1; the current check count is in `docs/deposit_preflight.md`.
+  for v2.0.2; the current check count is in `docs/deposit_preflight.md`.
 - `docs/chapter_artifact_map.md` + `outputs/tables/v2_chapter_map_audit.csv` —
   verified 67-claim crosswalk; every cited path exists and hash-matches the
   latest provenance row.
@@ -205,17 +210,21 @@ README instead of the table.
 ## 8 · Deposit action (user)
 
 No archive upload, DOI registration, or deposit push has been performed. The
-derived-only archive is built, hashed and audited locally. The author identity
-was resolved on 2026-11-14 (`Prabin Shrestha <itsme_prabin@outlook.com>`);
-because the sealed v2.0.1 archive predates that metadata update, rebuild it
-before deposit. One deposit decision remains before upload:
+v2.0.2 derived-only archive is built, hashed and audited locally. The author
+identity was resolved on 2026-11-14 (`Prabin Shrestha
+<itsme_prabin@outlook.com>`). Two deposit decisions remain before upload:
 
 1. **RESOLVED (2026-11-14): tier1 OHLCV upstream caveat.** The Kaggle metadata
    declares MIT and the dataset states an educational/research purpose, but its
-   prices are scraped from NEPSE Alpha, whose terms are `UNCERTAIN`. The author
-   accepted the AMBER caveat and authorised public release of figures in the
-   code repository; upstream verification remains outstanding, and this
-   derived-only archive still excludes figures.
-2. **Deposit scope** — keep the derived-only archive (recommended), or decide
-   to add a licensed data subset. Raw archives are not covered by the code
-   licence and are never part of this archive.
+   prices are scraped from NEPSE Alpha. The provider's terms were retrieved on
+   2026-11-14: they grant no explicit redistribution right and reserve all
+   rights. The author accepted the AMBER caveat and authorised public release
+   of figures in the code repository. Upstream clearance is still not claimed,
+   and this derived-only archive still excludes figures. A deposit that
+   redistributes materially tier1-derived tables remains the author's accepted
+   risk unless written permission is obtained or the series is replaced.
+2. **Deposit scope and destination** — keep the derived-only archive
+   (recommended), or decide to add a licensed data subset, and name the
+   repository/DOI service. Raw archives are not covered by the code licence and
+   are never part of this archive. Upload requires the student's explicit
+   authorisation.

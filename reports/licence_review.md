@@ -315,3 +315,55 @@ files). This acceptance is not a finding that upstream NEPSE Alpha rights are
 cleared; the upstream position remains `UNCERTAIN`, and the derived-only
 deposit archive continues to exclude figures. Recorded in
 `docs/analysis_deviations.md` #42.
+
+---
+
+## 10. Upstream NEPSE Alpha terms (retrieved 2026-11-14)
+
+**Source page:** `https://nepsealpha.com/login` — the “Terms & Conditions”
+modal for the Sastoshare Service, operated by Nepse Alpha Private Limited.
+**Retrieved:** 2026-11-14T09:12:54Z.
+
+### Quoted terms (verbatim; typography preserved)
+
+> “This document, the "Terms & Conditions " for Using the "Sastoshare" Service,
+> governs the relationship between the Client (Subscribers) and Nepse Alpha
+> Private Limited (the "Company") regarding the use of the Service”
+
+> “The data, analysis, informations, description, Signals, Statistics etc. and
+> any other information available on the Companyr services, is independently
+> work and effort of the Company and is not subject to verification.”
+
+> “Upon expiration of the account subscription, all data access and features
+> will be immediately terminated until the subscription is renewed.”
+
+> “Nepsealpha.com ©2026 All rights reserved”
+
+### What the terms do and do not say
+
+- They are subscription terms between NEPSE Alpha and its clients.
+- They describe the data and analysis as the Company's own work and reserve
+  rights (`All rights reserved`).
+- They grant **no** open licence, redistribution right, or permission to
+  create a public derivative dataset.
+- They do not explicitly address third-party academic quotation of aggregate
+  results; that remains a separate fair-use/University question.
+- No separate `/terms`, `/terms-and-conditions`, or `/privacy-policy` page was
+  available: all three returned HTTP 404 on 2026-11-14.
+
+### Conclusion
+
+The upstream status remains `UNCERTAIN` for legal clearance, but the operative
+finding is stronger than silence: **no explicit redistribution grant was
+found, and the provider claims the data as its own work with all rights
+reserved.** Do not treat the Kaggle `MIT` label as clearing upstream rights.
+
+- **Thesis:** cite the Kaggle label and the NEPSE Alpha terms; do not
+  redistribute raw OHLCV.
+- **Deposit:** the derived-only archive excludes figures; any public
+  redistribution of materially tier1-derived tables or figures remains the
+  author's accepted risk (#42) unless written permission is obtained or the
+  series is replaced with an official/licensed source.
+
+This section records the terms; it is not legal advice and does not upgrade the
+upstream status.

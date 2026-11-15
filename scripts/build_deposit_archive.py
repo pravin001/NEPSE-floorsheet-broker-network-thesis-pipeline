@@ -1,4 +1,4 @@
-"""Build the deterministic derived-only deposit archive (v2.0.1 handoff).
+"""Build the deterministic derived-only deposit archive (v2.0.2).
 
 Scope: code, documentation, chapter handoff packs, derived metadata, and the
 derived tables of record.  Raw archives, DuckDB, processed parquet, logs, and
@@ -30,9 +30,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-ARCHIVE_NAME = "nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz"
-CONTENTS_NAME = "nepse-floorsheet-microstructure-v2.0.1-derived.contents.csv"
-SUMMARY_NAME = "nepse-floorsheet-microstructure-v2.0.1-derived.summary.json"
+ARCHIVE_NAME = "nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz"
+CONTENTS_NAME = "nepse-floorsheet-microstructure-v2.0.2-derived.contents.csv"
+SUMMARY_NAME = "nepse-floorsheet-microstructure-v2.0.2-derived.summary.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import audit_register_v2 as regaudit  # noqa: E402
@@ -75,6 +75,7 @@ EXCLUDE_NAMES = {
 }
 EXCLUDE_FILES = {
     "docs/deposit_preflight.md",
+    "reports/viva_prep.md",
     "data/metadata/tier1_state.json",
     "data/metadata/tier2_state.json",
 }

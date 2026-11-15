@@ -45,7 +45,7 @@ stays unchecked.
 | B5 | The thesis does not redistribute raw floorsheets or raw OHLCV. | `docs/deposit_preflight.md`; `.gitignore`; `docs/deposit_readme.md` | CONDITIONAL |
 | B6 | The deposit contains derived tables only, with the code licence and source notices preserved. | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz`, SHA-256 `98ec4354c104ed67b22c45f53660a210e26504154701b47e28adad65c9c10ee6`; `docs/deposit_preflight.md` | CONDITIONAL |
 | B7 | The student has decided whether Kaggle-declared MIT plus the education/research statement is sufficient for the University, or whether upstream NEPSE Alpha permission is required. | `reports/licence_review.md` §conclusions; `docs/ai_use_policy.md` §7.2 | STUDENT |
-| B8 | No public upload, push, DOI registration or Zenodo/OSF/GitHub action was performed by the agent. | `git remote -v`; session record; `docs/ai_use_policy.md` §4.7 | DONE |
+| B8 | No public upload, push, DOI registration or Zenodo/OSF/GitHub action was performed by the agent. | `git remote -v`; session record; `docs/ai_use_policy.md` §5 | DONE |
 | B9 | If depositing after v2.0.2, rebuild the derived archive from the tagged commit rather than reusing the v2.0.1 archive. | `scripts/build_deposit_archive.py`; `docs/deposit_preflight.md` | CONDITIONAL |
 
 ---
@@ -104,7 +104,7 @@ stays unchecked.
 | E6 | The comparison table is filled with verified studies and the student's own reading, not AI-invented rows. | `reports/chapter_assets/ch2_comparison_table.csv` | STUDENT |
 | E7 | Citation style, page ranges, volume/issue and year are checked against the publisher's version. | `ch2_references_scaffold.csv`; publisher pages via DOI | STUDENT |
 | E8 | No quotation is attributed to a paper unless the student has the exact passage. | student's reference notes | STUDENT |
-| E9 | The literature review is the student's prose; the scaffold and matrix are not pasted in as text. | `docs/ai_use_policy.md` §4.1; final thesis | STUDENT |
+| E9 | The literature review is the student's prose; the scaffold and matrix are not pasted in as text. | `docs/ai_use_policy.md` §4; final thesis | STUDENT |
 
 ---
 
@@ -114,8 +114,8 @@ stays unchecked.
 |---|---|---|---|
 | F1 | `docs/ai_use_policy.md` records OpenCode+GLM, OpenCode+DeepSeek, and this sprint's `DeepSeek V4.1 Flash Free`. | `docs/ai_use_policy.md` §2 | DONE |
 | F2 | The policy states the permitted and prohibited roles, approval gates, provenance controls and model limitations. | `docs/ai_use_policy.md` §3–§9 | DONE |
-| F3 | The policy states that no thesis prose was AI-drafted. | `docs/ai_use_policy.md` §4.1, §11 | DONE |
-| F4 | The student completes the University disclosure section with the exact institutional wording, tools, dates and sign-off. | `docs/ai_use_policy.md` §11 | STUDENT |
+| F3 | The policy states that no thesis prose was AI-drafted. | `docs/ai_use_policy.md` §4, §11.1 | DONE |
+| F4 | The student completes the University disclosure with the institutional wording (kept private), tools, dates and sign-off. | `docs/ai_use_policy.md` §11 | STUDENT |
 | F5 | The student can defend every claim and has read every chapter; a green suite is not a substitute for understanding. | `docs/ai_use_policy.md` §5 | STUDENT |
 | F6 | If the model/provider changes after 2026-11-14, the policy table and University disclosure are updated. | `docs/ai_use_policy.md` §2, §12 | STUDENT |
 | F7 | No AI-generated citation, result, table cell or figure value is submitted without a traceable source. | `docs/ai_use_policy.md` §6–§7; all manifests | STUDENT |
@@ -129,7 +129,7 @@ stays unchecked.
 | G1 | The deposit archive is derived-only and excludes raw data, DuckDB, processed parquet, logs and licence-restricted figures. | `docs/deposit_preflight.md`; `docs/deposit_readme.md` | CONDITIONAL |
 | G2 | The archive checksum matches the recorded SHA-256. | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz`; `docs/deposit_preflight.md` | CONDITIONAL |
 | G3 | The deposit README names the author, licence, data sources and exclusions. | `docs/deposit_readme.md` | STUDENT |
-| G4 | The student has decided whether to upload to a repository; no upload is performed by the agent. | `docs/ai_use_policy.md` §4.7 | STUDENT |
+| G4 | The student has decided whether to upload to a repository; no upload is performed by the agent. | `docs/ai_use_policy.md` §5 | STUDENT |
 | G5 | The final PDF has been checked for formatting, cross-references, table/figure numbering, word count and appendices. | final thesis PDF | STUDENT |
 | G6 | The final PDF has been checked for accidental `TODO`, `NOT_REVIEWED`, `UNCERTAIN` (where not intended), placeholder rows and broken links. | final thesis PDF | STUDENT |
 | G7 | The viva/defence notes do not introduce claims that are absent from the frozen analysis. | `reports/chapter_assets/key_claims_sheet.md` | STUDENT |

@@ -7,7 +7,7 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-14 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-15 · Engineering ends 21 Nov (writing 22-27)
 - **v2.0 A++ upgrade COMPLETE** (post-`v1.0-freeze`): binding pre-declaration
   `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–6
   COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012,
@@ -120,7 +120,7 @@ outside its input. Logged as deviations #31 (defect + audit gap) and #32
 | audit | `scripts/audit_chapter_map.py` → `outputs/tables/v2_chapter_map_audit.csv`; 67/67 OK, 0 FAIL, stable SHA-256 |
 | guard | `tests/test_chapter_map_integrity.py` — 7 tests; suite now **161 passed** |
 | packs | `reports/chapter_assets/ch1_introduction_pack.md` … `ch4_data_engineering_pack.md`; Ch.5/Ch.6 skeletons path-refreshed; Ch.2 is an empty literature/gap/comparison scaffold with **no invented citations** |
-| deposit | `dist/nepse-floorsheet-microstructure-v2.0.1-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; derived tables/code/docs only; raw/duckdb/processed/figures/logs excluded; 76/76 tables hash-aligned |
+| deposit | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored, deterministic) + `docs/deposit_preflight.md`; 309 files, 78/78 tables hash-aligned, SHA-256 `deaf0493…784e`; raw/duckdb/processed/figures/logs excluded. Built locally; **not uploaded**, no DOI |
 | TODOs | tier1 OHLCV upstream verification (public-repo caveat accepted 2026-11-14); derived-only vs licensed-subset deposit scope (author identity resolved 2026-11-14) |
 
 `git tag v2.0-a++-freeze` remains on `51c7d89`; the handoff is a new commit and
@@ -138,13 +138,13 @@ robustness checks; no thesis prose; no invented citations; no uploads.
 | canonical verification | H10 exact: β `+9.492266420621041 bp`, DK p `.013754510527417598`, n `7,116`, n_eff `6,383`; secondary liquidity-controlled β `+9.585688569659226 bp`, p `.011719355980632`; 3/3 spot checks (H7 `+3.9523733421516263 bp`, H10 RW p `.081`, event-study CAR `+12.860877654854391 bp`, p `.5689998994`) |
 | licence review | live, verbatim two-layer finding: tier1 Kaggle declares `MIT` + “educational and research purposes” + “scraped from NEPSE Alpha”; upstream NEPSE Alpha rights `UNCERTAIN`; viking303 `CC0`; socrateai MIT-style/`NOASSERTION`; SamirWagle `license:null`/Educational; menaceXnadin `license:null`/unofficial mirror |
 | figures | F1–F10 in `outputs/figures/static/`; 300 dpi PNG + PDF; footer `EXP-id · data <12-hex> · v2.0.1`; `figure_manifest.csv`; 10/10 blank-check PASS |
-| AI policy | `docs/ai_use_policy.md` v2.0.2-prewrite: OpenCode+GLM, OpenCode+DeepSeek, `DeepSeek V4.1 Flash Free`; permitted/prohibited roles; approval gates; provenance/citation/licence controls; University disclosure TODO |
+| AI policy | `docs/ai_use_policy.md` v2.0.2-prewrite public summary: OpenCode+GLM, OpenCode+DeepSeek, `DeepSeek V4.1 Flash Free`; permitted/prohibited roles; oversight; provenance/citation/licence register; §11 University disclosure. The detailed internal plan (full model/session inventory, approval gates, sprint record) is in a private audit file outside the public repository. §11 disclosure completed for the Coventry-partnered Computing Individual Research Project; the brief's AI-acknowledgement wording is recorded as ambiguous and referred to the module leader in writing; no AI-use record deleted |
 | references | 39 Crossref-verified candidates (11 NET, 10 LIQ, 6 MAN, 7 EM, 5 NP); all Crossref 200 / DOI 302 on 2026-11-14; `content_review_status = NOT_REVIEWED` on every row; one SSRN `POSTED_CONTENT_NOT_FINAL` |
 | print tables | 28 CSVs + `table_manifest.csv` in `reports/chapter_assets/print_tables/`; all hashes/rows/columns validated; canonical numbering in `table_numbering_plan.md` |
 | chapter map | 67/67 OK, 50 distinct artefacts; `docs/ai_use_policy.md` reclassified `v2/VERIFIED` after the Phase-D rewrite; provenance manifest append-only |
 | suite | **161 passed** (159 tests + 2 notebooks); `outputs/tables/v2_chapter_map_audit.csv` 67/67 OK |
-| deviations | #33–#40 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair) |
-| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; full public push incl. figures authorised 2026-11-14 with the upstream caveat accepted; push awaits GitHub authentication |
+| deviations | #33–#44 (figure representations, Phase-A verification, licence finding, static-figure conventions, metadata-only references, table numbering, chapter-map hash repair, identity/public release, upstream terms, University disclosure) |
+| public metadata | legal author identity `Prabin Shrestha <itsme_prabin@outlook.com>` in `CITATION.cff`, `LICENSE`, `pyproject.toml` and deposit docs; v2.0.2 release date 2026-11-14; public repo live at `https://github.com/pravin001/NEPSE-floorsheet-broker-network-thesis-pipeline` with figures; `main` includes `499f8c2` and the post-publication documentation commit; tags `v1.0-freeze` … `v2.0.2-prewrite` pushed; no tag moved |
 | tag | `v2.0.2-prewrite` on the metadata-finalisation commit |
 
 **Next:** the student writes Chapters 1–6 in the 22–27 Nov window using
@@ -153,11 +153,15 @@ Ch.1, with Ch.2 reading in parallel) and `key_claims_sheet.md`. Every chapter is
 student prose. No new analysis is permitted.
 
 **Remaining student TODOs:** (1) upstream NEPSE Alpha permission remains
-unverified; the author accepted the caveat for the public repository on
-2026-11-14, so this is a thesis/deposit-clearance item rather than a blocker for
-the public code repo; (2) complete the University disclosure wording/sign-off;
-(3) decide whether and where to deposit the derived-only archive (no archive
-upload has been performed).
+unresolved: the terms were retrieved on 2026-11-14 and grant no explicit
+redistribution right, so thesis/deposit clearance is still the author's
+accepted risk; (2) sign the completed University disclosure after the final
+thesis text exists and, if needed, obtain the module leader's written
+clarification of the brief's AI-acknowledgement wording
+(`docs/ai_use_policy.md` §11; private note outside the repository); (3)
+decide whether and where to deposit the v2.0.2 derived-only archive (built and
+verified locally; no upload or DOI). Viva preparation is in
+`reports/viva_prep.md`.
 
 ## R10 gate status
 
