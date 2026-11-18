@@ -11,19 +11,35 @@ def density(G: nx.DiGraph) -> float:
 def reciprocity_volume(G: nx.DiGraph) -> float:
     """Share of directed edge VOLUME that flows on bidirectional pairs.
 
-    Defined as 2 * sum(min(w_ij, w_ji)) / sum(all weights): the minimum is the
-    matched bidirectional flow, doubled so a perfectly symmetric pair counts
-    exactly once per direction beaten. Unweighted reciprocity (nx.reciprocity)
-    is reported separately by `metrics_frame` for reference.
+    Definition (feature dictionary / analysis plan):
+        2 * sum_{unordered i<j} min(w_ij, w_ji) / sum(all edge weights)
+
+    The minimum is the matched bidirectional flow for one unordered pair,
+    doubled so a perfectly symmetric pair counts exactly once per direction.
+    Self-loops (broker i trading with itself) are NOT bidirectional broker
+    pairs: they remain in the denominator (total volume) but are excluded from
+    the numerator. Each unordered pair is counted once.
+
+    Correction note (v2.1.0): the previous implementation iterated over both
+    directed edges, added the minimum twice, then multiplied by two again —
+    returning 4*min/total and up to 2.0 for a perfectly symmetric two-broker
+    graph. It also counted self-loops as reciprocal pairs. See
+    `reports/reciprocity_correction.md`.
     """
     tot = sum(d.get("weight", 1.0) for _, _, d in G.edges(data=True))
     if tot <= 0:
         return 0.0
     matched = 0.0
+    seen: set[tuple] = set()
     for u, v, d in G.edges(data=True):
-        w_ij = d.get("weight", 1.0)
+        if u == v:
+            continue  # self-loop: denominator only, never a reciprocal pair
+        if (v, u) in seen:
+            continue  # this unordered pair was already counted
+        seen.add((u, v))
         if G.has_edge(v, u):
-            matched += min(w_ij, G[v][u].get("weight", 1.0))
+            matched += min(d.get("weight", 1.0),
+                           G[v][u].get("weight", 1.0))
     return 2.0 * matched / tot
 
 
