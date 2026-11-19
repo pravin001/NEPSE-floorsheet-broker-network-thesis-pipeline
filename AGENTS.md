@@ -45,13 +45,14 @@ full 21-step pipeline was rebuilt from untouched raw archives (21/21 exit 0,
 | rebuild | `scripts/run_stage6_rebuild.py --clean`; log `outputs/logs/v2_stage6_rebuild.log`; timings CSV; `data/raw/` unchanged (577 files / 611,881,127 bytes) |
 | governance | EXP-0015; deviation #45; correction record `reports/reciprocity_correction.md` |
 | living limitations | `reports/limitations.md` L1–L26 (v1 `docs/limitations.md` stays frozen) |
-| suite | **177 passed, 0 failed** (incl. 2 notebooks); H10 recompute PASS; chapter map 67/67; register 736 OK + 3 documented exemptions |
-| deposit | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz`, SHA-256 `843817a8f789a89d399799cdf0506cbd8435eca9d443debdea5fab4f955c2da3`; built locally, not uploaded |
+| suite | **177 passed, 0 failed** (incl. 2 notebooks); H10 recompute PASS; chapter map 67/67; register 738 OK + 3 documented exemptions |
+| deposit | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz`; hash recorded in `docs/deposit_preflight.md`; built locally, not uploaded |
 | historical sections | the v2.0/v2.0.1/v2.0.2 stage reports below are historical; wherever they quote H6/H10 or reciprocity-dependent numbers, the v2.1.0 tables and reports above supersede them |
 
 **Next:** the student writes Chapters 1–6 (student prose only) using
-`reports/chapter_assets/writing_order_memo.md` and `key_claims_sheet.md`;
-viva study aid in `reports/viva_prep.md`. No new analysis is permitted.
+`reports/chapter_assets/writing_order_memo.md` and `key_claims_sheet.md`.
+The viva study aid is kept in the private workspace, not in this repository.
+No new analysis is permitted.
 
 ## Environment survey — 2026-11-08
 
@@ -186,9 +187,9 @@ accepted risk; (2) sign the completed University disclosure after the final
 thesis text exists and, if needed, obtain the module leader's written
 clarification of the brief's AI-acknowledgement wording
 (`docs/ai_use_policy.md` §11; private note outside the repository); (3)
-decide whether and where to deposit the v2.0.2 derived-only archive (built and
-verified locally; no upload or DOI). Viva preparation is in
-`reports/viva_prep.md`.
+decide whether and where to deposit the v2.1.0 derived-only archive (built and
+verified locally; no upload or DOI). The viva study aid is kept in the private
+workspace, not in this repository.
 
 ## R10 gate status
 

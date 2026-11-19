@@ -16,13 +16,13 @@ provenance manifest predates the final wrapper hash row.
 | item | value |
 |---|---|
 | archive | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored) |
-| SHA-256 | `b0257b0c3f681c44c352e6c4ffc6bf098507b809343c733636156e7c609e6b1f` |
-| compressed size | 3,054,554 bytes |
+| SHA-256 | `57519e42465ccf18e8ca089d77811bf3f81a14194606c3b78fa43ec6097b07be` |
+| compressed size | 3,054,635 bytes |
 | payload files | 354 |
-| uncompressed payload | 14,995,933 bytes |
+| uncompressed payload | 14,996,830 bytes |
 | content manifest | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv` |
-| content-manifest SHA-256 | `ee37b2829e5c63248facab5e03fb384171f0215941237df7c127bffa505bfa0a` |
-| provenance rows at seal | 1,222 |
+| content-manifest SHA-256 | `13c6d996c6116572ccfff00055bf4787cdee82bc3617713b39ecbabe94dc6858` |
+| provenance rows at seal | 1,225 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:
@@ -113,7 +113,7 @@ Excluded by construction (the packer refuses to leak them):
 
 Also excluded: `data/metadata/tier*_state.json` (environment state),
 this preflight wrapper, and the internal viva-preparation note
-(`reports/viva_prep.md`).
+(kept in the private workspace, not in the repository).
 
 ---
 

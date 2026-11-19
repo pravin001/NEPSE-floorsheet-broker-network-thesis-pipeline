@@ -173,7 +173,7 @@ def build() -> str:
         "",
         "Also excluded: `data/metadata/tier*_state.json` (environment state),",
         "this preflight wrapper, and the internal viva-preparation note",
-        "(`reports/viva_prep.md`).",
+        "(kept in the private workspace, not in the repository).",
         "",
         "---",
         "",
