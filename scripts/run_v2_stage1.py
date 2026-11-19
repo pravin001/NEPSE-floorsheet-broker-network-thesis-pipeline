@@ -300,21 +300,58 @@ def main() -> None:
                "v2_robustness_rows"),
         "H9": ("NULL_ROBUST", "bh_fail_loo_stable_null", "v1_result"),
     }
+    # v2.1.0 premise audit: the seven fixed labels were declared from the
+    # v2.0.2 numbers.  A corrected feature may not silently inherit a label
+    # whose premise it fails.  The null labels require a BH failure; H4
+    # requires a BH-passing opposite-sign estimate.  H6/H7/H10 are adjudicated
+    # below and are not in this loop.
+    for hid in ("H1", "H2", "H3", "H5", "H9"):
+        row = frozen.loc[frozen["test_id"] == hid].iloc[0]
+        if bool(row["bh_sig_q10"]):
+            raise BundleError(
+                f"{hid}: fixed NULL_ROBUST contradicted by corrected BH pass "
+                f"(bh_adj_p={row['bh_adj_p']!r}); relabel under the declared "
+                f"rule before rerunning")
+    h4 = frozen.loc[frozen["test_id"] == "H4"].iloc[0]
+    if not bool(h4["bh_sig_q10"]):
+        raise BundleError("H4: exploratory premise lost (no BH pass)")
+    if np.sign(float(h4["bp"])) == np.sign(
+            {"pos": 1, "neg": -1}[str(h4["predicted_sign"])]):
+        raise BundleError("H4: opposite-sign premise lost")
+
     rw_lookup = dict(zip(rw_tab["test_id"], rw_tab["rw_p"]))
     cls_rows = []
     for hid in grid_order:
         if hid in fixed:
             cls, reason, source = fixed[hid]
         else:                                   # H6/H7/H10: RW adjudicates
+            row = frozen.loc[frozen["test_id"] == hid].iloc[0]
+            # v2.1.0: a corrected fit must still clear the pre-declared BH
+            # gate to be confirmable.  The v2.0.2 code only checked RW because
+            # all three candidates happened to be BH-passing in v1; the
+            # correction can remove that premise.  A BH failure is not a
+            # promotion route, so it yields the non-confirmed NULL_FRAGILE
+            # label rather than a headline.
             if rw_lookup[hid] > 0.10:
                 cls = "NULL_FRAGILE"
                 reason = "rw_p_gt_0.10"
                 source = "v2_robustness_rows"
-            else:
-                cls = "CONFIRMED_HEADLINE"
-                reason = ("bh_sig_q10_sign_ambiguous" if hid == "H6"
-                          else "bh_sig_q10_sign_as_declared")
+            elif not bool(row["bh_sig_q10"]):
+                cls = "NULL_FRAGILE"
+                reason = "bh_fail_not_confirmable"
                 source = "v1_result"
+            else:
+                declared = str(row["predicted_sign"])
+                if declared in {"pos", "neg"} and np.sign(float(row["bp"])) != \
+                        np.sign({"pos": 1, "neg": -1}[declared]):
+                    cls = "EXPLORATORY_POST_HOC"
+                    reason = "bh_sig_q10_opposite_sign"
+                    source = "v2_robustness_rows"
+                else:
+                    cls = "CONFIRMED_HEADLINE"
+                    reason = ("bh_sig_q10_sign_ambiguous" if declared == "amb"
+                              else "bh_sig_q10_sign_as_declared")
+                    source = "v1_result"
         cls_rows.append({"test_id": hid, "result_classification": cls,
                          "classification_reason": reason,
                          "classification_source": source})
@@ -344,7 +381,7 @@ def main() -> None:
         "beta_bp": ev_mean * 1e4, "se_bp": ev_se * 1e4,
         "mde80_bp": m * 1e4, "abs_beta_over_half_mde": ratio,
         "classification": cls,
-        "basis": (f"v1 event_study_cars.csv (frozen; n={len(ev)}; "
+        "basis": (f"current event_study_cars.csv (rebuild; n={len(ev)}; "
                   f"SE=|mean/t|, t={float(ev_t.statistic):.4f})"),
     }
     mde_tab = pd.concat([mde_tab, pd.DataFrame([ev_row])], ignore_index=True)

@@ -1,18 +1,25 @@
-# Pre-declared heterogeneity and event-study upgrade (Stage 4)
+# Pre-declared heterogeneity and event-study upgrade (Stage 4) — v2.1.0 update
 
 **Stage 4 of the v2.0 A++ upgrade** · pre-declaration:
 `docs/analysis_plan_v2_extension.md` §V2-4 (written before any v2 result).
 Runner of record: `scripts/run_v2_stage4.py` · log:
 `outputs/logs/v2_stage4.log` · experiments EXP-0011d–e · deviations #24–#25.
 
+**v2.1.0 update (2026-11-19).** Rebuilt after the reciprocity correction
+(EXP-0015). The subgroup grid now contains two H10 Bonferroni survivors (both
+descriptive, both with null interactions); the event sample is **666 events on
+392 dates**, not 686 on 393. The v2.0.2 version of this note is preserved in
+`outputs/tables/superseded_v2_0_2/`; the canonical correction record is
+`reports/reciprocity_correction.md`.
+
 This report covers two separate Stage-4 objects:
 
 1. the pre-declared subgroup heterogeneity grid, and
-2. the BMP + Corrado-rank upgrade of the frozen 686-event study.
+2. the BMP + Corrado-rank upgrade of the rebuilt 666-event study.
 
-Neither object creates a new headline. H10 remains the only Stage-1/2
-confirmed headline; every number below is either a subgroup description or a
-robustness diagnostic on an already-null event sample.
+Neither object creates a new headline. H6 and H10 are the two Stage-1/2
+confirmed headlines; every number below is either a subgroup description or a
+robustness diagnostic on an event sample that remains null on the mean.
 
 Companions: `reports/specification_curve_h7.md`,
 `reports/broker_pilot_phd_seed.md`, `reports/economic_magnitude_analysis.md`.
@@ -68,7 +75,7 @@ Interactions (the declared heterogeneity tests):
 | test | split | interaction β (bp) | SE | raw p | Bonferroni p |
 |---|---|---:|---:|---:|---:|
 | **H7** | **size** | **−5.557** | 3.004 | **.0644** | **.1932** |
-| H10 | turnover tier | −8.973 | 6.054 | .1383 | .4150 |
+| H10 | turnover tier | −10.686 | 7.465 | .1524 | .4571 |
 | H7 | liquidity | +2.215 | 3.415 | .5167 | 1.000 |
 | H4 | turnover tier | −3.227 | 5.345 | .5461 | 1.000 |
 | H4 | size | −2.856 | 4.874 | .5579 | 1.000 |
@@ -79,11 +86,16 @@ Interactions (the declared heterogeneity tests):
   EXP-0005f tier-locality story: H10 and H7 are larger in the bottom-7 /
   small-size / illiquid cells; H8 is more negative in the bottom-7 cell.
 - The **formal heterogeneity tests do not reject homogeneity**. The strongest
-  interaction is H7 × size (−5.557 bp, raw p .0644), which is not significant
-  at 5% even before Bonferroni and has a Bonferroni p of .1932.
+  interaction is H7 × size (−5.557 bp, raw p .0644, Bonferroni .1932); the H10
+  × turnover interaction is −10.686 bp (p .1524). No interaction is
+  significant at 5%.
+- Two H10 group cells survive their Bonferroni family (turnover bottom-7
+  .0183; size-small .0473). They are **descriptive cells in a separate
+  family**, not new headlines, and they must not be quoted without the null
+  interaction caveat.
 - The subgroup exercise is **underpowered** for interactions: each group cell
-  has 2,149–4,967 rows, but the interaction SE is 3.0–6.1 bp, so only a
-  >6–12 bp difference would be detectable at 5%.
+  has 2,149–4,967 rows, but the interaction SE is 3.0–7.5 bp, so only a
+  >6–15 bp difference would be detectable at 5%.
 - No subgroup result should be quoted as “the effect is concentrated in small
   stocks” without the caveat that the interaction test is null. The honest
   sentence is: *the point estimates are directionally consistent with
@@ -112,81 +124,81 @@ reconstruction against the stored CAR:
 
 | gate | value |
 |---|---|
-| events | **686** |
-| dates | **393** |
+| events | **666** |
+| dates | **392** |
 | max \|reconstructed CAR − stored CAR\| | **0.0** |
 | incomplete AR paths | 0 |
-| events sharing a date with another event | **468 / 686 = 68.2%** |
-| dates with >1 event | 175 / 393 = 44.5% |
+| events sharing a date with another event | **435 / 666 = 65.3%** |
+| dates with >1 event | 161 / 392 = 41.1% |
 
-Because 68.2% of events share a date, all event-level p-values are **upper
+Because 65.3% of events share a date, all event-level p-values are **upper
 bounds**. A supplementary date-clustered table aggregates each statistic to
-the date level and runs a t-test across the 393 dates; it is still descriptive
+the date level and runs a t-test across the 392 dates; it is still descriptive
 and still an upper bound, but it removes the most obvious cross-sectional
 dependence.
 
-### B.2 Headline sample (686 events, v1 method)
+### B.2 Headline sample (666 events, v1 method)
 
 | test | statistic | p | reading |
 |---|---:|---:|---|
-| mean CAR t | +0.570 | .5690 | null |
-| BMP cross-sectional t | +1.175 | .2404 | null |
-| BMP z | +1.580 | .1141 | null |
-| Corrado rank z | **+3.158** | **.00159** | rank distribution shifted |
-| **date-clustered mean CAR t** | **+0.717** | **.4740** | null |
-| **date-clustered rank z** | **+2.522** | **.0120** | weaker but still positive |
+| mean CAR t | +0.839 | .4018 | null |
+| BMP cross-sectional t | +1.339 | .1809 | null |
+| BMP z | +1.819 | .0689 | null |
+| Corrado rank z | **+3.481** | **.00050** | rank distribution shifted |
+| **date-clustered mean CAR t** | **+1.186** | **.2363** | null |
+| **date-clustered rank z** | **+2.986** | **.0030** | weaker but still positive |
 
-Mean CAR = **+0.001286** (+12.86 bp), SD = 0.0591; median CAR = **+0.003402**
-(+34.02 bp); **53.35%** of events have a positive CAR. The mean is pulled down
+Mean CAR = **+0.001933** (+19.33 bp), SD = 0.0595; median CAR = **+0.002814**
+(+28.14 bp); **53.0%** of events have a positive CAR. The mean is pulled down
 by a negative tail, which is why the rank test and the mean test disagree.
 
 The rank test is not a mean test. It rejects the null that the event-window
 ARs are drawn from the same rank distribution as the estimation-window ARs,
-but the economic magnitude is small: a 34 bp median and a 12.9 bp mean are
-both below the 30–50 bp cost floor. The correct conclusion is **mixed
-statistical evidence, no economically meaningful event reaction**, not “a
-significant event effect”.
+but the economic magnitude is small: a 28 bp median and a 19.3 bp mean are
+both below or at the bottom of the 30–50 bp cost floor. The correct conclusion
+is **mixed statistical evidence, no economically meaningful event reaction**,
+not “a significant event effect”.
 
-Mean AR path (all 686 events):
+Mean AR path (all 666 events):
 
 | lag | mean AR | median AR |
 |---:|---:|---:|
-| −5 | +0.00118 | +0.00039 |
-| −4 | −0.00041 | −0.00076 |
-| −3 | −0.00002 | −0.00086 |
-| −2 | +0.00000 | −0.00043 |
-| −1 | +0.00068 | −0.00019 |
-| **0** | **+0.00040** | **+0.00003** |
-| +1 | +0.00008 | −0.00033 |
-| +2 | −0.00004 | +0.00010 |
-| +3 | −0.00053 | −0.00036 |
-| +4 | −0.00020 | −0.00029 |
-| +5 | +0.00012 | −0.00073 |
+| −5 | +0.00119 | +0.00065 |
+| −4 | −0.00018 | −0.00062 |
+| −3 | +0.00001 | −0.00085 |
+| −2 | +0.00001 | −0.00027 |
+| −1 | +0.00102 | −0.00017 |
+| **0** | **+0.00086** | **+0.00029** |
+| +1 | +0.00025 | −0.00019 |
+| +2 | −0.00010 | +0.00010 |
+| +3 | −0.00125 | −0.00084 |
+| +4 | +0.00016 | −0.00004 |
+| +5 | −0.00006 | −0.00091 |
 
-There is no post-event drift; the path oscillates around zero at the 1–5 bp
+There is no post-event drift; the path oscillates around zero at the 1–12 bp
 level.
 
 ### B.3 Uniform market-adjusted variant (same windows)
 
 | test | statistic | p |
 |---|---:|---:|
-| mean CAR t | **−3.490** | **.000514** |
-| BMP t | −2.518 | .0120 |
-| BMP z | −2.725 | .00643 |
-| Corrado rank z | +3.141 | .00168 |
-| date-clustered rank z | +2.276 | .0234 |
+| mean CAR t | **−3.498** | **.00050** |
+| BMP t | −2.545 | .0111 |
+| BMP z | −2.764 | .0057 |
+| Corrado rank z | +3.885 | .00010 |
+| date-clustered rank z | +3.249 | .0013 |
 
-Mean CAR = **−0.007341** (−73.41 bp). This is **mechanical**, not an
+Mean CAR = **−0.007521** (−75.21 bp). This is **mechanical**, not an
 independent negative event effect:
 
-- For the 670 market-model events, the mean pre-window alpha is
-  **−0.000873/day**; over the average 11-session window that is
-  **−0.00953** (−95.3 bp).
+- For the 650 market-model events, the mean pre-window alpha is
+  **−0.000962/day**; over the average 10.97-session window that is
+  **−0.01056** (−105.6 bp).
 - The mean difference between the v1-method CAR and the market-adjusted CAR is
-  **+0.008833** (+88.3 bp), and the correlation between `alpha_est` and
-  `car − car_ma` is **−0.7505**.
+  **+0.009686** (+96.9 bp), and the correlation between `alpha_est` and
+  `car − car_ma` is **−0.7624**.
 - In other words, the market-model CAR adds back the negative estimation-window
-  drift; the market-adjusted variant does not. The −73 bp mean is the
+  drift; the market-adjusted variant does not. The −75 bp mean is the
   pre-window drift, not an event reaction.
 
 The v1-method (market-model) estimate is therefore the appropriate headline;
@@ -197,12 +209,12 @@ is to the estimation-window alpha.
 
 | test | statistic | p |
 |---|---:|---:|
-| mean CAR t | −3.776 | .00183 |
-| BMP t | −3.763 | .00188 |
-| BMP z | −0.624 | .533 |
-| Corrado rank z | +0.732 | .464 |
+| mean CAR t | −3.490 | .00329 |
+| BMP t | −3.485 | .00333 |
+| BMP z | −0.583 | .560 |
+| Corrado rank z | +0.950 | .342 |
 
-Mean CAR = **−0.024477** (−244.77 bp). The mean is driven by a few extreme
+Mean CAR = **−0.022739** (−227.39 bp). The mean is driven by a few extreme
 negative CARs; the BMP z and rank tests are null, so there is no evidence of a
 broad negative shift. With n=16 this block is **appendix only** and is not
 quoted as a headline. It remains registered because the v1 result existed and
@@ -210,10 +222,10 @@ must not be hidden.
 
 ### B.5 Verdict
 
-1. The **mean-based** event-study tests are null on the 686-event sample; the
+1. The **mean-based** event-study tests are null on the 666-event sample; the
    date-clustered mean is also null.
 2. The **rank-based** test is positive at the event level and survives a simple
-   date aggregation (z 2.52, p .012), but the economic magnitude is small and
+   date aggregation (z 2.99, p .0030), but the economic magnitude is small and
    the test is not a mean test. It does not support a claim of abnormal
    returns.
 3. The negative market-adjusted mean is a **pre-window alpha artifact**, not

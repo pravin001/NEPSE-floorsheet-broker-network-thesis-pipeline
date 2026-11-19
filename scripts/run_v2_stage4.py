@@ -434,13 +434,28 @@ def sec_event_study():
     scores = pd.read_parquet(ROOT / "data/processed/anomaly_scores.parquet")
     summary, per_event, ar_long, gate = event_upgrade(cars, outcomes, scores)
     clustered = event_clustered(per_event)
-    if gate["n_events"] != 686:
-        raise AssertionError(f"event count {gate['n_events']}")
+    # The v2.0.2 gates asserted the fixed counts 686 and 16.  Those counts are
+    # consequences of the Isolation Forest event definition, and the v2.1.0
+    # reciprocity correction changes the scores.  The invariant is coverage:
+    # every v1 event row is upgraded exactly once, and the appendix partition
+    # matches the source `method` split.  Counts are reported, not asserted.
+    if gate["n_events"] != len(cars):
+        raise AssertionError(
+            f"upgraded {gate['n_events']} events for {len(cars)} cars rows")
+    if len(per_event) != len(cars):
+        raise AssertionError(
+            f"per-event table has {len(per_event)} rows for {len(cars)} events")
+    if not per_event["event_idx"].is_unique:
+        raise AssertionError("per-event table has duplicate event_idx values")
     if gate["max_car_abs_diff"] > 1e-12:
         raise AssertionError(f"CAR reconstruction diff "
                              f"{gate['max_car_abs_diff']}")
-    if int(per_event["illiquid_appendix"].sum()) != 16:
-        raise AssertionError("illiquid appendix count != 16")
+    n_appendix = int(per_event["illiquid_appendix"].sum())
+    n_appendix_source = int((cars["method"] == "market_adjusted").sum())
+    if n_appendix != n_appendix_source:
+        raise AssertionError(
+            f"appendix split {n_appendix} != source method split "
+            f"{n_appendix_source}")
     atomic_write_df(summary, TABLES / "event_study_upgraded.csv")
     atomic_write_df(per_event, TABLES / "event_study_upgraded_events.csv")
     atomic_write_df(ar_long, TABLES / "event_study_upgraded_ars.csv")
@@ -448,7 +463,7 @@ def sec_event_study():
     atomic_write_df(clustered, TABLES / "event_study_clustered_inference.csv")
     _tick("event study", t0)
     print(f"  gate: {gate['n_events']} events, max |CAR diff| "
-          f"{gate['max_car_abs_diff']:.2e}, appendix 16", flush=True)
+          f"{gate['max_car_abs_diff']:.2e}, appendix {n_appendix}", flush=True)
     print(summary.to_string(index=False), flush=True)
     print("  date-clustered descriptive inference:", flush=True)
     print(clustered.to_string(index=False), flush=True)
@@ -457,12 +472,17 @@ def sec_event_study():
 
 def sec_cost_benefit() -> pd.DataFrame:
     print("\n[4.6] cost-benefit arithmetic", flush=True)
+    # Read the effects from the rebuilt base grid rather than hardcoding v2.0.2
+    # constants: the v2.1.0 reciprocity correction changes H6/H10 (and the
+    # Isolation Forest scores behind H2/H3), so a constant here would silently
+    # reproduce the superseded estimate.
+    base = pd.read_csv(TABLES / "hypothesis_grid_results.csv").set_index("test_id")
     rows = [
-        {"test_id": "H7", "effect_bp_per_sd": 3.952373,
+        {"test_id": "H7", "effect_bp_per_sd": float(base.loc["H7", "bp"]),
          "direction": "positive", "cost_low_bp": 30.0, "cost_high_bp": 50.0},
-        {"test_id": "H10", "effect_bp_per_sd": 9.492266,
+        {"test_id": "H10", "effect_bp_per_sd": float(base.loc["H10", "bp"]),
          "direction": "positive", "cost_low_bp": 30.0, "cost_high_bp": 50.0},
-        {"test_id": "H4", "effect_bp_per_sd": 7.509961,
+        {"test_id": "H4", "effect_bp_per_sd": float(base.loc["H4", "bp"]),
          "direction": "opposite_sign_post_hoc", "cost_low_bp": 30.0,
          "cost_high_bp": 50.0},
     ]

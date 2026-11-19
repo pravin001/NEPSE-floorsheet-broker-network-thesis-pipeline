@@ -1,7 +1,13 @@
-# Chapter 6 — Discussion · skeleton (v2.0 A++)
+# Chapter 6 — Discussion · skeleton (v2.1.0 reciprocity correction)
 
 **Stage-5 artifact.** Bullet skeleton + one-sentence claim per numbered
 subsection; the student writes prose. No thesis paragraphs here.
+
+**Version note (2026-11-19).** Numbers below are from the corrected v2.1.0
+rebuild (EXP-0015). The v2.0.2 discussion stance is unchanged in kind — two
+related reciprocity outcomes, not independent evidence — but H6 is now a
+robust headline and H10 a moderate one. See
+`reports/reciprocity_correction.md`; v2.0.2 values are superseded.
 
 Structure note: the 19-day brief is not present in this repository, so the
 brief's §5.3 discussion list cannot be transcribed literally. The structure
@@ -23,17 +29,17 @@ Severity vocabulary for §6.3: `CRITICAL` / `MAJOR` / `MINOR`, as defined in
 ## 6.1 Negative-result framing
 
 **Claim (one sentence):** The thesis's central result is a disciplined mix of
-one moderate predictive association and a set of null or fragile results, not
-a portfolio of tradable anomalies.
+two related reciprocity associations — one robust, one moderate — and a set
+of null or fragile results, not a portfolio of tradable anomalies.
 
-- The IF anomaly-score channel is null out of sample: H2 placebo share .800,
-  H3 .640; event-study mean CAR +12.86 bp (p .569); no BH pass survives RW
-  (EXP-0004c/e, EXP-0008b/e).
-- Only H10 survives RW q = .10 (p .081); H6 (p .120), H7 (.159) and H8
-  (.203) are demoted to `NULL_FRAGILE`; H4 is opposite-sign
-  `EXPLORATORY_POST_HOC` (EXP-0008a/b, EXP-0012).
+- The IF anomaly-score channel is null out of sample: H2 placebo share .805,
+  H3 .540; event-study mean CAR +19.33 bp (p .402), rank-only shift; no BH
+  pass survives RW (EXP-0004c/e, EXP-0008b/e, EXP-0015).
+- H6 (RW p .031) and H10 (RW p .012) survive RW q = .10; H7 (.152) and H8
+  (.199) are demoted to `NULL_FRAGILE`; H4 is opposite-sign
+  `EXPLORATORY_POST_HOC` (EXP-0008a/b, EXP-0012, EXP-0015).
 - All 1-SD effects are below the declared 30–50 bp cost floor: H10
-  3.16–5.27× below, H7 7.59–12.65×, H4 3.99–6.66× (EXP-0011f).
+  1.45–2.42× below, H7 7.59–12.65×, H4 3.99–6.66× (EXP-0011f, EXP-0015).
 - Negative results are the registered object, not a failure of the design:
   MDE classifies H1/H2/H3/H5/H9 as `NULL_POWERED` (EXP-0008c).
 
@@ -57,12 +63,14 @@ structure.
 - **H4 concentration premium**: buyer HHI predicts *higher* next-session
   return (+7.51 bp), opposite to the declared liquidity-discount direction;
   normal-era driven (+10.49 bp), FM p .0082 (EXP-0004b/e).
-- **H10 persistence caveat**: reciprocity carries the largest past-|ret|
-  association in the grid (+19.69 bp vs +9.49 bp forward), so part of its
-  content is persistence (EXP-0008d).
+- **Reciprocity persistence caveat**: reciprocity carries the largest past-
+  |ret| association in the grid (+44.78 bp, p 8.7e-10) vs forward effects of
+  +20.64 (H10) and −22.95 (H6), so part of both results is persistence
+  (EXP-0008d, EXP-0015). Reciprocity also correlates .833 with `n_edges` and
+  .765 with `n_nodes`; the design does not partial out network size (L25).
 - **Tier-10 coverage**: OOS panel is the per-fold top-10 (12 symbols); ranks
-  11–15 external replication passes 0/5 BH (raw p ≥ .23) and magnitudes
-  shrink 2–4× → tier-local, not market-wide (EXP-0005f).
+  11–15 external replication passes 0/5 BH (smallest raw p .0539, H10) and
+  magnitudes attenuate → tier-local, not market-wide (EXP-0005f, EXP-0015).
 - **Single exchange**: NEPSE only; no cross-market replication (EXP-0002b).
 - **No intraday timestamps**: floorsheet rows are not execution-ordered;
   contract_no is daily-global; no order-flow/sequence statistic is claimed
@@ -94,20 +102,24 @@ fragility of the surviving estimates.
   - 2023-02-16 `contract_no_defect` (ordering features exclude the day);
   - H8 fragility: 1% EoD cutoff p .7634, normal era p .1703, MDE ratio
     1.426 (`NULL_UNDERPOWERED`);
-  - H10 dependence: FM p .2896, MODERATE not STRONG concordance;
+  - H10 dependence: FM p .4901, MODERATE not STRONG concordance;
+  - reciprocity definition and network-size correlation (.833 `n_edges`;
+    .765 `n_nodes`) (L25);
+  - version history: v2.0.2 results are superseded, not mixed (L26);
   - self-loop interpretation (buyer = seller; buyer-side volume);
   - circuit-breaker split `NOT_EXECUTED` — no flag in corpus or verified
     archive; no proxy fabricated;
   - liquidity verdict: three proxies, no direct spread/quote data; H1/H2/H3
-    relative moves up to +37%/−8% but remain null;
-  - event-study overlap: 68.2% of events share a date; p-values upper bounds;
-  - subgroup grid underpowered: no Bonferroni survivor (min .1434);
+    relative moves up to +37%/−40% but remain null;
+  - event-study overlap: 65.3% of events share a date; p-values upper bounds;
+  - subgroup grid underpowered for interactions: two descriptive H10 cells
+    survive Bonferroni, but no interaction does (min p .1524);
   - broker panel: monthly aggregation, 18/48 complete graphs, descriptive
     only.
 - MINOR:
   - 2021-03-07→03-08 relabel (evidence triple);
   - 752 duplicate keys (506 exact / 246 signature-conflict non-merged);
-  - broker-ID source-format defect (275,590 dotted rows; 37/7,126 OOS rows;
+  - broker-ID source-format defect (275,590 dotted rows; 37/7,116 OOS rows;
     signs unchanged, H8 p .0563);
   - junk scrape rows (19 pairs + 4 empty-symbol rows; NULL volume);
   - dashboard extracts-only (no full-corpus read; no new inference).
@@ -139,7 +151,7 @@ complete-graph degeneracy block structural interpretation.
 - Snapshots: 2021-10 = 51 nodes / 1,275 edges / 4 core; 2023-06 = 52 / 1,318
   / 5 (EXP-0011c).
 - Source-format defect: 275,590 dotted-ID rows on 15 days; canonicalisation
-  `Xs.0 → zero-padded integer`; 37/7,126 OOS rows affected; signs unchanged
+  `Xs.0 → zero-padded integer`; 37/7,116 OOS rows affected; signs unchanged
   (EXP-0011c).
 - PhD questions: network formation, core/liquidity provision, source-vintage
   discontinuity as measurement change, centrality → price impact with
@@ -161,8 +173,9 @@ complete-graph degeneracy block structural interpretation.
 interpretation of network concentration, not a tradable-alpha or policy claim,
 and the thesis states the conditions under which that reading would change.
 
-- H10 +9.49 bp/SD is 3.16–5.27× below the explicit-cost floor; no directional
-  signal is established for the |ret| outcomes (EXP-0011f).
+- H10 +20.64 bp/SD is 1.45–2.42× below the explicit-cost floor; H6 −22.95 is
+  an absolute-return association, not a directional return signal; neither is
+  tradable at 1 SD (EXP-0011f, EXP-0015).
 - Tier-local: the effect family is concentrated in the most-traded tier and
   does not replicate at ranks 11–15 (EXP-0005f).
 - Falsification conditions:

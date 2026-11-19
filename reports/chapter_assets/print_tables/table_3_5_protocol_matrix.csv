@@ -1,11 +1,11 @@
 protocol,declared_variant,role,verdict,exp_id
 Event-study reconstruction,Rebuild stored v1 ARs/CARs without re-estimation,Integrity gate,PASS: max |reconstructed - stored| = 0.0,EXP-0011e
-BMP test,Prediction-error variance; cross-sectional t,Added inference,Mean CAR null (p=.240),EXP-0011e
-Corrado rank test,Rank each event-window AR among estimation + event ARs,Added inference,Rank z=3.158 (p=.0016); date-clustered z=2.522 (p=.0120),EXP-0011e
-Leave-one-stock-out,Drop each of 12 symbols in turn,Robustness,5/5 headlines sign-stable 12/12,EXP-0005a
-Alternative horizons,"t+2, t+3, t+5; BH per horizon",Robustness,"BH pass 0/5, 0/5, 1/5 (H7 at t+5)",EXP-0005b
-Alternative EoD thresholds,Top 1% and top 10% by contract_no,Robustness,H7 robust; H8 collapses at 1%,EXP-0005c
-Alternative anomaly scorers,Mahalanobis; diag-z^2; LOF; OC-SVM,Descriptive,Rank correlation vs IF: +.83/+.95/+.60/+.54,EXP-0005d
-Drop-bubble re-fit,Normal era only (2023+),Robustness,H4/H6/H7/H10 survive BH; H8 fails,EXP-0005e
-External top-5,Ranks 11-15 of the same TRAIN turnover ranking,Falsification,0/5 BH pass; raw p >= .23,EXP-0005f
-Sequential fold variant,Rolling pairs; 2021-07 to 2023-06 coverage,Descriptive,Pooled Spearman +.87 vs anchored,EXP-0005g
+BMP test,Prediction-error variance; cross-sectional t,Added inference,Mean CAR null (p=0.181),EXP-0011e
+Corrado rank test,Rank each event-window AR among estimation + event ARs,Added inference,Rank z=3.481 (p=0.0005); date-clustered z=2.986 (p=0.0030),EXP-0011e
+Leave-one-stock-out,Drop each of 12 symbols in turn,Robustness,8/10 headlines sign-stable 12/12,EXP-0005a
+Alternative horizons,"t+2, t+3, t+5; BH per horizon",Robustness,"BH pass 0/5, 2/5 (H6,H7), 2/5 (H6,H7)",EXP-0005b
+Alternative EoD thresholds,Top 1% and top 10% by contract_no,Robustness,H7 robust at all thresholds; H8 p=0.763 at 1%,EXP-0005c
+Alternative anomaly scorers,Mahalanobis; diag-z^2; LOF; OC-SVM,Descriptive,Rank correlation vs IF: +0.86/+0.95/+0.63/+0.54,EXP-0005d
+Drop-bubble re-fit,Normal era only (2023+),Robustness,H4/H6/H7/H10 survive BH; H8 fail,EXP-0005e
+External top-5,Ranks 11-15 of the same TRAIN turnover ranking,Falsification,0/5 BH pass; raw p >= 0.05,EXP-0005f
+Sequential fold variant,Rolling pairs; 2021-07 to 2023-06 coverage,Descriptive,Pooled Spearman +0.85 vs anchored,EXP-0005g

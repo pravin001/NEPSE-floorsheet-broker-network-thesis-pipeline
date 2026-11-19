@@ -1,9 +1,11 @@
-# Deposit README — NEPSE Floorsheet Microstructure (v2.0)
+# Deposit README — NEPSE Floorsheet Microstructure (v2.1.0)
 
-**Release:** `v2.0.2-prewrite` + post-publication documentation · 2026-11-14
-**Metadata update:** 2026-11-14 — legal author identity, public repository, and
-the upstream NEPSE Alpha terms. The archive was rebuilt as v2.0.2 after these
-documentation changes and verified locally. It has **not** been uploaded.
+**Release:** `v2.1.0-reciprocity-correction` · 2026-11-19
+**Correction note:** v2.1.0 fixes the `reciprocity_volume` defect and rebuilds
+every dependent result (EXP-0015; deviation #45). The v2.0.2 values are
+superseded and preserved in `outputs/tables/superseded_v2_0_2/`; they are not
+mixed with the current tables. The archive was rebuilt as v2.1.0 and verified
+locally. It has **not** been uploaded.
 **Thesis:** *Broker Networks, Concentration, and Market Integrity in a Frontier
 Exchange: Evidence from NEPSE Floorsheets.*
 **Scope:** predictive associations in the most-traded NEPSE tier, 2021–2024.
@@ -43,12 +45,12 @@ Licences for the raw inputs are recorded per file in
 `data/metadata/provenance_manifest.csv`.
 
 The archive itself lives at
-`dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored,
+`dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored,
 deterministically rebuildable with `scripts/build_deposit_archive.py`).
 `docs/deposit_preflight.md` records the archive hash, content-manifest hash,
 inventory and licence checks; it is a wrapper record and is not inside the
-payload. The v2.0.1 archive files, if still present locally, are superseded and
-must not be deposited.
+payload. The v2.0.2 and v2.0.1 archives, if still present locally, are
+superseded and must not be deposited.
 
 ---
 
@@ -105,14 +107,17 @@ nepse-msc/bin/python scripts/run_stage6_rebuild.py --clean
 
 The driver runs the documented pipeline in order, writes the full log to
 `outputs/logs/v2_stage6_rebuild.log`, and writes per-step wall times to
-`outputs/logs/v2_stage6_rebuild_timings.csv`. The measured freeze rebuild
-completed **21/21 steps with exit 0 in 3,749.9 s (62.5 min)**; `data/raw/`
-stayed at 577 files / 611,881,127 bytes. Reproducibility is **numerical, not
-byte-identical**: 40/73 tables byte-identical, 25 at ≤3.55e-14 relative,
-4 reorder-only, 2 QuantReg optimizer drifts (7.44e-7), 1 float-aggregation
-difference (±1 unit on ~1e8 sums), 1 descriptive sequential-fold threshold
-flip (146→141 events; anchored 686 unchanged). Full evidence:
-`outputs/tables/v2_clean_rebuild_audit.csv`; details in
+`outputs/logs/v2_stage6_rebuild_timings.csv`. The **v2.1.0 correction rebuild**
+completed **21/21 steps with exit 0 in 4,209.8 s (70.2 min)**; `data/raw/`
+stayed at 577 files / 611,881,127 bytes. It rebuilt every dependent table from
+the corrected reciprocity metric rather than rescaling old values.
+
+The pre-correction **v2.0.2** audit is retained as the historical
+reproducibility record: 21/21 steps in 3,749.9 s, 40/73 tables byte-identical,
+25 at ≤3.55e-14 relative, 4 reorder-only, 2 QuantReg optimizer drifts
+(7.44e-7), 1 float-aggregation difference (±1 unit on ~1e8 sums), 1 descriptive
+sequential-fold threshold flip (146→141 events; anchored count unchanged).
+Evidence: `outputs/tables/v2_clean_rebuild_audit.csv`; details in
 `docs/reproducibility.md`.
 
 Pipeline stages: universe → floorsheet ingest → corpus audit → OHLCV →
@@ -132,8 +137,8 @@ nepse-msc/bin/python -m pytest tests notebooks/*_*.ipynb --nbmake
 ```
 
 The v2.0.1 handoff run passed **161 tests, 0 failed** (unit/leakage/SE-spec/
-freeze/chapter-map integrity + four executed notebooks). The Stage-6 freeze run
-passed 154; the seven added tests are the chapter-map integrity guards.
+freeze/chapter-map integrity + four executed notebooks); the v2.1.0 release
+re-runs the same suite and records the count in `docs/deposit_preflight.md`.
 
 ---
 
@@ -170,11 +175,12 @@ two-layer analysis are in `reports/licence_review.md` §10.
   v2 result.
 - `docs/analysis_deviations.md` — every implementation/reclassification choice
   with timestamp and reason (#1–#9 v1; #10–#30 v2; #31–#32 post-freeze
-  chapter-map defect and v2.0.1 handoff; #33–#41 v2.0.2 pre-write sprint;
-  #42–#43 public release and upstream NEPSE Alpha terms).
+  chapter-map defect and v2.0.1 handoff; #33–#44 v2.0.2 pre-write/publication;
+  #45 v2.1.0 reciprocity correction).
 - `docs/experiment_register.md` — every quotable number maps to one EXP row;
-  numeric claims must cite an EXP id (EXP-0013 records the clean rebuild and
-  freeze; EXP-0014 records the chapter handoff and deposit preflight).
+  numeric claims must cite an EXP id (EXP-0013 records the v2.0.2 clean rebuild
+  and freeze; EXP-0014 records the chapter handoff and deposit preflight;
+  EXP-0015 records the reciprocity correction and its rebuild).
 - `outputs/tables/v2_register_audit.csv` — register-to-manifest audit, re-run
   for v2.0.2; the current check count is in `docs/deposit_preflight.md`.
 - `docs/chapter_artifact_map.md` + `outputs/tables/v2_chapter_map_audit.csv` —
@@ -196,21 +202,24 @@ explicitly declared governance columns; they never rewrite a v1 result.
 
 ## 7 · Headline result of record
 
-Read `outputs/tables/v2_final_headline_set.csv`. In one sentence: **H10
-(reciprocity → next-day absolute return) is the sole `HEADLINE_MODERATE`
-association; H4 is `EXPLORATORY_POST_HOC`; H6/H7/H8 are `NULL_FRAGILE`;
-H1/H2/H3/H5/H9 are `NULL_POWERED`.** All 1-SD effects are below the declared
-30–50 bp round-trip cost floor, and the design is predictive, not causal. The
-canonical table carries the exact coefficients, p-values, concordance flags,
-liquidity/EGARCH survival, and tail labels; do not quote a number from this
-README instead of the table.
+Read `outputs/tables/v2_final_headline_set.csv`. In one sentence: **H6
+(reciprocity → next-day signed return) is the `HEADLINE_ROBUST` association
+(−22.948 bp/SD; 4/4 SE concordance; RW p .031) and H10 (reciprocity → next-day
+absolute return) is the `HEADLINE_MODERATE` association (+20.642 bp/SD;
+3/4 concordance; RW p .012). They are two outcomes of the same construct, not
+independent confirmations. H4 is `EXPLORATORY_POST_HOC`; H7/H8 are
+`NULL_FRAGILE`; H1/H2/H3/H5/H9 are `NULL_POWERED`.** All 1-SD effects are below
+the declared 30–50 bp round-trip cost floor, and the design is predictive, not
+causal. The canonical table carries the exact coefficients, p-values,
+concordance flags, liquidity/EGARCH survival, and tail labels; do not quote a
+number from this README instead of the table.
 
 ---
 
 ## 8 · Deposit action (user)
 
 No archive upload, DOI registration, or deposit push has been performed. The
-v2.0.2 derived-only archive is built, hashed and audited locally. The author
+v2.1.0 derived-only archive is built, hashed and audited locally. The author
 identity was resolved on 2026-11-14 (`Prabin Shrestha
 <itsme_prabin@outlook.com>`). Two deposit decisions remain before upload:
 

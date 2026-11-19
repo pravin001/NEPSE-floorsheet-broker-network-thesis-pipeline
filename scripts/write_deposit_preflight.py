@@ -16,8 +16,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-SUMMARY = DIST / "nepse-floorsheet-microstructure-v2.0.2-derived.summary.json"
-CONTENTS = DIST / "nepse-floorsheet-microstructure-v2.0.2-derived.contents.csv"
+SUMMARY = DIST / "nepse-floorsheet-microstructure-v2.1.0-derived.summary.json"
+CONTENTS = DIST / "nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv"
 OUT = ROOT / "docs" / "deposit_preflight.md"
 TIMINGS = ROOT / "outputs" / "logs" / "v2_stage6_rebuild_timings.csv"
 CHAPTER_AUDIT = ROOT / "outputs" / "tables" / "v2_chapter_map_audit.csv"
@@ -61,9 +61,9 @@ def build() -> str:
     register_ok = register.get("OK", 0)
 
     lines = [
-        "# Deposit preflight — v2.0.2 derived-only archive",
+        "# Deposit preflight — v2.1.0 derived-only archive",
         "",
-        "**Release:** `v2.0.2-prewrite` + post-publication documentation · 2026-11-14",
+        "**Release:** `v2.1.0-reciprocity-correction` · 2026-11-19",
         "**Status:** archive built and verified locally; **NOT uploaded**, no DOI,",
         "no deposit-repository push. Upload is a user action; the public code",
         "repository is separate from this derived-only archive.",
@@ -190,15 +190,17 @@ def build() -> str:
     lines += [
         "",
         "`data/raw/` stayed at 577 files / 611,881,127 bytes. Reproducibility is",
-        "numerical, not byte-identical: 40/73 tables byte-identical, 25 at",
-        "≤3.55e-14 relative, 4 reorder-only, 2 QuantReg optimizer drifts",
-        "(7.44e-7), 1 float-aggregation difference (±1 unit on ~1e8 sums), and 1",
-        "descriptive sequential-fold threshold flip (146→141; anchored 686",
-        "unchanged). Final classifications are identical. Details:",
-        "`docs/reproducibility.md`; `outputs/tables/v2_clean_rebuild_audit.csv`.",
+        "numerical, not byte-identical. The v2.1.0 build intentionally changes",
+        "every artifact that depends on `reciprocity_volume`; hypotheses that do",
+        "not use that feature are checked for exact reproduction. The v2.0.2",
+        "equivalence audit remains at `outputs/tables/v2_clean_rebuild_audit.csv`,",
+        "and the byte-frozen v2.0.2 tables are in",
+        "`outputs/tables/superseded_v2_0_2/`. The correction record and the",
+        "old-versus-corrected comparison are in",
+        "`reports/reciprocity_correction.md`. Details: `docs/reproducibility.md`.",
         "",
-        "Current suite: **161 passed, 0 failed**",
-        "(`pytest tests notebooks/*_*.ipynb --nbmake`).",
+        "Current suite: see the latest `outputs/logs/v2_stage6_pytest*.log`;",
+        "the release gate is zero failures.",
         "",
         "---",
         "",
@@ -209,7 +211,7 @@ def build() -> str:
         "",
         "1. **RESOLVED (2026-11-14): author identity.** `CITATION.cff` and",
         "   `LICENSE` name `Prabin Shrestha <itsme_prabin@outlook.com>`. The",
-        "   v2.0.2 archive and this preflight are built from that tree.",
+        "   v2.1.0 archive and this preflight are built from that tree.",
         "2. **RESOLVED FOR THE PUBLIC REPO (2026-11-14): tier1 upstream caveat.**",
         "   The author accepted public release of figures with the upstream",
         "   NEPSE Alpha position unresolved. The terms were retrieved and grant",

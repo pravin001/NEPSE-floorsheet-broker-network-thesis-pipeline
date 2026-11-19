@@ -1,4 +1,4 @@
-# Table numbering plan — v2.0.2 pre-write
+# Table numbering plan — v2.0.2 pre-write, figures refreshed v2.1.0
 
 **Status:** authoritative for thesis table numbers.
 **Scope:** Chapters 1–6 and appendices.
@@ -195,7 +195,7 @@ source PNGs remain available for the dashboard and are not the print set.
 | 6.1 | `f10_broker_snapshots.png` | Ch.6 §6.4 | Broker-network snapshots |
 
 All Phase-C files are 300 dpi PNG + PDF with the footer
-`EXP-id · data <12-hex> · v2.0.1`. Provenance and blank-check results are in
+`EXP-id · data <12-hex> · v2.1.0`. Provenance and blank-check results are in
 `outputs/figures/static/figure_manifest.csv`.
 
 ---

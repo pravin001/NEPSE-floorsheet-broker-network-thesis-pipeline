@@ -1,7 +1,14 @@
-# Chapter 5 — Results · skeleton (v2.0 A++)
+# Chapter 5 — Results · skeleton (v2.1.0 reciprocity correction)
 
 **Stage-5 artifact.** Bullet skeleton + one-sentence claim per numbered
 subsection; the student writes prose. No thesis paragraphs here.
+
+**Version note (2026-11-19).** Every number below is from the corrected
+v2.1.0 rebuild (EXP-0015). The v2.0.2 values are superseded and preserved in
+`outputs/tables/superseded_v2_0_2/`; see `reports/reciprocity_correction.md`.
+The principal change is that **H6 is now a second headline** and H10's
+magnitude roughly doubled; H7/H8/H4 and the nulls keep their v2.0.2
+dispositions.
 
 Structure note: the 19-day brief is not present in this repository, so
 §5.2/§5.3 of the brief cannot be transcribed literally. The subsection order
@@ -29,7 +36,7 @@ rows across 12 stocks and 723 dates, with an effective N of 6,383 after
 two-way fixed-effect absorption.
 
 - Anchored purged walk-forward, 4 folds, 938 scoring sessions; 7,126 OOS rows;
-  686 anomaly events = 9.6% of scored rows (EXP-0004a).
+  666 anomaly events = 9.3% of scored rows (EXP-0004a, EXP-0015).
 - 10 rows lost to missing outcome/feature → 7,116 estimable rows (EXP-0004b).
 - `n_effective = 7,116 − (12−1) − (723−1) = 6,383` (EXP-0011a).
 - FM usable cross-sections: 712–714 depending on feature/outcome slice
@@ -46,17 +53,17 @@ Design pointers: `docs/analysis_plan.md` §3; `src/nepsemsc/ml/panel_data.py`.
 
 ## 5.2 Main hypothesis grid
 
-**Claim (one sentence):** Five of ten tests pass BH q = .10 in v1 (H4, H6,
-H7, H8, H10), but H4 has the opposite sign to its pre-declaration and only
-H10 survives Romano–Wolf FWER correction.
+**Claim (one sentence):** Five of ten tests pass BH q = .10 (H4, H6, H7,
+H8, H10), but H4 has the opposite sign to its pre-declaration and only H6
+and H10 survive Romano–Wolf FWER correction.
 
 - Grid: 10 pre-registered tests; DK(bw=5) primary; BH q = .10 over the family
-  of 10 (EXP-0004b).
-- BH-passing adjusted p range: .0689–.0918.
-- Point estimates (bp/SD): H1 −1.557 (p .431); H2 −1.491 (.575);
-  H3 +0.957 (.750); H4 **+7.510** (.0275); H5 −1.856 (.488);
-  H6 **−10.939** (.0197); H7 **+3.952** (.0274); H8 **−4.471** (.0459);
-  H9 +1.817 (.459); H10 **+9.492** (.0138).
+  of 10 (EXP-0004b, EXP-0015).
+- BH-passing adjusted p range: .0136–.0918.
+- Point estimates (bp/SD): H1 −1.557 (p .431); H2 −1.494 (.594);
+  H3 +0.178 (.953); H4 **+7.510** (.0275); H5 −1.856 (.488);
+  H6 **−22.948** (.0048); H7 **+3.952** (.0274); H8 **−4.471** (.0459);
+  H9 +1.817 (.459); H10 **+20.642** (.0014).
 - Sign vs pre-declaration: H7/H8/H10 agree; H4 opposite (declared negative);
   H6 ambiguous; H1/H2/H3/H5/H9 disagree but are null.
 - H4 is the only BH-passing test whose sign contradicts the declared
@@ -72,13 +79,14 @@ v1) and `outputs/tables/hypothesis_grid_results_v2.csv` (governance columns).
 **Claim (one sentence):** The anomaly-score hypotheses fail both the placebo
 and multiplicity gates, and no calendar-regime interaction is significant.
 
-- Placebo permutation shares: H2 = **.800**, H3 = **.640** ≈ random
-  (EXP-0004c).
+- Placebo permutation shares: H2 = **.805**, H3 = **.540** ≈ random
+  (EXP-0004c, EXP-0015).
 - Expanded placebo: 1,000 full-panel shuffles + within-symbol block shuffles
-  confirm the anomaly-score null (EXP-0008e).
-- DC13 placebo-outcome: 7/10 rows flag; H10 carries the largest past-|ret|
-  association **+19.69 bp** vs its +9.49 bp forward effect → part of H10 is
-  persistence (EXP-0008d).
+  confirm the anomaly-score null (EXP-0008e, EXP-0015).
+- DC13 placebo-outcome: 7/10 rows flag; the reciprocity pair carries the
+  largest past-|ret| association **+44.78 bp** (p 8.7e-10) vs forward effects
+  of +20.64 (H10) and −22.95 (H6) → part of both headlines is persistence
+  (EXP-0008d, EXP-0015).
 - Regime split: bubble 2,737 rows (38.5%) vs normal 4,379 (61.5%); **no
   interaction significant** (min p .1171); H7/H8 same-sign in both eras
   (EXP-0004d).
@@ -94,25 +102,25 @@ and multiplicity gates, and no calendar-regime interaction is significant.
 
 ## 5.4 Event study
 
-**Claim (one sentence):** The 686-event sample shows no economically
-meaningful abnormal return — mean CAR +12.86 bp (p .569) — and only the rank
-distribution shifts (date-clustered z 2.52, p .012).
+**Claim (one sentence):** The 666-event sample shows no economically
+meaningful abnormal return — mean CAR +19.33 bp (p .402) — and only the rank
+distribution shifts (date-clustered z 2.99, p .0030).
 
-- 686 events on 393 dates; 468 events (68.2%) share a date with another event
-  → event-level p-values are upper bounds (EXP-0011e).
+- 666 events on 392 dates; 435 events (65.3%) share a date with another event
+  → event-level p-values are upper bounds (EXP-0011e, EXP-0015).
 - Reconstruction gate: max |reconstructed CAR − stored CAR| = **0.0**; no
   re-estimation (EXP-0011e).
-- Mean CAR **+0.001286** (+12.86 bp), SD .0591, median +.003402
-  (+34.02 bp); 53.35% positive (EXP-0011e).
-- Mean CAR t = 0.570 (p .5690); BMP t = 1.175 (p .2404); BMP z = 1.580
-  (p .1141); Corrado rank z = **3.158** (p .00159) (EXP-0011e).
-- Date-clustered: mean CAR t = 0.717 (p .4740); rank z = **2.522**
-  (p .0120) (EXP-0011e).
-- Uniform market-adjusted mean **−73.41 bp** (p .00051) is mechanical:
-  pre-window alpha −0.0873%/day; corr(alpha, CAR−CAR_ma) = −.751
-  (EXP-0011e).
-- Illiquid-trigger appendix: n = 16, mean −244.77 bp, BMP z/rank null
-  (EXP-0004e/0011e).
+- Mean CAR **+0.001933** (+19.33 bp), SD .0595, median +.002814
+  (+28.14 bp); 53.0% positive (EXP-0011e, EXP-0015).
+- Mean CAR t = 0.839 (p .4018); BMP t = 1.339 (p .1809); BMP z = 1.819
+  (p .0689); Corrado rank z = **3.481** (p .00050) (EXP-0011e, EXP-0015).
+- Date-clustered: mean CAR t = 1.186 (p .2363); rank z = **2.986**
+  (p .0030) (EXP-0011e, EXP-0015).
+- Uniform market-adjusted mean **−75.21 bp** (p .00050) is mechanical:
+  pre-window alpha −0.0962%/day; corr(alpha, CAR−CAR_ma) = −.762
+  (EXP-0011e, EXP-0015).
+- Illiquid-trigger appendix: n = 16, mean −227.39 bp, BMP z/rank null
+  (EXP-0004e/0011e, EXP-0015).
 
 **Assets.** Table 5.4 = `outputs/tables/event_study_upgraded.csv`; date-
 clustered table = `outputs/tables/event_study_clustered_inference.csv`;
@@ -126,17 +134,21 @@ AR paths = `outputs/tables/event_study_upgraded_ars.csv`.
 across leave-one-stock-out, horizon, threshold, and era variants, but they do
 not replicate below the top-10 tier and H8 fails two registered checks.
 
-- Leave-one-stock-out: all five headlines sign-stable 12/12; raw p < .10 in
-  11/12 (H4), 12/12 (H6/H7/H10), 10/12 (H8); H2/H3 stay null 0/12
-  (EXP-0005a).
-- Horizons: BH pass 0/5 at t+2 and t+3; at t+5 only H7 (+10.22 bp, p .0061);
-  directions identical at every horizon (EXP-0005b).
+- Leave-one-stock-out: all five BH-passing estimates sign-stable 12/12; raw
+  p < .10 in 11/12 (H4), 12/12 (H6/H7/H10), 10/12 (H8); H2/H3 stay null 0/12
+  (EXP-0005a, EXP-0015). H6 β range −25.411 to −19.766 bp; H10 +18.020 to
+  +23.030 bp.
+- Horizons: BH pass 0/5 at t+2; 2/5 at t+3 (H6 −40.37 bp, H7 +7.77) and
+  2/5 at t+5 (H6 −55.73, H7 +10.22); H10 is not horizon-robust (p .130 /
+  .293 / .292); directions identical at every horizon (EXP-0005b, EXP-0015).
 - EoD thresholds: H7 +3.72 bp (p .0296) at 1% and +3.78 (p .0387) at 10%;
   H8 **−0.60 bp (p .7634)** at 1%, −4.24 (p .0633) at 10% (EXP-0005c).
-- Alternative scorers: OOS Spearman vs IF — Mahalanobis +.83, diag-z² +.95,
-  LOF +.60, OC-SVM +.54 (rank-correlation only; SV5) (EXP-0005d).
-- External top-5 (ranks 11–15): 3,414 OOS rows / 264 events; **0/5 BH pass**
-  (raw p ≥ .23); magnitudes shrink 2–4× (EXP-0005f).
+- Alternative scorers: mean OOS Spearman vs IF — Mahalanobis +.86 (range
+  .78–.92), diag-z² +.95 (.93–.96), LOF +.63 (.48–.79), OC-SVM +.54
+  (.44–.66) (rank-correlation only; SV5) (EXP-0005d, EXP-0015).
+- External top-5 (ranks 11–15): 3,409 estimable OOS rows / 256 events;
+  **0/5 BH pass** (smallest raw p .0539, H10); magnitudes attenuate, and H10
+  falls to 80% of base while remaining non-significant (EXP-0005f, EXP-0015).
 - Sequential fold mode: pooled Spearman +.87 vs anchored on 2,731 overlapping
   rows; coverage limited to 2021-07→2023-06 (EXP-0005g).
 
@@ -148,64 +160,70 @@ not replicate below the top-10 tier and H8 fails two registered checks.
 ## 5.6 v2 statistical reclassification
 
 **Claim (one sentence):** After multiplicity, dependence, liquidity,
-distributional, and specification checks, H10 is the only moderate headline;
-H6/H7/H8 are fragile, H4 is exploratory, and H1/H2/H3/H5/H9 are powered
-nulls.
+distributional, and specification checks, H6 is a robust headline and H10 a
+moderate headline; H7/H8 are fragile, H4 is exploratory, and H1/H2/H3/H5/H9
+are powered nulls.
 
 ### 5.6.1 Multiplicity — Romano–Wolf
 
 - B = 999, common row-level Rademacher signs, recentred t*; p = (1+#)/(B+1)
   (EXP-0008b).
-- RW p: H10 **.081** (sole q = .10 survivor); H6 .120; H4 .159; H7 .159;
-  H8 .203; all other nulls .915 (EXP-0008b).
-- H6 and H7 lose raw significance under FWER; H8 never survives; H4 is
-  already exploratory (EXP-0008b).
+- RW p: H6 **.031** and H10 **.012** (q = .10 survivors); H4 .152; H7 .152;
+  H8 .199; H1/H2/H3/H5/H9 .918–.959 (EXP-0008b, EXP-0015).
+- H7 loses raw significance under FWER; H8 never survives; H4 is already
+  exploratory (EXP-0008b).
 
 ### 5.6.2 Dependence — wild cluster bootstrap and SE concordance
 
 - WB (CGM-2008 ReBWB, cluster = symbol, B = 999; 12-cluster small-G caveat):
-  H4 .002; H6 .002; H7 .022; H8 .095; H9 .100; H10 **.009** (EXP-0009c).
+  H4 .002; H6 **.001**; H7 .022; H8 .095; H9 .100; H10 **.004**
+  (EXP-0009c, EXP-0015).
 - Four-SE concordance (DK / DC-v2 / FM / WB, each p < .10):
-  STRONG H4/H7/H8; MODERATE H6/H10; NULL other five (EXP-0009d).
-- True DC-v2 p: H4 .0053; H6 .0021; H7 .0086; H8 .0574; H10 .0028;
-  v1 `p_dc` was a silent time-kernel fallback equal to DK (EXP-0009d).
-- FM p: H4 .0082; H7 .0094; H8 .0587; H6 .5403; H10 .2896 (EXP-0004b/0009d).
+  STRONG H4/H6/H7/H8; MODERATE H10; NULL other five (EXP-0009d, EXP-0015).
+- True DC-v2 p: H4 .0053; H6 **6.71e-6**; H7 .0086; H8 .0574; H10
+  **1.00e-5**; v1 `p_dc` was a silent time-kernel fallback equal to DK
+  (EXP-0009d, EXP-0015).
+- FM p: H4 .0082; H6 **.0028**; H7 .0094; H8 .0587; H10 **.4901**
+  (EXP-0004b/0009d, EXP-0015).
 
 ### 5.6.3 Liquidity controls
 
 - Three γ controls (Amihud, Roll, Corwin–Schultz), identical 7,116 rows, all
   complete cases (EXP-0009a/b).
-- Every v1 BH-passing estimate moves **< 6%** and keeps its sign; H10
-  **+9.586 bp (p .0117)** vs base +9.492 (.0138); H7 −5.80%; H4 −2.04%;
-  H8 −1.44%; H6 −0.47% (EXP-0009b).
-- Null estimates: H1 +37.1%, H2 +19.8%, H3 −7.8%, H5 +0.8%, H9 +5.1%; all
-  remain null (EXP-0009b).
-- VIF max 2.538; |r| max .635; no collinearity flag (EXP-0009d).
+- Every BH-passing estimate moves **< 6%** and keeps its sign; H10
+  **+19.658 bp (p .0021)** vs base +20.642 (.0014), −4.8%; H6 **−23.182**
+  (p .0043), −1.0%; H7 −5.80%; H4 −2.04%; H8 −1.44% (EXP-0009b, EXP-0015).
+- Null estimates: H1 +37.1%, H2 +18.2%, H3 −40.2%, H5 +0.8%, H9 +5.2%; all
+  remain null (EXP-0009b, EXP-0015).
+- VIF max **2.049** (`anomaly_score_z`); |r| max .637; no collinearity flag
+  (EXP-0009d, EXP-0015).
 
 ### 5.6.4 EGARCH-standardised outcomes
 
 - EGARCH(1,1) symmetric (`o = 0`), TRAIN-fold fits; 40 fits (37 converged,
   4 degenerate); 6,819/7,116 usable z rows (EXP-0010a).
-- H10 **+412.40 z (p .0383)**; H6 −511.87 (.0204); H7 +149.15 (.0638);
-  H8 −157.91 (.0745); H4 +256.86 (.0544); all five sign-match the v1 beta
-  and pass at α = .10 (EXP-0010a).
+- H10 **+547.22 z (p .0497)**; H6 **−1048.08 (.0016)**; H7 +149.15 (.0638);
+  H8 −157.91 (.0745); H4 +256.86 (.0544); all five sign-match the base beta
+  and pass at α = .10 (EXP-0010a, EXP-0015).
 - Exclusion sensitivities: H4 fails both (p .1410 / .1182); H7 fails the
   degenerate-exclusion (p .1157) and passes the non-converged exclusion
-  (p .0536); H6/H8/H10 remain < .10 (EXP-0010a).
+  (p .0536); H6/H8/H10 remain < .10 (EXP-0010a, EXP-0015).
 - `survives_egarch` in the final table = sign match AND p < .10.
 
 ### 5.6.5 Quantile tails
 
 - Quantile panel: 50/50 fits converged; 7,116 × 737 two-way design
   (EXP-0010b).
-- H10 **BOTH_TAILS / INCREASING**: τ = .10 +3.08 bp; τ = .50 +4.89;
-  τ = .90 **+18.70**; ratio 6.06 (EXP-0010b).
+- H10 **BOTH_TAILS / INCREASING**: τ = .10 +4.84 bp; τ = .50 +8.93;
+  τ = .90 **+34.64**; ratio 7.16 (EXP-0010b, EXP-0015).
 - H4 BOTH_TAILS / INCREASING: +2.12 → +9.61 bp (ratio 4.53) (EXP-0010b).
-- H6 LOWER_TAIL: −12.99 bp at τ = .10, −0.47 at τ = .90; H8 LOWER_TAIL /
-  U_SHAPE: −3.17 → −0.47 (EXP-0010b).
+- H6 **BOTH_TAILS / INCREASING**: −21.87 bp at τ = .10, −9.32 at τ = .50,
+  −3.63 at τ = .90; ratio 0.166 (the effect weakens toward the upper tail)
+  (EXP-0010b, EXP-0015). H8 LOWER_TAIL / U_SHAPE: −3.17 → −0.47
+  (EXP-0010b).
 - H7 NONE / HUMP: +0.71 (p .117) → +1.21 (p .062); median +2.20
   (EXP-0010b).
-- Null tail labels are unadjusted descriptive only (EXP-0010b).
+- Null tail labels are unadjusted descriptive only (EXP-0010b, EXP-0015).
 
 ### 5.6.6 Trade-size heterogeneity
 
@@ -230,11 +248,13 @@ nulls.
 ### 5.6.8 Subgroup heterogeneity
 
 - 36 estimated rows (24 group cells + 12 interactions) + 4 `NOT_EXECUTED`
-  circuit-breaker rows (EXP-0011d).
-- **No Bonferroni survivor**; minimum p_bonf **.1434** (H10 bottom-7
-  +10.344 bp) (EXP-0011d).
-- H7 small-size +7.020 bp (p_bonf .1629); H7×size interaction −5.557 bp
-  (p_bonf .1932) (EXP-0011d).
+  circuit-breaker rows (EXP-0011d, EXP-0015).
+- **Two H10 subgroup cells survive Bonferroni** (descriptive cells in a
+  separate family): turnover bottom-7 **+22.715 bp** (p_bonf **.0183**) and
+  size-small **+26.791 bp** (p_bonf **.0473**) (EXP-0011d, EXP-0015).
+- **No interaction survives**: H10×turnover −10.686 bp (p **.1524**);
+  H7 small-size +7.020 (p_bonf .1629); H7×size −5.557 (p_bonf .1932)
+  (EXP-0011d, EXP-0015).
 - Circuit-breaker split unavailable: no limit-hit flag in the corpus or
   verified archives (EXP-0011d).
 
@@ -242,8 +262,9 @@ nulls.
 
 - Declared explicit round-trip cost floor **30–50 bp**; excludes brokerage,
   spread, CNS carry (EXP-0011f).
-- H10 +9.492 bp/SD is **3.16–5.27× below** the floor; H7 +3.952 is
-  **7.59–12.65× below**; H4 +7.510 is **3.99–6.66× below** (EXP-0011f).
+- H10 +20.642 bp/SD is **1.45–2.42× below** the floor; H7 +3.952 is
+  **7.59–12.65× below**; H4 +7.510 is **3.99–6.66× below** (EXP-0011f,
+  EXP-0015).
 - At 1 SD engagement, none is standalone tradable; conditional/stacked
   tradability remains speculative (EXP-0011f).
 
@@ -268,18 +289,23 @@ nulls.
 
 ## 5.7 Canonical headline set and final classification
 
-**Claim (one sentence):** The canonical v2 set contains one moderate headline
-(H10), one exploratory post-hoc result (H4), three fragile nulls (H6/H7/H8),
-and five powered nulls (H1/H2/H3/H5/H9).
+**Claim (one sentence):** The canonical v2.1.0 set contains one robust
+headline (H6), one moderate headline (H10), one exploratory post-hoc result
+(H4), two fragile nulls (H7/H8), and five powered nulls (H1/H2/H3/H5/H9).
 
 - Composition rule: final = Stage-1 classification ∩ Stage-2 concordance ∩
-  Stage-3 checks; every demotion is citable to a Stage-1–3 artifact (EXP-0012).
-- H10 → `HEADLINE_MODERATE`: Stage-1 `CONFIRMED_HEADLINE`, Stage-2 headline
-  True, liquidity pass, EGARCH pass, both tails increasing; FM p .2896 and
-  MODERATE (not STRONG) concordance block `HEADLINE_ROBUST` (EXP-0012).
-- H4 → `EXPLORATORY_POST_HOC`: opposite sign to pre-declaration; RW p .159
+  Stage-3 checks; every demotion is citable to a Stage-1–3 artifact (EXP-0012,
+  EXP-0015).
+- H6 → `HEADLINE_ROBUST`: Stage-1 `CONFIRMED_HEADLINE` (RW .031), Stage-2
+  `STRONG` 4/4, liquidity pass (−1.0%), EGARCH pass (p .0016), both tails
+  increasing (EXP-0012, EXP-0015).
+- H10 → `HEADLINE_MODERATE`: Stage-1 `CONFIRMED_HEADLINE` (RW .012), Stage-2
+  headline True, liquidity pass (−4.8%), EGARCH pass (p .0497), both tails
+  increasing; FM p .4901 and MODERATE (not STRONG) concordance block
+  `HEADLINE_ROBUST` (EXP-0012, EXP-0015).
+- H4 → `EXPLORATORY_POST_HOC`: opposite sign to pre-declaration; RW p .152
   (EXP-0012).
-- H6/H7/H8 → `NULL_FRAGILE`: v1 BH pass but RW p .120/.159/.203; H8 also
+- H7/H8 → `NULL_FRAGILE`: BH pass but RW p .152/.199; H8 also
   MDE-underpowered (ratio 1.426) (EXP-0012).
 - H1/H2/H3/H5/H9 → `NULL_POWERED`: Stage-1 `NULL_ROBUST` + MDE
   `NULL_POWERED`; Stage-1 label maps to the brief's NULL_POWERED taxonomy
@@ -287,7 +313,6 @@ and five powered nulls (H1/H2/H3/H5/H9).
 - Column semantics: `survives_liquidity` = remains significant at α = .10
   under the three γ controls (null rows are False by construction, not
   because the estimate changed); `survives_egarch` = sign match AND p < .10.
-- No `HEADLINE_ROBUST` row: no test clears all four SE families at once.
 
 **Assets.** Table 5.3 = `outputs/tables/v2_final_headline_set.csv`.
 Companion: `reports/limitations.md`; `docs/experiment_register.md` EXP-0012.

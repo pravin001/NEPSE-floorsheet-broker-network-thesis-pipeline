@@ -20,7 +20,9 @@ FEATURES per (symbol, date)
                             self_loop_volume_ratio, top_3_buyer_share,
                             top_3_seller_share
   graph metrics (networkx on aggregated BUYER→SELLER weighted edges):
-                            density, reciprocity_volume (2*matched/total),
+                            density, reciprocity_volume (2*matched/total;
+                            distinct-broker pairs only — self-loops stay in
+                            the denominator, never the numerator),
                             max_betweenness (UNWEIGHTED, exact for
                             n_nodes <= precision_k=200; per-symbol-day
                             graphs are far smaller), n_nodes, n_edges

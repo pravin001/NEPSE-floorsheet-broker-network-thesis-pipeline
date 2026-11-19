@@ -3,8 +3,15 @@
 **Stage 3 of the v2.0 A++ upgrade** · pre-declaration:
 `docs/analysis_plan_v2_extension.md` §V2-3 (written before any v2 result).
 Frozen v1 numbers are untouched; every table below is a **new** v2 artifact.
-Runner of record: `scripts/run_v2_stage3.py` · log: `outputs/logs/v2_stage3.log`
+Runner of record: `scripts/run_v2_stage3.py` · log: `outputs/logs/v2_stage6_rebuild.log`
+(stage log `outputs/logs/v2_stage3.log` is the historical v2.0.2 record)
 · experiments EXP-0010a–c · deviations #17–#19.
+
+**Version note (2026-11-19).** All numbers below are from the corrected v2.1.0
+rebuild (EXP-0015). The v2.0.2 values are superseded and preserved in
+`outputs/tables/superseded_v2_0_2/`; see `reports/reciprocity_correction.md`.
+The trade-size block is unchanged; the EGARCH and quantile blocks for H6/H10
+were rebuilt from the corrected `reciprocity_volume`.
 
 Companions: `reports/exploratory_findings.md` (Stage 1),
 `reports/liquidity_robustness.md` (Stage 2).
@@ -133,36 +140,36 @@ effect.
 | test | feature → EGARCH outcome | v1 bp | EGARCH β (z units) | p DK | p DC-v2 | n | standardized effect | ratio vs v1 | sign match | survives |
 |---|---|---:|---:|---:|---:|---:|---:|---:|:---:|:---:|
 | H1 | self_loop → \|z\| | −1.557 | +64.22 | .5711 | .5387 | 6,819 | +0.0081 | −1.00 | no | no |
-| H2 | anomaly → \|z\| | −1.491 | +79.78 | .5734 | .5291 | 6,819 | +0.0100 | −1.30 | no | no |
-| H3 | anomaly → z | +0.957 | +28.57 | .8290 | .8699 | 6,819 | +0.0028 | +0.75 | yes | no |
+| H2 | anomaly → \|z\| | −1.494 | +66.59 | .6479 | .5806 | 6,819 | +0.0084 | −1.08 | no | no |
+| H3 | anomaly → z | +0.178 | −20.60 | .8752 | .9077 | 6,819 | −0.0020 | −2.90 | no | no |
 | H4 | buyer_hhi → z | +7.510 | +256.86 | .0544 | .0164 | 6,819 | +0.0251 | +0.86 | yes | **yes** |
 | H5 | buyer_hhi → \|z\| | −1.856 | −118.91 | .2972 | .2568 | 6,819 | −0.0150 | +1.55 | yes | no |
-| H6 | reciprocity → z | −10.939 | −511.87 | .0204 | .0268 | 6,819 | −0.0500 | +1.17 | yes | **yes** |
+| H6 | reciprocity → z | −22.948 | **−1048.08** | **.0016** | **.0002** | 6,819 | −0.1025 | +1.15 | yes | **yes** |
 | H7 | EoD → \|z\| | +3.952 | +149.15 | .0638 | .0717 | 6,819 | +0.0188 | +0.91 | yes | **yes** |
 | H8 | EoD → z | −4.471 | −157.91 | .0745 | .0454 | 6,819 | −0.0154 | +0.89 | yes | **yes** |
-| H9 | self_loop → z | +1.818 | +68.45 | .5925 | .4554 | 6,819 | +0.0067 | +0.95 | yes | no |
-| H10 | reciprocity → \|z\| | +9.492 | +412.40 | .0383 | .0213 | 6,819 | +0.0519 | +1.05 | yes | **yes** |
+| H9 | self_loop → z | +1.817 | +68.45 | .5925 | .4554 | 6,819 | +0.0067 | +0.95 | yes | no |
+| H10 | reciprocity → \|z\| | +20.642 | **+547.22** | **.0497** | **.0280** | 6,819 | +0.0688 | +0.64 | yes | **yes** |
 
-**Signs.** All five v1 BH-passing tests (H4, H6, H7, H8, H10) keep the v1 sign
+**Signs.** All five BH-passing tests (H4, H6, H7, H8, H10) keep the base sign
 under EGARCH standardization. The four null tests H1/H2/H3/H5/H9 remain
 insignificant (H5 keeps its negative sign; H1/H2 flip sign only because their
-v1 estimates are tiny and near zero).
+base estimates are tiny and near zero).
 
-**Magnitudes.** The standardized effects are close to the v1 standardized
-effects: ratios 0.86–1.17 for the five BH-passing tests. H10 is
-indistinguishable from its v1 magnitude (+5.2% in standardized units); H6 grows
-by 17%, H8/H7 shrink by 11%/9%, H4 shrinks by 14%. No v1 effect is inflated by
-the EGARCH transform.
+**Magnitudes.** The standardized effects are close to the base standardized
+effects: ratios 0.64–1.55. H6 grows by 15% in standardized units; H10 shrinks
+to 64% of its base standardized effect even though its raw z-unit coefficient
+rises; H8/H7 shrink by 11%/9%, H4 shrinks by 14%. No effect is inflated by the
+EGARCH transform.
 
-**Inference.** H10 survives at p=.038 (DK) / .021 (DC-v2); H6 at .020/.027; H8
-at .075/.045; H7 at .064/.072; H4 at .054/.016. The EGARCH outcome does not
+**Inference.** H10 survives at p=.050 (DK) / .028 (DC-v2); H6 at .0016/.0002;
+H8 at .075/.045; H7 at .064/.072; H4 at .054/.016. The EGARCH outcome does not
 rescue any null and does not overturn any headline direction.
 
-**Row-exclusion check.** Re-fitting the **v1 outcomes** on exactly the 6,819
-EGARCH-usable rows reproduces every v1 sign and leaves all five BH-passing
-effects significant: H10 +11.05 bp (p .0054), H6 −12.12 (p .0140), H7 +4.35
-(p .0190), H8 −4.58 (p .0453), H4 +7.72 (p .0246). The EGARCH row loss alone
-therefore does not drive the Stage-3 pattern.
+**Row-exclusion check.** Re-fitting the **base outcomes** on exactly the 6,819
+EGARCH-usable rows reproduces every sign and leaves all five BH-passing effects
+significant: H10 +23.55 bp (p .0006), H6 −25.52 (p .0035), H7 +4.35 (p .0190),
+H8 −4.58 (p .0453), H4 +7.72 (p .0246). The EGARCH row loss alone therefore
+does not drive the Stage-3 pattern.
 
 ### 1.5 Sensitivity to degenerate / non-converged fits
 
@@ -173,11 +180,11 @@ Two subsets re-fit the primary outcome after dropping fits (table
 | test | full p | excl. 4 degenerate fits | excl. 3 non-converged fits |
 |---|---:|---:|---:|
 | H4 | .0544 | .141 | .118 |
-| H6 | .0204 | **.009** | **.006** |
+| H6 | **.0016** | **.0045** | **.0020** |
 | H7 | .0638 | .116 | .054 |
-| H8 | .0745 | **.049** | **.047** |
-| H10 | .0383 | **.026** | **.033** |
-| nulls H1/H2/H3/H5/H9 | ≥.297 | ≥.249 | ≥.440 |
+| H8 | **.0454** | **.049** | **.047** |
+| H10 | **.0497** | **.0146** | **.0179** |
+| nulls H1/H2/H3/H5/H9 | ≥.297 | ≥.249 | ≥.424 |
 
 H10, H6 and H8 are stable across the exclusions; **H4 and H7 are fragile**:
 both lose 10% significance when the four degenerate fits are dropped, and H4
@@ -221,20 +228,20 @@ implementation uses `p_tol=1e-5`, `max_iter=1500`; **all 50 fits converge**
 
 β(τ) in bp, with Koenker-robust 95% CI:
 
-| test | τ=.10 | τ=.25 | τ=.50 | τ=.75 | τ=.90 | v1 mean | tail label / shape |
+| test | τ=.10 | τ=.25 | τ=.50 | τ=.75 | τ=.90 | base mean | tail label / shape |
 |---|---:|---:|---:|---:|---:|---:|---|
-| **H10** reciprocity → \|ret\| | +3.083<br>[1.498, 4.668] | +2.842<br>[0.802, 4.882] | +4.891<br>[2.492, 7.290] | +7.530<br>[5.214, 9.846] | **+18.696**<br>[16.657, 20.735] | +9.492 | **BOTH_TAILS** / INCREASING (ratio 6.06) |
+| **H10** reciprocity → \|ret\| | +4.838<br>[2.844, 6.831] | +5.935<br>[3.367, 8.502] | +8.929<br>[5.848, 12.009] | +15.435<br>[12.395, 18.475] | **+34.643**<br>[31.761, 37.525] | +20.642 | **BOTH_TAILS** / INCREASING (ratio 7.16) |
 | **H7** EoD → \|ret\| | +0.706<br>[−0.177, 1.590] | +0.582<br>[−0.597, 1.762] | +2.202<br>[0.781, 3.624] | +3.114<br>[1.693, 4.534] | +1.212<br>[−0.062, 2.486] | +3.952 | NONE / HUMP |
 | **H4** buyer_hhi → ret | +2.121<br>[0.423, 3.818] | +1.629<br>[−0.456, 3.713] | +3.265<br>[0.916, 5.615] | +3.786<br>[1.551, 6.021] | +9.610<br>[7.668, 11.553] | +7.510 | BOTH_TAILS / INCREASING (ratio 4.53) |
-| **H6** reciprocity → ret | **−12.988**<br>[−15.182, −10.793] | −8.883<br>[−11.602, −6.164] | −7.532<br>[−10.691, −4.373] | −4.530<br>[−7.486, −1.575] | +0.545<br>[−1.966, 3.055] | −10.939 | LOWER_TAIL / INCREASING (ratio −0.04) |
+| **H6** reciprocity → ret | **−21.865**<br>[−24.869, −18.862] | −15.103<br>[−18.671, −11.536] | −9.324<br>[−13.332, −5.316] | −8.311<br>[−12.020, −4.601] | −3.628<br>[−6.903, −0.352] | −22.948 | **BOTH_TAILS** / INCREASING (ratio 0.166) |
 | **H8** EoD → ret | −3.171<br>[−4.476, −1.866] | −3.545<br>[−5.178, −1.913] | −3.494<br>[−5.344, −1.644] | −1.275<br>[−3.040, 0.489] | −0.466<br>[−1.989, 1.058] | −4.471 | LOWER_TAIL / U_SHAPE |
 
 Reading:
 
-- **H10** strengthens monotonically from +3.1 bp at τ=.10 to +18.7 bp at τ=.90;
-  the upper-tail coefficient is roughly 6× the lower-tail one and the median is
-  close to the v1 mean. The effect is a **both-tails / increasing** concentration
-  phenomenon, strongest where |return| is largest.
+- **H10** strengthens monotonically from +4.8 bp at τ=.10 to +34.6 bp at τ=.90;
+  the upper-tail coefficient is roughly 7× the lower-tail one and the median
+  (+8.9 bp) sits below the mean. The effect is a **both-tails / increasing**
+  concentration phenomenon, strongest where |return| is largest.
 - **H7** is a hump: significant at the median/upper-middle (τ=.50–.75) but not
   at either extreme. The pre-declared label is **NONE** — there is no
   extreme-tail concentration to claim. This is consistent with the Stage-1
@@ -242,8 +249,12 @@ Reading:
 - **H4** is also both-tails/increasing, with the largest effect at the upper
   tail. It remains a post-hoc, opposite-sign-to-predeclaration result
   (Stage-1 #10), not a confirmed headline.
-- **H6** is a lower-tail effect: strongly negative through the median, fading to
-  zero at τ=.90. The v1 mean (−10.94 bp) sits near the τ=.10 estimate.
+- **H6** is **both-tails/increasing with the opposite slope**: strongly negative
+  at τ=.10 (−21.9 bp), easing through the median (−9.3 bp) and shrinking to
+  −3.6 bp at τ=.90 (ratio 0.166). The mean (−22.9 bp) sits near the lower-tail
+  estimate. Unlike the v2.0.2 lower-tail label, this is a broad-based effect
+  that weakens in the upper tail; it is consistent with H6's corrected
+  `HEADLINE_ROBUST` status.
 - **H8** is a lower-tail effect concentrated at τ=.10–.50; the upper tail is
   indistinguishable from zero. Together with the Stage-2 trade-size result
   (medium-bucket), this says the H8 return effect is a mid-body phenomenon, not
@@ -283,7 +294,7 @@ completeness and should not be quoted as findings.
   rule; a label of `NONE` does not mean the effect is zero at every quantile
   (H7 is the example: significant at τ=.50–.75, labelled NONE because neither
   extreme is significant).
-- The extreme-tail checks are unadjusted; only H10's tail concentration is used
+- The extreme-tail checks are unadjusted; only the H6/H10 tail patterns are used
   in the headline narrative.
 
 ---
@@ -413,13 +424,15 @@ borderline, while the medium bucket stays at .006.
 
 ## 4 · Cross-stage reading
 
-1. **H10 (reciprocity → |return|) remains the only confirmed headline.** It is
-   the only test that is (i) a Stage-1 RW survivor (`rw_p = .081`), (ii) in the
-   Stage-2 `{H10}` headline intersection, (iii) sign-stable and significant
-   under EGARCH standardization (p .038), and (iv) both-tails/increasing in the
-   quantile panel (τ=.90 +18.7 bp). The Stage-3 evidence strengthens the
-   *shape* of the H10 association (concentrated in extreme |return| states) but
-   does not add a second headline.
+1. **H6 and H10 are the two corrected headlines, and they share one
+   construct.** H6 (reciprocity → signed return) is the Stage-1 RW survivor at
+   `rw_p = .031` and the Stage-2 4/4 `STRONG` test; it is strongly significant
+   under EGARCH standardization (p .0016) and both-tails/increasing in the
+   quantile panel. H10 (reciprocity → |return|) is the Stage-2 headline
+   (`rw_p = .012`), sign-stable and significant under EGARCH (p .0497) and
+   both-tails/increasing (τ=.90 +34.6 bp). Stage 3 strengthens the *shape* of
+   both associations but adds no new construct: H6 and H10 are two outcomes of
+   the same reciprocity feature, not independent confirmations.
 2. **H7** is demoted by Stage 1 and remains fragile: EGARCH p .064 overall but
    .116 without degenerate fits; quantile label NONE; only the large-ticket
    trade-size cut is significant. The honest summary is a localized,
@@ -429,8 +442,10 @@ borderline, while the medium bucket stays at .006.
    only under the wrong-signed raw criterion. `NULL_FRAGILE` stands.
 4. **H4** is post-hoc opposite-sign; EGARCH keeps the sign but p .054, and the
    quantile curve is both-tails/increasing. It remains exploratory.
-5. **H6** keeps its negative sign under EGARCH (p .020) and is a lower-tail
-   quantile effect; RW still demotes it (`rw_p = .120`). It is not a headline.
+5. **H6** keeps its negative sign under EGARCH (p .0016), is both-tails/
+   increasing in the quantile panel, and clears RW at .031. It is the
+   corrected `HEADLINE_ROBUST` test; the Stage-3 evidence is consistent with
+   that label rather than a new promotion.
 6. **Nulls H1/H2/H3/H5/H9** are not resurrected: EGARCH keeps them
    insignificant, and their quantile tail labels are unadjusted descriptive
    artifacts (§2.3). The Stage-1 `NULL_ROBUST` classifications stand.
@@ -482,13 +497,14 @@ Stage-3 tables are byte-identical across consecutive runs.
 - EGARCH is symmetric (declared `o=0`), conservative on average, and leaves fat
   tails; two fold-0 fits have degenerate forward recursions (297 rows, 4.2%).
 - Quantile CIs are Koenker-robust asymptotic, not cluster-robust; the 20
-  extreme-tail checks are unadjusted. Only H10's tail concentration is used as
-  evidence.
+  extreme-tail checks are unadjusted. Only the H6/H10 tail patterns are used as
+  evidence; null tail labels are descriptive.
 - Trade-size buckets are defined by TRAIN-fold p10/p90; the small bucket is
   0.35% of volume and is not usable for inference. H7 is metric-specific (EoD),
   not a general large-trade concentration result.
 - The H7 specification curve and pre-declared subgroups are Stage 4; the latter
   cannot include a circuit-breaker subgroup because no such days exist in the
   window.
-- Frozen v1 numbers remain the primary record; Stage-3 tables are new v2
-  artifacts and do not overwrite any v1 cell.
+- Frozen v1 files remain untouched as the v1 record; the corrected v2.1.0 tables
+  are the primary v2 record, and the superseded v2.0.2 cells are preserved in
+  `outputs/tables/superseded_v2_0_2/` (EXP-0015).

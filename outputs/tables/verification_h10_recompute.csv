@@ -1,13 +1,13 @@
 check,metric,recomputed,frozen,abs_diff,rel_diff,tolerance,passed,frozen_source,note
-H10_PRIMARY,beta_bp,9.492266420621041,9.492266420621041,0.0,0.0,< 0.5% of |beta|,True,v2_final_headline_set.csv:H10,
-H10_PRIMARY,beta_raw,0.0009492266420621042,0.0009492266420621041,1.0842021724855044e-19,1.1421952613236592e-16,< 0.5% of |beta|,True,v2_final_headline_set.csv:H10,
-H10_PRIMARY,dk_p,0.013754510527417598,0.013754510527417598,0.0,0.0,<= 0.005 absolute,True,v2_final_headline_set.csv:H10,
+H10_PRIMARY,beta_bp,20.641998360399068,20.641998360399068,0.0,0.0,< 0.5% of |beta|,True,v2_final_headline_set.csv:H10,
+H10_PRIMARY,beta_raw,0.0020641998360399066,0.0020641998360399066,0.0,0.0,< 0.5% of |beta|,True,v2_final_headline_set.csv:H10,
+H10_PRIMARY,dk_p,0.001362135102402554,0.001362135102402554,0.0,0.0,<= 0.005 absolute,True,v2_final_headline_set.csv:H10,
 H10_PRIMARY,n_obs,7116.0,7116.0,0.0,0.0,exact,True,hypothesis_grid_results_v2.csv:H10,v2_final_headline_set.csv has no n column; n taken from the same frozen H10 row lineage
 H10_PRIMARY,n_effective,6383.0,6383.0,0.0,0.0,exact,True,hypothesis_grid_results_v2.csv:H10,n - (n_stocks-1) - (n_dates-1)
 H10_PRIMARY,n_stocks,12.0,12.0,0.0,0.0,exact,True,hypothesis_grid_results_v2.csv:H10,
 H10_PRIMARY,n_dates,723.0,723.0,0.0,0.0,exact,True,hypothesis_grid_results_v2.csv:H10,
-H10_PRIMARY,se_raw,0.00038519208659876654,0.00038519208659876654,0.0,0.0,report only,True,hypothesis_grid_results_v2.csv:H10,
-H10_PRIMARY,t_stat,2.4642942445774114,2.4642942445774114,0.0,0.0,report only,True,hypothesis_grid_results_v2.csv:H10,
-H10_SECONDARY_LIQUIDITY,beta_bp,9.585688569659226,9.585688569659226,0.0,0.0,< 0.5% of |beta|,True,headline_with_liquidity_controls.csv:H10:single_feature_liquidity,"Stage-2 three-gamma controlled specification; informational cross-check, not the canonical H10 base row"
-H10_SECONDARY_LIQUIDITY,dk_p,0.011719355980631988,0.011719355980631988,0.0,0.0,<= 0.005 absolute,True,headline_with_liquidity_controls.csv:H10:single_feature_liquidity,
+H10_PRIMARY,se_raw,0.0006442631565731512,0.0006442631565731512,0.0,0.0,report only,True,hypothesis_grid_results_v2.csv:H10,
+H10_PRIMARY,t_stat,3.203970015947253,3.203970015947253,0.0,0.0,report only,True,hypothesis_grid_results_v2.csv:H10,
+H10_SECONDARY_LIQUIDITY,beta_bp,19.658317404633056,19.658317404633056,0.0,0.0,< 0.5% of |beta|,True,headline_with_liquidity_controls.csv:H10:single_feature_liquidity,"Stage-2 three-gamma controlled specification; informational cross-check, not the canonical H10 base row"
+H10_SECONDARY_LIQUIDITY,dk_p,0.002082540435953412,0.002082540435953412,0.0,0.0,<= 0.005 absolute,True,headline_with_liquidity_controls.csv:H10:single_feature_liquidity,
 H10_SECONDARY_LIQUIDITY,n_obs,7116.0,7116.0,0.0,0.0,exact,True,headline_with_liquidity_controls.csv:H10,

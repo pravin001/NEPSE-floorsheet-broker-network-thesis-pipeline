@@ -47,6 +47,15 @@ rows**, covering **938/940** calendar sessions (2021-01-01→2024-12-31; gaps
 
 ## Status
 
+Current release: **v2.1.0-reciprocity-correction** (2026-11-19). It fixes the
+`reciprocity_volume` metric (unordered pairs counted once; self-loops excluded
+from the numerator) and rebuilds every dependent result from the untouched raw
+archives; the pre-fix v2.0.2 values are preserved in
+`outputs/tables/superseded_v2_0_2/`. Corrected headlines: **H6
+`HEADLINE_ROBUST`** (−22.948 bp/SD, 4/4 SE concordance, RW p .031) and **H10
+`HEADLINE_MODERATE`** (+20.642 bp/SD, 3/4 concordance, RW p .012). See
+`reports/reciprocity_correction.md` and `reports/limitations.md`.
+
 See `AGENTS.md` (fresh-session resume point) and
 `docs/experiment_register.md`. Phase 1 executed 2026-11-08.
 

@@ -1,4 +1,4 @@
 test_id,effect_bp_per_sd,direction,cost_low_bp,cost_high_bp,cost_multiple_low,cost_multiple_high,standalone_tradable_at_1sd,note
-H7,3.952373,positive,30.0,50.0,7.59037671798689,12.650627863311483,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
-H10,9.492266,positive,30.0,50.0,3.160467690222756,5.26744615037126,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
-H4,7.509961,opposite_sign_post_hoc,30.0,50.0,3.9946945130607205,6.657824188434534,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
+H7,3.9523733421516263,positive,30.0,50.0,7.590376060898222,12.650626768163702,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
+H10,20.641998360399068,positive,30.0,50.0,1.4533476592825394,2.4222460988042323,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"
+H4,7.509961243461148,opposite_sign_post_hoc,30.0,50.0,3.9946943835589988,6.657823972598331,False,"declared round-trip explicit-cost range; excludes brokerage, spread and CNS carry, so the hurdle is a floor"

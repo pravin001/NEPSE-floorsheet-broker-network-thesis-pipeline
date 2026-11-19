@@ -1,37 +1,41 @@
-# Exploratory findings — v2 Stage 1 (EXP-0008a–e)
+# Exploratory findings — v2 Stage 1 (EXP-0008a–e) — v2.1.0 update
 
-Generated 2026-11-11 (NPT) from the frozen v1 artifacts + the Stage-1 v2 runs.
-All numbers below trace to exactly one experiment row: EXP-0008a (this
-reclassification), EXP-0008b (Romano–Wolf), EXP-0008c (MDE), EXP-0008d (DC13
-placebo-outcome), EXP-0008e (expanded placebo battery). No v1 file was edited;
-the governance table is `outputs/tables/hypothesis_grid_results_v2.csv`.
+Generated 2026-11-11 (NPT) from the frozen v1 artifacts + the Stage-1 v2 runs;
+updated 2026-11-19 after the reciprocity correction (EXP-0015). All numbers
+below trace to exactly one experiment row: EXP-0008a (this reclassification),
+EXP-0008b (Romano–Wolf), EXP-0008c (MDE), EXP-0008d (DC13 placebo-outcome),
+EXP-0008e (expanded placebo battery), EXP-0015 (corrected rebuild). No v1 file
+was edited; the governance table is `outputs/tables/hypothesis_grid_results_v2.csv`.
+The canonical correction record is `reports/reciprocity_correction.md`; v2.0.2
+values are preserved in `outputs/tables/superseded_v2_0_2/`.
 
 ## 0. Stage-1 disposition (mechanical, pre-declared rules)
 
 | test | v1 BH q=.10 | Stage-1 classification | RW p | reason |
 |---|---|---|---|---|
-| H1 | no | NULL_ROBUST | .915 | BH fail; LOO-stable null |
-| H2 | no | NULL_ROBUST | .915 | BH fail; placebo null; LOO-stable |
-| H3 | no | NULL_ROBUST | .915 | BH fail; placebo null; LOO-stable |
-| H4 | yes | **EXPLORATORY_POST_HOC** | .159 | opposite sign to pre-declaration |
-| H5 | no | NULL_ROBUST | .915 | BH fail; LOO-stable null |
-| H6 | yes | **NULL_FRAGILE** | .120 | RW demotion (rw p > .10) |
-| H7 | yes | **NULL_FRAGILE** | .159 | RW demotion (rw p > .10) |
-| H8 | yes | **NULL_FRAGILE** | .203 | two registered robustness failures |
-| H9 | no | NULL_ROBUST | .915 | BH fail; LOO-stable null |
-| H10 | yes | **CONFIRMED_HEADLINE** | **.081** | only RW survivor at q=.10 |
+| H1 | no | NULL_ROBUST | .918 | BH fail; LOO-stable null |
+| H2 | no | NULL_ROBUST | .918 | BH fail; placebo null; LOO-stable |
+| H3 | no | NULL_ROBUST | .959 | BH fail; placebo null; LOO-stable |
+| H4 | yes | **EXPLORATORY_POST_HOC** | .152 | opposite sign to pre-declaration |
+| H5 | no | NULL_ROBUST | .918 | BH fail; LOO-stable null |
+| H6 | yes | **CONFIRMED_HEADLINE** | **.031** | passes RW q=.10 |
+| H7 | yes | **NULL_FRAGILE** | .152 | RW demotion (rw p > .10) |
+| H8 | yes | **NULL_FRAGILE** | .199 | two registered robustness failures |
+| H9 | no | NULL_ROBUST | .918 | BH fail; LOO-stable null |
+| H10 | yes | **CONFIRMED_HEADLINE** | **.012** | passes RW q=.10 |
 
 RW = Romano–Wolf free step-down, B=999, common row-level Rademacher signs,
 recentered t*; p convention (1+#)/(B+1) (deviation #12). The literal
 full-family min-p variant is co-reported in
-`outputs/tables/hypothesis_grid_results_rw.csv`; it agrees for H10 (.081) and
-is more conservative elsewhere (H6 .129, H7 .189, H4 .190, H8 .297).
+`outputs/tables/hypothesis_grid_results_rw.csv`.
 
-**Net Stage-1 result: exactly one of the five v1 headlines survives a
-family-wise error correction at q=.10 — H10.** H6 and H7 are demoted, H8 is
-already demoted, H4 is exploratory. H10 nevertheless carries the DC13
-persistence flag (§3): the only survivor is also the most exposed to the
-past-volatility channel. This tension is the central Stage-1 disclosure.
+**Net Stage-1 result: two of the five v1 headlines survive a family-wise error
+correction at q=.10 — H6 (.031) and H10 (.012).** H7 is demoted, H8 is already
+demoted, H4 is exploratory. Both survivors carry the DC13 persistence flag
+(§3): reciprocity predicts past |ret| more strongly than forward |ret|. This
+tension is the central Stage-1 disclosure. H6 was `NULL_FRAGILE` in v2.0.2;
+the corrected feature moves it to `CONFIRMED_HEADLINE` without any change to
+the composition rule.
 
 ---
 
@@ -124,9 +128,9 @@ history precedes the OOS window).
 | unique feature | tests | β (bp) | DK p | verdict |
 |---|---|---|---|---|
 | self_loop_ratio | H1, H9 | −3.94 | .00554 | **SPECIFICATION_ERROR_FLAG** |
-| anomaly_score | H2, H3 | −7.71 | .00107 | **SPECIFICATION_ERROR_FLAG** |
+| anomaly_score | H2, H3 | −6.55 | .00891 | **SPECIFICATION_ERROR_FLAG** |
 | buyer_hhi | H4, H5 | −9.97 | 3.7e-7 | **SPECIFICATION_ERROR_FLAG** |
-| reciprocity | H6, H10 | +19.69 | 6.9e-5 | **SPECIFICATION_ERROR_FLAG** |
+| reciprocity | H6, H10 | **+44.78** | **8.7e-10** | **SPECIFICATION_ERROR_FLAG** |
 | end_of_day_concentration | H7, H8 | +1.68 | .2784 | PASS |
 
 **7 of 10 test rows flag; 5 of 5 unique features except EoD flag.** The
@@ -135,24 +139,24 @@ by construction — the DC13 outcome is feature-specific, not
 hypothesis-specific.
 
 **Mechanism check (descriptive, not a new pre-registered test).**
-|ret| is persistent: corr(|ret(t−1)|, |ret(t+1)|) = .124. Feature
-autocorrelation: reciprocity .308, anomaly_score .157, buyer_hhi .112,
-self_loop .025, EoD .028. Feature correlations with past |ret|: reciprocity
-+.228, buyer_hhi −.105, anomaly_score −.094, self_loop −.031, EoD −.017.
-The flag pattern is exactly what persistent features loading on persistent
-volatility produce. The lag construction was verified row-by-row (e.g. ADBL:
-first available session NaN, next session |−0.002273|, etc.), and the
-with/without-controls estimates move in the expected direction (self_loop
-−3.94 with controls vs −0.93 without; reciprocity +19.69 vs +36.10; EoD
-+1.68 vs −0.86). This is a real persistence channel, not an alignment bug.
+|ret| is persistent: corr(|ret(t−1)|, |ret(t+1)|) = .124. The v2.0.2 feature
+autocorrelations were reciprocity .308, anomaly_score .157, buyer_hhi .112,
+self_loop .025, EoD .028; correlations with past |ret| were reciprocity +.228,
+buyer_hhi −.105, anomaly_score −.094, self_loop −.031, EoD −.017. These are
+retained as the v2.0.2 descriptive record; the corrected reciprocity series is
+not re-described here. The flag pattern is exactly what persistent features
+loading on persistent volatility produce. The lag construction was verified
+row-by-row (e.g. ADBL: first available session NaN, next session |−0.002273|,
+etc.), and the with/without-controls estimates move in the expected direction.
+This is a real persistence channel, not an alignment bug.
 
-**Implication for the headlines.** H10 — the only RW survivor — is the most
-exposed: reciprocity predicts past |ret| at +19.69 bp (p=6.9e-5) and forward
-|ret| at +9.49 bp (p=.0138); the lag association is **larger than the forward
-one**. The forward H10 estimate may therefore partly inherit a persistent
+**Implication for the headlines.** Both RW survivors are exposed: reciprocity
+predicts past |ret| at **+44.78 bp** (p **8.7e-10**) and forward |ret| at
+**+20.64 bp** (p **.0014**); the lag association is more than twice the forward
+one. The forward H6/H10 estimates may therefore partly inherit a persistent
 volatility channel. H7/H8 pass DC13, which is a point in their favour even
-though RW/robustness demote them. H4 and H6 carry the flag too. No promotion
-or demotion is made here beyond the declared Stage-1 rules; this section is a
+though RW/robustness demote them. H4 carries the flag too. No promotion or
+demotion is made here beyond the declared Stage-1 rules; this section is a
 disclosure that must be carried into Stage 2 (liquidity/volatility controls)
 and Stage 5 (final classification rationale + limitations).
 
@@ -160,19 +164,18 @@ and Stage 5 (final classification rationale + limitations).
 
 ## 4. Expanded placebo battery (EXP-0008e)
 
-All constructions use the same PANEL and design as the v1 placebo; the first
-200 score permutations are exactly the v1 draws (verified: H2 .800, H3 .640,
-matching the frozen grid to machine precision).
+All constructions use the same PANEL and design as the v1 placebo. The
+corrected Isolation Forest changes the score draws, so the v2.1.0 shares are
+reported below; they are not the v2.0.2 draw set.
 
-**(a) 1000 full-panel anomaly-score shuffles.** H2 upper share .780 (95% CI
-.753–.805), H3 lower share .647 (.617–.676); two-sided .440 / .687. The
-first 200 are .800/.640; the extension stays null. No forward-return content
-in the IF anomaly score — the v1 placebo conclusion is confirmed at 5× the
-draws.
+**(a) 1000 full-panel anomaly-score shuffles.** H2 upper share **.781** (95% CI
+.754–.806), H3 lower share **.521** (.490–.552); two-sided **.430 / .935**.
+No forward-return content in the IF anomaly score — the placebo conclusion is
+unchanged at 1000 draws.
 
-**(b) 1000 within-symbol 5-session block permutations.** H2 upper .745
-(.717–.771), H3 lower .659 (.629–.688); two-sided .467 / .683. Preserving
-short-range score autocorrelation does not rescue a forward signal.
+**(b) 1000 within-symbol 5-session block permutations.** H2 upper **.738**
+(.710–.764), H3 lower **.537** (.506–.568); two-sided **.482 / .938**.
+Preserving short-range score autocorrelation does not rescue a forward signal.
 
 **(c) Negative-control feature `negctrl_eod_lead5`** (future EoD value
 placed at t, z-scaled with the same train constants): abs_ret_fwd1
@@ -193,7 +196,7 @@ negative-control failure; the negative control itself passes calibration.
 ## 5. What Stage 1 changes for the thesis narrative
 
 - The v1 "5/10 BH-passing headlines" set is **not** the v2 headline set. Under
-  RW at q=.10 only **H10** survives; H6/H7 are demoted, H8 is fragile, H4 is
+  RW at q=.10 **H6 and H10** survive; H7 is demoted, H8 is fragile, H4 is
   exploratory.
 - The EoD pair is the cleanest on the DC13 persistence check (both pass) even
   though H7 is RW-demoted and H8 is era/threshold-fragile.
@@ -201,6 +204,9 @@ negative-control failure; the negative control itself passes calibration.
   block permutations; it remains the strongest negative result in the thesis.
 - The DC13 flags are a **design-level caveat**, not a feature-by-feature
   afterthought: five of five unique features predict past absolute returns,
-  and the lone RW survivor (H10) has the largest lag association. Stage 2's
+  and the reciprocity survivors have the largest lag association. Stage 2's
   liquidity controls and Stage 5's final classification must address this
   directly.
+- v2.0.2's single-survivor narrative is superseded: the corrected metric gives
+  two survivors, but they are the same construct predicting two outcomes, not
+  independent confirmations.

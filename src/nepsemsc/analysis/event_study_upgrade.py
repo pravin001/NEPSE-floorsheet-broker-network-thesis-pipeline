@@ -272,17 +272,23 @@ def upgrade(cars: pd.DataFrame, outcomes: pd.DataFrame,
              "p_value": cr["p"]},
         ]
 
+    # Sample labels carry the realised counts.  The v2.0.2 labels were
+    # `all_686` / `illiquid_16_appendix`; the v2.1.0 reciprocity correction
+    # changes the Isolation Forest scores behind the event definition, so the
+    # counts must be allowed to move without leaving a misleading label.
+    n_all = int(len(per_event))
+    app = per_event.loc[per_event["illiquid_appendix"]]
+    n_app = int(len(app))
     summary = []
-    summary += _rows("all_686", "v1_method", per_event["car"],
+    summary += _rows(f"all_{n_all}", "v1_method", per_event["car"],
                      per_event["scar"], per_event["rank_sum"],
                      per_event["n_est"], per_event["n_window"],
                      "headline sample; overlapping windows caveat")
-    summary += _rows("all_686", "market_adjusted", per_event["car_ma"],
+    summary += _rows(f"all_{n_all}", "market_adjusted", per_event["car_ma"],
                      per_event["scar_ma"], per_event["rank_sum_ma"],
                      per_event["n_est"], per_event["n_window"],
                      "uniform market-adjusted variant on same windows")
-    app = per_event.loc[per_event["illiquid_appendix"]]
-    summary += _rows("illiquid_16_appendix", "v1_method", app["car"],
+    summary += _rows(f"illiquid_{n_app}_appendix", "v1_method", app["car"],
                      app["scar"], app["rank_sum"], app["n_est"],
                      app["n_window"], "appendix only; not a headline quote")
     return pd.DataFrame(summary), per_event, ar_long, gate

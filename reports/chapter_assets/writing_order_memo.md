@@ -1,4 +1,9 @@
-# Writing-order memo — v2.0.2 pre-write
+# Writing-order memo — v2.0.2 pre-write (still current under v2.1.0)
+
+> **Version note (2026-11-19).** The writing order and chapter workflow are
+> unchanged. All numeric claims must now come from
+> `reports/chapter_assets/key_claims_sheet.md` (v2.1.0) or the corrected
+> `outputs/tables/`; v2.0.2 reciprocity-dependent values are superseded.
 
 **To:** the student
 **From:** v2.0.2 pre-write sprint

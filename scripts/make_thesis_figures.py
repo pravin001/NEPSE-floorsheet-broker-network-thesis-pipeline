@@ -7,7 +7,7 @@ Contract for the v2.0.2 pre-write sprint
   Every plotted value is read from a frozen CSV/parquet or, for F10, from the
   two already-frozen network renders.
 * Each figure is emitted as 300-dpi PNG + vector PDF.
-* Footer: experiment id + short digest of the exact input bytes + v2.0.1.
+* Footer: experiment id + short digest of the exact input bytes + v2.1.0.
 * Every PNG is checked for non-blank content after it is written.
 * `outputs/figures/static/figure_manifest.csv` records provenance and hashes.
 
@@ -37,7 +37,7 @@ TABLES = ROOT / "outputs" / "tables"
 FIGDIR = ROOT / "outputs" / "figures" / "static"
 FIGDIR.mkdir(parents=True, exist_ok=True)
 
-VERSION = "v2.0.1"
+VERSION = "v2.1.0"
 DPI = 300
 
 # Okabe-Ito colourblind-safe palette.
@@ -438,7 +438,10 @@ def fig_f4() -> dict:
     ax.set_xlabel("Quantile τ")
     ax.set_ylabel("H10 β (bp per 1 SD)")
     ax.set_xlim(0.04, 0.96)
-    ax.set_ylim(0, 23)
+    _lo = min(float(lo.min()), base)
+    _hi = max(float(hi.max()), base)
+    pad = max(2.0, 0.08 * (_hi - _lo))
+    ax.set_ylim(_lo - pad, _hi + pad)
     ax.legend(loc="upper left", fontsize=8.0)
     ax.text(
         0.98, 0.04,
@@ -454,7 +457,8 @@ def fig_f4() -> dict:
         "H10 reciprocity → |return| across quantiles",
         "Ch.5 §5.6.5", "EXP-0010b", [q_path, t_path, h_path],
         "H10 quantile estimates at τ=.10/.25/.50/.75/.90 with robust 95% CIs, "
-        "against the OLS base; the effect rises from +3.08 to +18.70 bp.",
+        f"against the OLS base; the effect runs from {beta[0]:+.2f} to "
+        f"{beta[-1]:+.2f} bp.",
     )
 
 
@@ -563,10 +567,15 @@ def fig_f6() -> dict:
     ax2.set_ylabel("Mean AR (bp)")
     ax2.set_title("Average abnormal return by lag", loc="left")
     ax2.set_xticks(lags)
+    # Counts are read from the live event table: the reciprocity correction
+    # changes the Isolation Forest scores behind the event definition, so the
+    # v2.0.2 constant (686) must not be printed as a property of this sample.
+    n_events = int(ars["event_idx"].nunique())
     ax2.text(
         0.99, 0.04,
-        f"686 events · {int(ars['event_idx'].nunique())} dates\n"
-        f"lag counts: 686 at −5…0; {int(counts.loc[1])}–{int(counts.loc[4])} at +1…+4; "
+        f"{n_events} events · {int(ars['event_idx'].nunique())} dates\n"
+        f"lag counts: {int(counts.loc[-5])} at −5…0; "
+        f"{int(counts.loc[1])}–{int(counts.loc[4])} at +1…+4; "
         f"{int(counts.loc[5])} at +5",
         transform=ax2.transAxes, ha="right", va="bottom", fontsize=7.8,
         bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="#CCCCCC"),
@@ -574,10 +583,10 @@ def fig_f6() -> dict:
 
     return save_figure(
         fig, "F6", "f6_event_study_path",
-        "Event-study abnormal-return path (686 events)",
+        f"Event-study abnormal-return path ({n_events} events)",
         "Ch.5 §5.4", "EXP-0011e", [path],
         "Mean AR by event-time lag and the cumulative mean CAR from −5 to +5; "
-        "the +5 cumulative mean is +12.861 bp.",
+        f"the +5 cumulative mean is {car[-1]:+.3f} bp.",
     )
 
 

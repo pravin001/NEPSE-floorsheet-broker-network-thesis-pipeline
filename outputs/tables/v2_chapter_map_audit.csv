@@ -34,16 +34,16 @@ CH4-4.5-EXCLUSIONS,Ch.4 Data Engineering,4.5,outputs/tables/universe_exclusions.
 CH4-4.6-DRIFT,Ch.4 Data Engineering,4.6,outputs/tables/v2_clean_rebuild_audit.csv,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH4-4.6-REPRO,Ch.4 Data Engineering,4.6,docs/reproducibility.md,EXP-0013,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.1-SAMPLE,Ch.5 Results,5.1,outputs/tables/hypothesis_grid_results_v2.csv,EXP-0011a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
-CH5-5.2-GRID-V1,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
-CH5-5.2-H7-V1-P0274,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.2-GRID-V1,Ch.5 Results,5.2,outputs/tables/superseded_v2_0_2/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.2-H7-V1-P0274,Ch.5 Results,5.2,outputs/tables/superseded_v2_0_2/hypothesis_grid_results.csv,EXP-0004b,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
 CH5-5.2-GRID-V2,Ch.5 Results,5.2,outputs/tables/hypothesis_grid_results_v2.csv,EXP-0008a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.3-PLACEBO,Ch.5 Results,5.3,outputs/tables/placebo_distribution_expanded.csv,EXP-0008e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.3-PLACEBO-OUTCOME,Ch.5 Results,5.3,outputs/tables/placebo_outcome_test.csv,EXP-0008d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
-CH5-5.3-REGIME,Ch.5 Results,5.3,outputs/tables/regime_split_results.csv,EXP-0004d,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
-CH5-5.4-EVENT-V1,Ch.5 Results,5.4,outputs/tables/event_study_summary.csv,EXP-0004e,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.3-REGIME,Ch.5 Results,5.3,outputs/tables/regime_split_results.csv,EXP-0004d,v2,VERIFIED,true,true,true,true,OK,hash-aligned
+CH5-5.4-EVENT-V1,Ch.5 Results,5.4,outputs/tables/superseded_v2_0_2/event_study_summary.csv,EXP-0004e,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
 CH5-5.4-EVENT-V2,Ch.5 Results,5.4,outputs/tables/event_study_upgraded.csv,EXP-0011e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.4-EVENT-CLUSTER,Ch.5 Results,5.4,outputs/tables/event_study_clustered_inference.csv,EXP-0011e,v2,VERIFIED,true,true,true,true,OK,hash-aligned
-CH5-5.5-ROBUST,Ch.5 Results,5.5,outputs/tables/robustness_headline_survival.csv,EXP-0005a,v1,VERIFIED_V1_IMMUTABLE,true,true,true,true,OK,hash-aligned
+CH5-5.5-ROBUST,Ch.5 Results,5.5,outputs/tables/robustness_headline_survival.csv,EXP-0005a,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.6.1-RW,Ch.5 Results,5.6.1,outputs/tables/hypothesis_grid_results_rw.csv,EXP-0008b,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.6.2-WB,Ch.5 Results,5.6.2,outputs/tables/wild_cluster_bootstrap.csv,EXP-0009c,v2,VERIFIED,true,true,true,true,OK,hash-aligned
 CH5-5.6.2-SE,Ch.5 Results,5.6.2,outputs/tables/se_concordance.csv,EXP-0009d,v2,VERIFIED,true,true,true,true,OK,hash-aligned

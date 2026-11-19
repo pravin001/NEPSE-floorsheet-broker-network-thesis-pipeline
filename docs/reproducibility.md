@@ -39,7 +39,96 @@ tracked in git.
 
 ---
 
-# v2.0 Stage-6 clean rebuild (2026-11-12/13)
+# v2.1.0 reciprocity correction (2026-11-18/19)
+
+## Trigger and fix
+
+`reciprocity_volume` counted every ordered pair `(i,j)` and treated
+self-loops as reciprocal flow. The corrected metric counts each unordered pair
+once, excludes self-loops from the numerator and keeps them in the denominator:
+
+```text
+reciprocity = 2 · Σ_{i<j} min(w_ij, w_ji) / Σ_{i≠j} w_ij
+```
+
+The fix is committed before the rebuild as
+`e2cc72b` on `fix/reciprocity-correction`
+(`src/nepsemsc/features/network.py`; 15/15 network-metric tests). The full
+defect/fix/old-versus-new record is `reports/reciprocity_correction.md`;
+governance rows are EXP-0015 and deviation #45.
+
+On all 233,706 `(symbol,date)` rows the old and corrected values satisfy
+
+```text
+old = 2 × (corrected + self_loop_share)
+```
+
+The factor 2 is neutral under TRAIN-fold standardisation. The additive
+self-loop term is substantive and is why every dependent result was rebuilt,
+not rescaled.
+
+## Scope and command
+
+```bash
+cd ~/research/nepse-floorsheet-microstructure
+nepse-msc/bin/python scripts/run_stage6_rebuild.py --clean 2>&1 | tee outputs/logs/v2_stage6_rebuild.log
+```
+
+The v2.1.0 clean rebuild completed **21/21 steps, exit 0, 4,209.8 s
+(70.2 min)**, reading only the untouched raw archives. `data/raw/` was
+unchanged (577 files / 611,881,127 bytes). Stage scripts that consume the grid
+were rebuilt from source; no inherited v2.0.2 table was reused as an input.
+The canonical runner log is `outputs/logs/v2_stage6_rebuild.log`; the
+per-stage logs (`v2_stage1.log` … `v2_stage5.log`) remain the historical
+v2.0.2 records and are labelled as such in the reports.
+
+## Superseded v2.0.2 record
+
+The 43 pre-correction CSVs that directly carry reciprocity-dependent values
+are byte-frozen in `outputs/tables/superseded_v2_0_2/`, with `README.md` and
+`MANIFEST.sha256`. They are not mixed into the live tables. The old
+classifications (H10 sole `HEADLINE_MODERATE`; H6/H7/H8 `NULL_FRAGILE`) are
+the documented v2.0.2 record and are quoted only with that label.
+
+## Reproducibility verdict
+
+The rebuild is **numerically reproducible, not byte-identical**, for the same
+reasons as v2.0.2 (float summation order, solver convergence, threshold-adjacent
+event flags). The corrected final classifications are read from
+`outputs/tables/v2_final_headline_set.csv`: **H6 `HEADLINE_ROBUST`**,
+**H10 `HEADLINE_MODERATE`**, H4 `EXPLORATORY_POST_HOC`, H7/H8 `NULL_FRAGILE`,
+H1/H2/H3/H5/H9 `NULL_POWERED`.
+
+## Tests and independent verification
+
+```bash
+nepse-msc/bin/python -m pytest tests notebooks/*_*.ipynb --nbmake -q
+nepse-msc/bin/python scripts/verify_h10_independent.py
+nepse-msc/bin/python scripts/audit_register_v2.py
+nepse-msc/bin/python scripts/audit_chapter_map.py
+```
+
+Close-out results are recorded in `docs/deposit_preflight.md` and the release
+commit message. The corrected H10 recomputation, RW p, spot checks and chapter
+crosswalk are regenerated from the corrected tables, not hand-edited.
+
+## Release and archive
+
+The release commit is tagged `v2.1.0-reciprocity-correction`. The derived-only
+deposit archive is rebuilt at
+`dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz`; its SHA-256 and
+inventory are in `docs/deposit_preflight.md`. The v2.0.2 archive is not
+overwritten, and `v2.0.2-prewrite` is not moved.
+
+---
+
+# v2.0.2 Stage-6 clean rebuild (2026-11-12/13) — historical, superseded
+
+> **Superseded by v2.1.0.** This section records the pre-correction v2.0.2
+> rebuild. The `reciprocity_volume` metric was corrected afterwards; the
+> corrected build and its old-versus-new comparison are in
+> `reports/reciprocity_correction.md` and the v2.1.0 section below. The
+> classifications quoted in this historical section are **not** current.
 
 ## Scope and command
 
@@ -69,7 +158,8 @@ are under 25 s. The complete per-step table is the timings CSV above.
 
 All 73 tracked table artefacts were compared byte-for-byte and cell-by-cell
 against their frozen `HEAD` versions; evidence is
-`outputs/tables/v2_clean_rebuild_audit.csv`.
+`outputs/tables/v2_clean_rebuild_audit.csv`. This audit predates the
+reciprocity correction and is retained as the v2.0.2 record.
 
 | status | n | meaning |
 |---|---:|---|
@@ -80,9 +170,10 @@ against their frozen `HEAD` versions; evidence is
 | `FLOAT_AGGREGATION` | 1 | `corpus_symbol_coverage.csv`: 11 symbol totals differ by 1 unit on ~1e8-scale sums (max relative 9.09e-8) |
 | `THRESHOLD_FLIP` | 1 | `robustness_sequential_variant.csv`: descriptive sequential-fold variant fold-0 event count 146→141 (5 rows, 0.46%); the anchored primary event count stays 686; pooled rank correlation +.8706→+.8703 |
 
-**Final classifications are identical** to the Stage-5 freeze: H10
-`HEADLINE_MODERATE`; H4 `EXPLORATORY_POST_HOC`; H6/H7/H8 `NULL_FRAGILE`;
-H1/H2/H3/H5/H9 `NULL_POWERED`.
+**v2.0.2 classifications (superseded):** H10 `HEADLINE_MODERATE`; H4
+`EXPLORATORY_POST_HOC`; H6/H7/H8 `NULL_FRAGILE`; H1/H2/H3/H5/H9
+`NULL_POWERED`. The corrected v2.1.0 labels are read from
+`outputs/tables/v2_final_headline_set.csv`.
 
 This is **numerical reproducibility, not byte-identity**: floating-point
 summation order, solver convergence, and threshold-adjacent event flags move

@@ -1,6 +1,6 @@
-# Deposit preflight — v2.0.2 derived-only archive
+# Deposit preflight — v2.1.0 derived-only archive
 
-**Release:** `v2.0.2-prewrite` + post-publication documentation · 2026-11-14
+**Release:** `v2.1.0-reciprocity-correction` · 2026-11-19
 **Status:** archive built and verified locally; **NOT uploaded**, no DOI,
 no deposit-repository push. Upload is a user action; the public code
 repository is separate from this derived-only archive.
@@ -15,14 +15,14 @@ provenance manifest predates the final wrapper hash row.
 
 | item | value |
 |---|---|
-| archive | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.tar.gz` (gitignored) |
-| SHA-256 | `d222ab1aec3a0704c4437a4ba528c81e384a48cd1a4eafef55c91cedddbd5f04` |
-| compressed size | 2,772,950 bytes |
-| payload files | 307 |
-| uncompressed payload | 14,189,694 bytes |
-| content manifest | `dist/nepse-floorsheet-microstructure-v2.0.2-derived.contents.csv` |
-| content-manifest SHA-256 | `c43e55042449bbe225950a05bfc056153129b60a30b0505ba3bd36aa5ac4842e` |
-| provenance rows at seal | 1,038 |
+| archive | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored) |
+| SHA-256 | `b0257b0c3f681c44c352e6c4ffc6bf098507b809343c733636156e7c609e6b1f` |
+| compressed size | 3,054,554 bytes |
+| payload files | 354 |
+| uncompressed payload | 14,995,933 bytes |
+| content manifest | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv` |
+| content-manifest SHA-256 | `ee37b2829e5c63248facab5e03fb384171f0215941237df7c127bffa505bfa0a` |
+| provenance rows at seal | 1,222 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:
@@ -41,19 +41,19 @@ SHA-256); the packer sorts paths and normalises tar/gzip metadata
 
 | class | files |
 |---|---:|
-| code | 131 |
-| derived_table | 78 |
-| report | 64 |
+| code | 132 |
+| derived_table | 123 |
+| report | 65 |
 | doc | 10 |
 | config | 9 |
 | derived_metadata | 5 |
 | notebook | 2 |
 | root | 8 |
-| **total** | **307** |
+| **total** | **354** |
 
 The payload contains the pipeline package, scripts, tests, configs,
 notebooks, docs, reports/chapter packs, derived metadata, and all
-78 derived tables of record.
+123 derived tables of record.
 
 ---
 
@@ -61,10 +61,10 @@ notebooks, docs, reports/chapter packs, derived metadata, and all
 
 | check | result |
 |---|---|
-| derived tables hash-matched to latest provenance row | 78/78 |
-| payload files hashed in content manifest | 307/307 |
+| derived tables hash-matched to latest provenance row | 123/123 |
+| payload files hashed in content manifest | 354/354 |
 | chapter crosswalk rows OK | 67/67 |
-| register-audit checks OK | 719/721 |
+| register-audit checks OK | 738/741 |
 
 Audit outputs:
 
@@ -86,7 +86,7 @@ before an archive is written.
 |---|---|
 | code licence | MIT (`LICENSE`, `CITATION.cff`) |
 | restricted raw/figure paths in payload | 0 |
-| historical tier1 manifest rows carrying the superseded pending label | 3 |
+| historical tier1 manifest rows carrying the superseded pending label | 4 |
 | NEPSE index unstated-licence manifest rows | 1 |
 
 Floorsheet inputs: Kaggle viking303 2021–2023 (**CC0**) and socrateai
@@ -119,27 +119,29 @@ this preflight wrapper, and the internal viva-preparation note
 
 ## 6 · Rebuild evidence
 
-The Stage-6 clean rebuild ran 21/21 steps with exit 0 in 3,749.9 s
-(62.5 min). Slowest steps:
+The Stage-6 clean rebuild ran 21/21 steps with exit 0 in 4,209.8 s
+(70.2 min). Slowest steps:
 
 | step | seconds |
 |---|---:|
-| daily_features | 2,875.138 |
-| v2_stage3 | 643.849 |
-| v2_stage4 | 87.327 |
-| v2_stage1 | 36.060 |
-| v2_stage2 | 24.884 |
+| daily_features | 3,207.142 |
+| v2_stage3 | 769.211 |
+| v2_stage4 | 90.048 |
+| v2_stage1 | 33.055 |
+| panel_regressions | 24.388 |
 
 `data/raw/` stayed at 577 files / 611,881,127 bytes. Reproducibility is
-numerical, not byte-identical: 40/73 tables byte-identical, 25 at
-≤3.55e-14 relative, 4 reorder-only, 2 QuantReg optimizer drifts
-(7.44e-7), 1 float-aggregation difference (±1 unit on ~1e8 sums), and 1
-descriptive sequential-fold threshold flip (146→141; anchored 686
-unchanged). Final classifications are identical. Details:
-`docs/reproducibility.md`; `outputs/tables/v2_clean_rebuild_audit.csv`.
+numerical, not byte-identical. The v2.1.0 build intentionally changes
+every artifact that depends on `reciprocity_volume`; hypotheses that do
+not use that feature are checked for exact reproduction. The v2.0.2
+equivalence audit remains at `outputs/tables/v2_clean_rebuild_audit.csv`,
+and the byte-frozen v2.0.2 tables are in
+`outputs/tables/superseded_v2_0_2/`. The correction record and the
+old-versus-corrected comparison are in
+`reports/reciprocity_correction.md`. Details: `docs/reproducibility.md`.
 
-Current suite: **161 passed, 0 failed**
-(`pytest tests notebooks/*_*.ipynb --nbmake`).
+Current suite: see the latest `outputs/logs/v2_stage6_pytest*.log`;
+the release gate is zero failures.
 
 ---
 
@@ -150,7 +152,7 @@ by this preflight.
 
 1. **RESOLVED (2026-11-14): author identity.** `CITATION.cff` and
    `LICENSE` name `Prabin Shrestha <itsme_prabin@outlook.com>`. The
-   v2.0.2 archive and this preflight are built from that tree.
+   v2.1.0 archive and this preflight are built from that tree.
 2. **RESOLVED FOR THE PUBLIC REPO (2026-11-14): tier1 upstream caveat.**
    The author accepted public release of figures with the upstream
    NEPSE Alpha position unresolved. The terms were retrieved and grant

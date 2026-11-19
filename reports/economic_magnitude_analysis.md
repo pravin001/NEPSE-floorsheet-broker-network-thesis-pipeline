@@ -1,13 +1,17 @@
-# Economic magnitude and cost-benefit (Stage 4)
+# Economic magnitude and cost-benefit (Stage 4) — v2.1.0 update
 
 **Stage 4 of the v2.0 A++ upgrade** · pre-declaration:
 `docs/analysis_plan_v2_extension.md` §V2-4 (written before any v2 result).
 Runner of record: `scripts/run_v2_stage4.py` · log:
 `outputs/logs/v2_stage4.log` · experiment EXP-0011f · deviation #26.
 
-This note converts the frozen per-1-SD coefficients into basis points and
-compares them with the declared transaction-cost range. It is a **framing
-exercise**, not a trading strategy, not a backtest, and not a new estimate.
+**v2.1.0 update (2026-11-19).** Rebuilt after the reciprocity correction
+(EXP-0015). H7 and H4 are unchanged; H10 roughly doubled from +9.492 to
++20.642 bp/SD, so its cost multiple improved from 3.16–5.27× to **1.45–2.42×
+below** the floor. The v2.0.2 version of this note is preserved in the
+superseded record (`outputs/tables/superseded_v2_0_2/` and
+`reports/reciprocity_correction.md`). This remains a **framing exercise**, not
+a trading strategy, not a backtest, and not a new estimate.
 
 ---
 
@@ -34,11 +38,11 @@ The three economic candidates named in the pre-declaration:
 | test | effect (bp per 1 SD) | direction | cost multiple (30 bp) | cost multiple (50 bp) | standalone tradable at 1 SD? |
 |---|---:|---|---:|---:|---|
 | H7 EoD → \|ret\| | **+3.952** | positive | **7.59×** short | **12.65×** short | **No** |
-| H10 reciprocity → \|ret\| | **+9.492** | positive | **3.16×** short | **5.27×** short | **No** |
+| H10 reciprocity → \|ret\| | **+20.642** | positive | **1.45×** short | **2.42×** short | **No** |
 | H4 buyer HHI → ret | **+7.510** | opposite sign (post hoc) | **3.99×** short | **6.66×** short | **No** (and cannot be traded as declared) |
 
 Read the multiples as “the gross 1-SD effect is this many times **smaller** than
-the cost floor.” H10 is the closest to viability and still needs a 3.2–5.3×
+the cost floor.” H10 is the closest to viability and still needs a 1.5–2.4×
 larger gross move to break even. H7 needs 7.6–12.7×.
 
 Break-even coefficients:
@@ -46,12 +50,12 @@ Break-even coefficients:
 | test | break-even β at 30 bp | break-even β at 50 bp | observed β |
 |---|---:|---:|---:|
 | H7 | +30.0 bp/SD | +50.0 bp/SD | +3.95 |
-| H10 | +30.0 bp/SD | +50.0 bp/SD | +9.49 |
+| H10 | +30.0 bp/SD | +50.0 bp/SD | +20.64 |
 | H4 | −30.0 bp/SD (declared sign) | −50.0 bp/SD | +7.51 (wrong sign) |
 
 Linear extrapolation to 3–13 SD is **not** supported by the data: the features
 are winsorised at the 1st/99th percentile within fold, and the quantile panel
-shows the H10 effect is strongly tail-concentrated (τ=.90: +18.70 bp), not
+shows the H10 effect is strongly tail-concentrated (τ=.90: +34.64 bp), not
 linear. The break-even table is an accounting identity, not a forecast.
 
 ---
@@ -85,16 +89,18 @@ cost floor:
 
 | candidate | estimate | raw p | Bonferroni p | vs 30 bp floor |
 |---|---:|---:|---:|---|
-| H10, bottom-7 turnover tier | +10.344 bp | .0239 | .1434 | 2.9× short |
+| H10, bottom-7 turnover tier | **+22.715 bp** | **.0031** | **.0183** | 1.3× short |
 | H7, small-size group | +7.020 bp | .0272 | .1629 | 4.3× short |
 | H7, bottom-7 turnover tier | +4.817 bp | .0508 | .3050 | 6.2× short |
 
-A hypothetical stack of H10 + H7 in the bottom-7 tier would be ~15.2 bp if the
+A hypothetical stack of H10 + H7 in the bottom-7 tier would be ~27.5 bp if the
 two effects were additive and independent. Neither condition is established:
-the signals share the same small/illiquid segment, the subgroup estimates are
-not Bonferroni-significant, and the sum is still below the 30 bp floor. This is
-listed only because the pre-declaration asks for the conditional possibility to
-be acknowledged; it is **not** a recommended strategy and **not** a result.
+the signals share the same small/illiquid segment, the H10 × tier interaction is
+null (p .152), and the sum is still below the 30 bp floor. The H10 bottom-7 cell
+now survives its Bonferroni family, but a subgroup survivor is not a new
+headline and is not a portfolio. This is listed only because the
+pre-declaration asks for the conditional possibility to be acknowledged; it is
+**not** a recommended strategy and **not** a result.
 
 ---
 
@@ -102,10 +108,10 @@ be acknowledged; it is **not** a recommended strategy and **not** a result.
 
 1. The frozen effects are **statistical and informational**, not standalone
    tradable alpha at 1-SD engagement.
-2. H10 is the strongest economic candidate at +9.49 bp/SD, but it is still
-   3.2–5.3× below the explicit-cost floor and its Stage-1 placebo-outcome
-   diagnostic is the largest in the grid (+19.69 bp association with past
-   \|ret\|), so part of its predictive content is persistence.
+2. H10 is the strongest economic candidate at +20.64 bp/SD, but it is still
+   1.45–2.42× below the explicit-cost floor and its Stage-1 placebo-outcome
+   diagnostic is the largest in the grid (+44.78 bp association with past
+   \|ret\|, p 8.7e-10), so part of its predictive content is persistence.
 3. H7 and H4 are further below the floor; H4 additionally has the wrong sign.
 4. Conditional/stacked tradability remains **speculative**. Any future test
    would need (a) a directional signal, (b) a portfolio construction that maps

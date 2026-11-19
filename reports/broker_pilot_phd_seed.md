@@ -3,7 +3,13 @@
 **Stage 4 of the v2.0 A++ upgrade** · pre-declaration:
 `docs/analysis_plan_v2_extension.md` §V2-4 (written before any v2 result).
 Runner of record: `scripts/run_v2_stage4.py` · log:
-`outputs/logs/v2_stage4.log` · experiment EXP-0011c · deviations #22–#23.
+`outputs/logs/v2_stage6_rebuild.log` (stage log `v2_stage4.log` is the
+historical v2.0.2 record) · experiment EXP-0011c · deviations #22–#23.
+
+**Version note (2026-11-19).** The broker-panel descriptives are unchanged by
+the v2.1.0 reciprocity correction; the OLS defect-sensitivity table in §6 is
+rebuilt from the corrected grid (EXP-0015). Superseded v2.0.2 cells are in
+`outputs/tables/superseded_v2_0_2/`.
 
 This is a **descriptive** artifact. It performs no inference and tests no
 hypothesis. It exists because the brief asks for a broker-level pilot that a
@@ -39,7 +45,7 @@ rows on 15 days** (2021-07/08/09/10/11/12 and 2023-12). Left uncorrected, the
 same broker becomes two graph nodes: 2023-12 showed **166 active nodes** before
 canonicalisation and **83** after (`Xs.0 → zero-padded integer`). The macro is
 in `src/nepsemsc/broker/monthly_panel.py`; a Python mirror and a DuckDB test pin
-the mapping. The defect touches **37 of 7,126 OOS panel rows (0.52%)**; the
+the mapping. The defect touches **37 of 7,116 analysis-panel rows (0.52%)**; the
 leave-affected-rows-out sensitivity is in §6.
 
 **Coverage eras.** 2021–2023 months have ~51 active brokers (the Kaggle
@@ -191,20 +197,21 @@ The 275,590 dotted-ID rows affect 37 OOS rows (0.52%) on four dates:
 | test | full β (bp) | excl. affected β (bp) | Δβ | p full | p excl. | sign same |
 |---|---:|---:|---:|---:|---:|---|
 | H1 | −1.557 | −1.613 | −3.6% | .4306 | .4150 | yes |
-| H2 | −1.491 | −1.522 | −2.1% | .5753 | .5639 | yes |
-| H3 | +0.957 | +1.016 | +6.2% | .7501 | .7367 | yes |
+| H2 | −1.494 | −1.520 | −1.7% | .5945 | .5839 | yes |
+| H3 | +0.178 | +0.244 | +37.0% | .9531 | .9363 | yes |
 | H4 | +7.510 | +7.445 | −0.9% | .0275 | .0298 | yes |
 | H5 | −1.856 | −1.854 | +0.1% | .4875 | .4894 | yes |
-| H6 | −10.939 | −10.902 | +0.3% | .0197 | .0202 | yes |
+| H6 | −22.948 | −22.851 | +0.4% | .0048 | .0051 | yes |
 | H7 | +3.952 | +4.054 | +2.6% | .0274 | .0240 | yes |
 | H8 | −4.471 | −4.260 | +4.7% | .0459 | **.0563** | yes |
 | H9 | +1.817 | +1.768 | −2.7% | .4587 | .4710 | yes |
-| H10 | +9.492 | +9.485 | −0.1% | .0138 | .0141 | yes |
+| H10 | +20.642 | +20.774 | +0.6% | .0014 | .0013 | yes |
 
 All signs are unchanged; no headline flips. The only material movement is H8
-losing raw 5% significance (p .0563). The defect is therefore a **caveat, not a
-threat** to the frozen results, and the broker panel’s canonicalisation is the
-corrected descriptive layer.
+losing raw 5% significance (p .0563); H3's percentage change is large only
+because its full-sample estimate is near zero and insignificant. The defect is
+therefore a **caveat, not a threat** to the corrected results, and the broker
+panel’s canonicalisation is the corrected descriptive layer.
 
 ---
 

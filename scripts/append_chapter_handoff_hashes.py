@@ -44,6 +44,8 @@ GLOBS = [
     "reports/chapter_assets/ch[1-4]_asset_manifest.csv",
     # Deposit inventory: hash every file the derived-only archive can contain.
     "outputs/tables/*.csv",
+    # v2.1.0: byte-frozen superseded results are cited by the crosswalk.
+    "outputs/tables/superseded_v2_0_2/*.csv",
     "docs/*.md",
     "reports/*.md",
     "scripts/*.py",

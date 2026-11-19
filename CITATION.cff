@@ -8,14 +8,16 @@ abstract: >-
   2021-2024. The v2.0 release adds Romano-Wolf multiplicity control, a
   liquidity/SE/wild-bootstrap robustness battery, EGARCH-standardised
   outcomes, quantile tails, an H7 specification curve, subgroup and
-  event-study upgrades, and a canonical final headline set. The thesis is
+  event-study upgrades, and a canonical final headline set. Version 2.1.0
+  corrects the reciprocity metric and rebuilds every dependent result; H6 is
+  the robust headline and H10 the moderate headline. The thesis is
   predictive, not causal.
 authors:
   - family-names: "Shrestha"
     given-names: "Prabin"
     email: "itsme_prabin@outlook.com"
-version: "2.0.2"
-date-released: 2026-11-14
+version: "2.1.0"
+date-released: 2026-11-19
 license: MIT
 keywords:
   - NEPSE

@@ -4,7 +4,13 @@
 `docs/analysis_plan_v2_extension.md` §V2-4 (written before any v2 result).
 Frozen v1 numbers are untouched; every table below is a **new** v2 artifact.
 Runner of record: `scripts/run_v2_stage4.py` · log:
-`outputs/logs/v2_stage4.log` · experiment EXP-0011b · deviations #20–#21.
+`outputs/logs/v2_stage6_rebuild.log` (stage log `v2_stage4.log` is the
+historical v2.0.2 record) · experiment EXP-0011b · deviations #20–#21.
+
+**Version note (2026-11-19).** The H7 specification curve is unchanged by the
+v2.1.0 reciprocity correction: H7 does not use `reciprocity_volume`, and the
+rebuilt curve reproduces the same gates and 72 unique design betas (EXP-0015).
+The v2.0.2 copy is preserved in `outputs/tables/superseded_v2_0_2/`.
 
 Companions: `reports/exploratory_findings.md` (Stage 1),
 `reports/liquidity_robustness.md` (Stage 2),

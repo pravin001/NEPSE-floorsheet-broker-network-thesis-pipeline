@@ -1,4 +1,4 @@
-"""Independent Phase-A verification of the frozen H10 result (v2.0.2 sprint).
+"""Independent verification of the canonical H10 result (v2.0.2; v2.1.0 rerun).
 
 Purpose
 -------
@@ -11,9 +11,12 @@ implemented here directly from the frozen protocol.
 
 Canonical target
 ----------------
-H10: reciprocity (design z) -> abs_ret_fwd1
-     beta = +9.492266420621041 bp, DK p = .013754510527417598, n = 7,116
-     n_effective = 6,383 (12 stocks, 723 dates)
+H10: reciprocity (design z) -> abs_ret_fwd1.  The target beta, p, n and
+n_effective are read from `v2_final_headline_set.csv` and
+`hypothesis_grid_results_v2.csv` at run time, so the same script verifies the
+corrected v2.1.0 result rather than a frozen constant.  For the audit record,
+the superseded v2.0.2 values were beta = +9.492266420621041 bp, DK p =
+.013754510527417598, n = 7,116, n_effective = 6,383 (12 stocks, 723 dates).
 
 Tolerances (Phase A, mandatory)
 -------------------------------
@@ -37,6 +40,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import scipy.stats as sps
 from linearmodels.panel import PanelOLS
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -451,7 +455,7 @@ def main() -> int:
     h7_grid = float(grid_v1.loc["H7", "bp"])
     h7_register = 3.952  # EXP-0011f / EXP-0004b rounded quote
     h7_ok = True
-    h7_ok &= add_spot("H7_BETA", "canonical vs frozen v1 grid bp",
+    h7_ok &= add_spot("H7_BETA", "canonical vs live grid bp",
                       h7_canon, "hypothesis_grid_results.csv:H7:bp",
                       h7_grid, 1e-12)
     h7_ok &= add_spot("H7_BETA", "register quote (3 dp) vs canonical",
@@ -463,37 +467,55 @@ def main() -> int:
     # H10 RW p
     rw_canon = float(canonical.loc["H10", "rw_p"])
     rw_grid = float(rw.loc["H10", "rw_p"])
-    rw_ok = add_spot("H10_RW_P", "canonical vs frozen RW table",
+    rw_ok = add_spot("H10_RW_P", "canonical vs live RW table",
                      rw_canon, "hypothesis_grid_results_rw.csv:H10:rw_p",
                      rw_grid, 1e-12,
-                     "register EXP-0008b quotes rw_p .081")
+                     "the superseded v2.0.2 register quote was rw_p .081; "
+                     "the corrected value is read from the live table")
 
     # Event-study mean CAR + p: event_study_upgraded.csv is the register-cited
     # row of record for EXP-0011e; event_study_cars.csv is the v1 event record.
     ev = pd.read_csv(EVENT_UPGRADED_FILE)
-    ev_row = ev[(ev["sample"] == "all_686")
+    # The sample label carries the realised event count (v2.1.0).  The old
+    # script hardcoded `all_686` and the quoted 12.86 bp / .569 values; that
+    # would fail a legitimate post-correction event set or, worse, re-assert a
+    # stale number.  Verify the upgraded row against an independent t-test of
+    # the event-level cars table instead.
+    all_samples = sorted({str(s) for s in ev["sample"]
+                          if str(s).startswith("all_")})
+    if len(all_samples) != 1:
+        raise AssertionError(
+            f"expected exactly one headline sample label, got {all_samples}")
+    sample = all_samples[0]
+    ev_row = ev[(ev["sample"] == sample)
                 & (ev["model"] == "v1_method")
                 & (ev["test"] == "mean_car_t")].iloc[0]
     ev_bp = 1e4 * float(ev_row["mean_car"])
     ev_p = float(ev_row["p_value"])
     cars = pd.read_csv(EVENT_CARS_FILE)
-    cars_bp = 1e4 * float(cars["car"].mean())
+    car = cars["car"].to_numpy(dtype=float)
+    car = car[np.isfinite(car)]
+    cars_bp = 1e4 * float(np.mean(car))
+    car_t = sps.ttest_1samp(car, 0.0)
     ev_ok = True
     ev_ok &= add_spot("EVENT_STUDY_CAR", "mean CAR bp: upgraded table vs "
-                      "686-event cars reconstruction",
-                      12.86, "event_study_upgraded.csv:all_686:v1_method",
-                      ev_bp, 0.005,
+                      "independent cars.csv mean",
+                      cars_bp, f"event_study_upgraded.csv:{sample}:v1_method",
+                      ev_bp, 1e-9,
                       f"full-precision {ev_bp:.15g} bp; "
-                      f"event_study_cars.csv mean = {cars_bp:.15g} bp")
-    ev_ok &= add_spot("EVENT_STUDY_CAR", "p-value: upgraded table vs quoted "
-                      ".569", 0.569,
-                      "event_study_upgraded.csv:all_686:v1_method",
-                      ev_p, 5e-4, f"full precision {ev_p:.15g}")
-    ev_ok &= add_spot("EVENT_STUDY_CAR", "686-event car mean vs upgraded "
-                      "table", cars_bp,
-                      "event_study_cars.csv:car:mean", ev_bp, 1e-12,
-                      "v1 event_study_cars.csv reconstructs the upgraded "
-                      "v1_method row exactly")
+                      f"cars n = {len(car)}")
+    ev_ok &= add_spot("EVENT_STUDY_CAR", "p-value: upgraded table vs "
+                      "independent cars.csv t-test",
+                      float(car_t.pvalue),
+                      f"event_study_upgraded.csv:{sample}:v1_method",
+                      ev_p, 1e-12,
+                      f"full precision {ev_p:.15g}; independent "
+                      f"t = {float(car_t.statistic):.15g}")
+    ev_ok &= add_spot("EVENT_STUDY_CAR", "sample label count vs cars rows",
+                      float(len(car)),
+                      f"event_study_upgraded.csv:{sample}:v1_method",
+                      float(ev_row["n_events"]), 0.0,
+                      "the label and the table must state the same count")
 
     spot_df = pd.DataFrame(spot)
     spot_df.to_csv(TABLES / "verification_spot_checks.csv", index=False)

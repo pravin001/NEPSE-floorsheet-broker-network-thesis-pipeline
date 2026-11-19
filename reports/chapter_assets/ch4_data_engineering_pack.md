@@ -88,17 +88,23 @@ finding.
 
 ## 4.6 Clean rebuild and drift audit
 
-**Claim slot.** The Stage-6 clean rebuild completed 21/21 steps with exit 0 in
-3,749.9 s (62.5 min); 73 tracked tables split 40 byte-identical, 25 at
-≤3.55e-14 relative, 4 reorder-only, 2 QuantReg optimizer drifts (7.44e-7),
-1 float-aggregation difference (±1 unit on ~1e8 sums), and 1 descriptive
-sequential-fold threshold flip (146→141; anchored 686 unchanged). Final
-classifications are identical.
+**Claim slot.** The v2.1.0 correction rebuild completed 21/21 steps with exit
+0 in 4,209.8 s (70.2 min), reading only the untouched raw archives, and rebuilt
+every dependent table from source. The pre-fix v2.0.2 Stage-6 audit had shown
+the pipeline itself was deterministic (73 tracked tables: 40 byte-identical,
+25 at ≤3.55e-14 relative, 4 reorder-only, 2 QuantReg optimizer drifts 7.44e-7,
+1 float-aggregation difference, 1 descriptive sequential-fold threshold flip).
+v2.1.0 keeps the v2.0.2 tables byte-for-byte in
+`outputs/tables/superseded_v2_0_2/` and records the old-vs-new identity
+`old = 2 × (corrected + self_loop_share)` on all 233,706 rows.
 
-- Table 4.5 slot: drift audit (`outputs/tables/v2_clean_rebuild_audit.csv`).
-- Source: `docs/reproducibility.md`; `configs/v2_freeze/freeze_manifest.csv`.
+- Table 4.5 slot: drift audit (historical v2.0.2:
+  `outputs/tables/v2_clean_rebuild_audit.csv`); v2.1.0 rebuild log
+  `outputs/logs/v2_stage6_rebuild.log`.
+- Source: `docs/reproducibility.md`; `configs/v2_freeze/freeze_manifest.csv`;
+  `reports/reciprocity_correction.md`.
 
-**Citation keys:** EXP-0013.
+**Citation keys:** EXP-0013 (v2.0.2 freeze), EXP-0015 (v2.1.0 correction).
 
 ---
 

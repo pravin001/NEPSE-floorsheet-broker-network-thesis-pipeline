@@ -1,6 +1,6 @@
-# Print-ready thesis tables (v2.0.2 pre-write)
+# Print-ready thesis tables (v2.1.0 rebuild)
 
-Generated: 2026-11-14T09:40:09Z
+Generated: 2026-11-19T02:46:41Z
 
 Every CSV in this directory is a **projection or transcription of a frozen
 artefact**. No regression, test, re-fit, robustness check, simulation or
@@ -29,9 +29,9 @@ authoritative numeric sources remain under `outputs/tables/`.
 | Table 3.0 | Design summary | 14 | MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN |
 | Table 3.1 | Pre-declaration and freeze timeline | 8 | MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN |
 | Table 3.2 | Anchored walk-forward folds and out-of-sample counts | 4 | DERIVED_PROJECTION |
-| Table 3.3 | Feature and outcome dictionary | 12 | VERBATIM_COPY_WITH_CSV_QUOTING_FIX |
+| Table 3.3 | Feature and outcome dictionary | 12 | VERBATIM_COPY |
 | Table 3.4 | Estimator and inference matrix | 6 | MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN |
-| Table 3.5 | Event-study and robustness protocol matrix | 10 | MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN |
+| Table 3.5 | Event-study and robustness protocol matrix | 10 | DERIVED_PROJECTION |
 | Table 4.0 | Stage-6 clean-rebuild steps and timings | 21 | DERIVED_PROJECTION |
 | Table 4.1 | Source and licence matrix | 6 | MANUAL_TRANSCRIPTION_FROM_VERIFIED_SOURCE |
 | Table 4.2 | Corpus quality audit summary | 16 | DOCUMENTED_CONSTANTS |
@@ -61,12 +61,5 @@ authoritative numeric sources remain under `outputs/tables/`.
 | DOCUMENTED_CONSTANTS | Counts transcribed from the Ch.4 handoff pack and experiment register; no audit re-run. |
 | MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN | Design/protocol table transcribed from a frozen plan; no numeric estimate. |
 | MANUAL_TRANSCRIPTION_FROM_VERIFIED_SOURCE | Licence matrix transcribed from the live, timestamped licence review. |
-| VERBATIM_COPY_WITH_CSV_QUOTING_FIX | Content-identical copy with one malformed CSV field correctly quoted. |
-
-## Known source quirk
-
-`reports/chapter_assets/ch3_feature_dictionary.csv` is not valid CSV as
-committed: line 4 has an unquoted comma in its final `notes` field. Its
-chapter-map hash is audited, so the source is left untouched; the print
-copy quotes that one field and changes nothing else.
+| VERBATIM_COPY | Content-identical copy of a valid source CSV; no value edited. |
 

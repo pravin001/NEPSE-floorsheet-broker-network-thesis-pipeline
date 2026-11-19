@@ -31,10 +31,12 @@ def classify_null(beta: float, se: float) -> tuple[float, float, float, str]:
 
 def null_table(grid: pd.DataFrame,
                event_summary: pd.DataFrame | None = None) -> pd.DataFrame:
-    """Build the null-classification table from the frozen artifacts ONLY.
+    """Build the null-classification table from the current artifacts ONLY.
 
-    Rows: every v1 BH-failing grid test (H1,H2,H3,H5,H9), the Stage-1 demoted
-    H8, and (if provided) the event-study overall CAR from the frozen summary.
+    Rows: every BH-failing Stage-1 null test (H1,H2,H3,H5,H9), the Stage-1
+    demoted H8, and (if provided) the event-study overall CAR from the current
+    v1-method summary. "Current" means the v2.1.0 live rebuild; the values are
+    not copied from a frozen v2.0.2 artifact.
     """
     rows = []
     for _, r in grid.iterrows():
@@ -48,7 +50,7 @@ def null_table(grid: pd.DataFrame,
                 "beta_bp": beta_bp, "se_bp": se_bp,
                 "mde80_bp": m, "abs_beta_over_half_mde": ratio,
                 "classification": cls,
-                "basis": "v1 grid DK(bw=5) SE (frozen artifact)",
+                "basis": "current grid DK(bw=5) SE (rebuilt from raw archives)",
             })
     if event_summary is not None and len(event_summary):
         ev = event_summary.iloc[0]
@@ -62,6 +64,6 @@ def null_table(grid: pd.DataFrame,
             "beta_bp": car * 1e4, "se_bp": se * 1e4,
             "mde80_bp": m * 1e4, "abs_beta_over_half_mde": ratio,
             "classification": cls,
-            "basis": "v1 event-study summary (frozen artifact; SE=car/t)",
+            "basis": "current v1-method event-study summary (rebuild; SE=car/t)",
         })
     return pd.DataFrame(rows)

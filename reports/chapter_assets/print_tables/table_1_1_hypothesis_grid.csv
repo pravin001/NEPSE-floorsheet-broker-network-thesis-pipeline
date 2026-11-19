@@ -1,11 +1,11 @@
 hypothesis,feature,outcome,predicted_direction,effect_bp_per_sd,dk_p,bh_q,bh_pass_q10,final_classification
 H1,Self-loop volume ratio,|Return| (t+1),+,-1.557,0.4306,0.6094,no,NULL_POWERED
-H2,IF anomaly score,|Return| (t+1),+,-1.491,0.5753,0.6392,no,NULL_POWERED
-H3,IF anomaly score,Return (t+1),-,0.957,0.7501,0.7501,no,NULL_POWERED
+H2,IF anomaly score,|Return| (t+1),+,-1.494,0.5945,0.6605,no,NULL_POWERED
+H3,IF anomaly score,Return (t+1),-,0.178,0.9531,0.9531,no,NULL_POWERED
 H4,Buyer HHI,Return (t+1),-,7.510,0.0275,0.0689,yes,EXPLORATORY_POST_HOC
 H5,Buyer HHI,|Return| (t+1),+,-1.856,0.4875,0.6094,no,NULL_POWERED
-H6,Reciprocity,Return (t+1),ambiguous,-10.939,0.0197,0.0689,yes,NULL_FRAGILE
+H6,Reciprocity,Return (t+1),ambiguous,-22.948,0.0048,0.0239,yes,HEADLINE_ROBUST
 H7,End-of-day concentration,|Return| (t+1),+,3.952,0.0274,0.0689,yes,NULL_FRAGILE
 H8,End-of-day concentration,Return (t+1),-,-4.471,0.0459,0.0918,yes,NULL_FRAGILE
 H9,Self-loop volume ratio,Return (t+1),-,1.817,0.4587,0.6094,no,NULL_POWERED
-H10,Reciprocity,|Return| (t+1),+,9.492,0.0138,0.0689,yes,HEADLINE_MODERATE
+H10,Reciprocity,|Return| (t+1),+,20.642,0.0014,0.0136,yes,HEADLINE_MODERATE

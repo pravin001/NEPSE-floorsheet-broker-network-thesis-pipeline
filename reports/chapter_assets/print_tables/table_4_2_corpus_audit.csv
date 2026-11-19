@@ -14,4 +14,4 @@ Empty-symbol rows,4,rows,EXP-0002c,Junk scrape rows.
 Low-activity symbol-days,114167,pairs,EXP-0002f,Fewer than 100 trades; included by default.
 Missing broker-ID symbol-days,19,pairs,EXP-0002c,NULL volume; no aggregation touches them.
 Dotted broker-ID rows,275590,rows,EXP-0011c,15 days; canonicalised Xs.0 -> zero-padded integer.
-Out-of-sample rows affected by dotted IDs,37,rows of 7116,EXP-0011c,"0.52%; leave-out signs unchanged, H8 p .0563."
+Out-of-sample rows affected by dotted IDs,37,rows of 7116,EXP-0011c,"0.52%; leave-out signs unchanged, H8 p 0.0563."

@@ -6,6 +6,15 @@ Frozen v1 numbers are untouched; every table below is a **new** v2 artifact.
 Runner of record: `scripts/run_v2_stage2.py` · log: `outputs/logs/v2_stage2.log`
 · experiments EXP-0009a–d · deviations #15–#16.
 
+**v2.1.0 update (2026-11-19).** Rebuilt after the reciprocity correction
+(EXP-0015). H1/H4/H5/H7/H8/H9 are unchanged at machine precision; H2/H3 moved
+with the rebuilt Isolation Forest; H6 strengthened to **−22.948 bp**
+(controlled −23.182, p .0043, STRONG 4/4); H10 strengthened to **+20.642 bp**
+(controlled +19.658, p .0021, MODERATE 3/4). Maximum VIF is now **2.049**
+(`anomaly_score_z`). The v2.0.2 version of this note is preserved in
+`outputs/tables/superseded_v2_0_2/`; the canonical correction record is
+`reports/reciprocity_correction.md`.
+
 Companion: `reports/exploratory_findings.md` (Stage 1).
 
 ---
@@ -63,22 +72,22 @@ z-columns; DK bw=5; same rows. `Δ = β_controlled − β_base` in bp.
 | test | feature → outcome | base bp | controlled bp | Δ bp | Δ % | p (controlled) |
 |---|---|---:|---:|---:|---:|---:|
 | H1 | self_loop → abs_ret | −1.557 | −0.979 | +0.578 | +37.1% | .6165 |
-| H2 | anomaly → abs_ret | −1.491 | −1.197 | +0.295 | +19.8% | .6470 |
-| H3 | anomaly → ret | +0.957 | +0.882 | −0.075 | −7.8% | .7699 |
+| H2 | anomaly → abs_ret | −1.494 | −1.222 | +0.273 | +18.2% | .6582 |
+| H3 | anomaly → ret | +0.178 | +0.107 | −0.072 | −40.2% | .9720 |
 | H4 | buyer_hhi → ret | +7.510 | +7.357 | −0.153 | −2.0% | .0306 |
 | H5 | buyer_hhi → abs_ret | −1.856 | −1.841 | +0.015 | +0.8% | .4959 |
-| H6 | reciprocity → ret | −10.939 | −10.989 | −0.051 | −0.5% | .0187 |
+| H6 | reciprocity → ret | −22.948 | **−23.182** | **−0.234** | **−1.0%** | **.0043** |
 | H7 | EoD → abs_ret | +3.952 | +3.723 | −0.229 | −5.8% | .0354 |
 | H8 | EoD → ret | −4.471 | −4.535 | −0.064 | −1.4% | .0425 |
 | H9 | self_loop → ret | +1.817 | +1.911 | +0.094 | +5.2% | .4325 |
-| H10 | reciprocity → abs_ret | +9.492 | **+9.586** | **+0.093** | **+1.0%** | **.0117** |
+| H10 | reciprocity → abs_ret | +20.642 | **+19.658** | **−0.984** | **−4.8%** | **.0021** |
 
-The two large relative moves are on **null** tests (H1/H2, where the base
-estimate is near zero); every v1 BH-passing estimate moves by **less than 6%**
-and no sign changes. In particular the sole Stage-1 confirmed headline H10
-moves by **+0.09 bp (+1.0%)** and its p-value *falls* slightly (.0138 → .0117):
-the three liquidity proxies do **not** absorb the reciprocity → |return|
-association. The same holds for H4, H6, H7 and H8.
+The two large relative moves are on **null** tests (H1/H2/H3, where the base
+estimate is near zero); every BH-passing estimate moves by **less than 6%**
+and no sign changes. In particular H10 moves by **−0.98 bp (−4.8%)** and
+remains significant (p .0021); H6 moves by **−1.0%** and its p-value falls
+slightly (.0048 → .0043). The three liquidity proxies do **not** absorb either
+reciprocity association. The same holds for H4, H7 and H8.
 
 ### 2.2 Joint four-feature specification
 
@@ -93,27 +102,27 @@ registered hypothesis replicate".
 
 | outcome | feature | joint base bp | joint + liquidity bp | Δ % | p (with liquidity) |
 |---|---|---:|---:|---:|---:|
-| ret | buyer_hhi | +5.395 | +5.188 | −3.8% | .0897 |
-| ret | self_loop_ratio | +12.859 | +13.175 | +2.5% | .0097 |
-| ret | reciprocity | −24.533 | −24.872 | −1.4% | .0047 |
-| ret | EoD | −4.024 | −4.090 | −1.6% | .0658 |
-| abs_ret | buyer_hhi | +0.238 | +0.048 | −79.6% | .9854 |
-| abs_ret | self_loop_ratio | −12.607 | −11.482 | +8.9% | .0050 |
-| abs_ret | reciprocity | +22.615 | +21.521 | −4.8% | .0023 |
-| abs_ret | EoD | +3.613 | +3.415 | −5.5% | .0518 |
+| ret | buyer_hhi | +4.818 | +4.603 | −4.5% | .1330 |
+| ret | self_loop_ratio | +0.270 | +0.411 | +52.3% | .8569 |
+| ret | reciprocity | −20.850 | −21.142 | −1.4% | .0071 |
+| ret | EoD | −3.937 | −4.002 | −1.6% | .0716 |
+| abs_ret | buyer_hhi | +0.925 | +0.704 | −24.0% | .7936 |
+| abs_ret | self_loop_ratio | −0.991 | −0.427 | +56.9% | .8174 |
+| abs_ret | reciprocity | +20.529 | +19.544 | −4.8% | .0025 |
+| abs_ret | EoD | +3.509 | +3.315 | −5.5% | .0586 |
 
-Within the joint spec the reciprocity coefficient is roughly twice the
+Within the joint spec the reciprocity coefficient stays close to its
 single-feature magnitude and keeps the outcome-specific sign (negative for
-`ret` = H6's direction; positive for `abs_ret` = H10's direction). This is
-**suppression by the shared self-loop / concentration variance**, not a sign
-flip of a registered hypothesis. The single-feature comparison in §2.1 is the
-clean diagnostic and is the one carried forward.
+`ret` = H6's direction; positive for `abs_ret` = H10's direction). This is a
+conditional-information check, not a replacement for the registered
+single-feature tests. The single-feature comparison in §2.1 is the clean
+diagnostic and is the one carried forward.
 
 Liquidity γ's themselves (joint spec): on `ret`, none is significant at 10%
-(Amihud p .278, Roll p .146, CS p .161); on `abs_ret`, Amihud +12.39 bp
-(p<1e-4) and Roll −7.15 bp (p .0011) are significant, CS +6.07 bp (p .250).
-That is expected — illiquidity predicts volatility — and it does not remove the
-network effects.
+(Amihud p .280, Roll p .146, CS p .164); on `abs_ret`, Amihud +12.378 bp
+(p 2.36e-7) and Roll −7.123 bp (p .0011) are significant, CS +6.120 bp
+(p .244). That is expected — illiquidity predicts volatility — and it does
+not remove the network effects.
 
 ---
 
@@ -145,15 +154,15 @@ passes the full-refit gate at `5.11e-13`.
 | test | bp | se DK | t DK | se entity-cluster | t entity-cluster | p DK | **p WB** |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | H1 | −1.557 | 1.97e-4 | −0.788 | 1.34e-4 | −1.161 | .4306 | .257 |
-| H2 | −1.491 | 2.66e-4 | −0.560 | 2.32e-4 | −0.643 | .5753 | .541 |
-| H3 | +0.957 | 3.01e-4 | +0.318 | 3.02e-4 | +0.317 | .7501 | .794 |
+| H2 | −1.494 | 2.81e-4 | −0.532 | 2.33e-4 | −0.642 | .5945 | .528 |
+| H3 | +0.178 | 3.03e-4 | +0.059 | 2.95e-4 | +0.060 | .9531 | .960 |
 | H4 | +7.510 | 3.41e-4 | +2.204 | 2.11e-4 | +3.563 | .0275 | .002 |
 | H5 | −1.856 | 2.67e-4 | −0.694 | 2.07e-4 | −0.899 | .4875 | .357 |
-| H6 | −10.939 | 4.69e-4 | −2.332 | 3.13e-4 | −3.490 | .0197 | .002 |
+| H6 | **−22.948** | **8.13e-4** | **−2.822** | **4.45e-4** | **−5.154** | **.0048** | **.001** |
 | H7 | +3.952 | 1.79e-4 | +2.206 | 1.37e-4 | +2.881 | .0274 | .022 |
 | H8 | −4.471 | 2.24e-4 | −1.997 | 2.19e-4 | −2.040 | .0459 | .095 |
 | H9 | +1.817 | 2.45e-4 | +0.741 | 1.15e-4 | +1.580 | .4587 | .100 |
-| H10 | +9.492 | 3.85e-4 | +2.464 | 2.85e-4 | +3.326 | .0138 | .009 |
+| H10 | **+20.642** | **6.44e-4** | **+3.204** | **4.43e-4** | **+4.665** | **.0014** | **.004** |
 
 Bootstrap t* distributions are close to centred (means −0.06…+0.01) with
 SD ≈ 0.96–1.38; no numerical pathology.
@@ -165,7 +174,7 @@ many clusters; with 12, the entity-clustered covariance is itself noisy and
 generally **downward-biased**, so the WB p-values above are *anti-conservative*
 relative to a large-G reference. Two concrete consequences:
 
-- H4/H6/H10's entity-clustered SEs are 26–38% smaller than DK, which is why
+- H4/H6/H10's entity-clustered SEs are 30–45% smaller than DK, which is why
   their WB p-values are much smaller than DK. That is a covariance-estimator
   difference, not independent evidence.
 - H8 (p=.095) and H9 (p=.100) sit on opposite sides of the 10% line by
@@ -196,22 +205,23 @@ DataFrame and executes a genuine `(entity, time)` two-way cluster.
 | test | p DK | p DC-v2 | p FM | p WB | # significant (<.10) | class |
 |---|---:|---:|---:|---:|---:|---|
 | H1 | .4306 | .2851 | .3404 | .257 | 0 | NULL |
-| H2 | .5753 | .5563 | .5304 | .541 | 0 | NULL |
-| H3 | .7501 | .7783 | .3243 | .794 | 0 | NULL |
+| H2 | .5945 | .5676 | .4976 | .528 | 0 | NULL |
+| H3 | .9531 | .9582 | .1410 | .960 | 0 | NULL |
 | H4 | .0275 | .0053 | .0082 | .002 | 4 | **STRONG** |
 | H5 | .4875 | .4117 | .6873 | .357 | 0 | NULL |
-| H6 | .0197 | .0021 | .5403 | .002 | 3 | **MODERATE** |
+| H6 | **.0048** | **6.71e-6** | **.0028** | **.001** | **4** | **STRONG** |
 | H7 | .0274 | .0086 | .0094 | .022 | 4 | **STRONG** |
 | H8 | .0459 | .0574 | .0587 | .095 | 4 | **STRONG** |
 | H9 | .4587 | .1845 | .3875 | .100 | 0 | NULL |
-| H10 | .0138 | .0028 | .2896 | .009 | 3 | **MODERATE** |
+| H10 | **.0014** | **1.00e-5** | **.4901** | **.004** | **3** | **MODERATE** |
 
 Notes:
 - `p_dc_v2` is systematically smaller than DK for the four largest effects;
   the two-way cluster difference is not a sign of a stronger effect, only of a
   different variance estimator. v1's frozen numbers remain the primary record.
-- FM is the discordant estimator for H6 and H10 (p .540 / .290): they are
-  **DK/DC-v2/WB concordant, FM-discordant**. H4/H7/H8 are 4/4.
+- FM is the discordant estimator for H10 (p .4901): it is
+  **DK/DC-v2/WB concordant, FM-discordant**. H6 now passes FM (p .0028) and is
+  **STRONG 4/4**. H4/H7/H8 are also 4/4.
 - The `NULL` label is pre-declared. Pandas' default `read_csv` treats the
   literal string `NULL` as missing; read this column with
   `keep_default_na=False`, or use the numeric `n_sig_p_lt_10` column.
@@ -222,20 +232,21 @@ Per the pre-declared rule (`STRONG ∪ MODERATE` ∩ Stage-1
 `CONFIRMED_HEADLINE`):
 
 ```
-stage2_headline = {H10}
+stage2_headline = {H6, H10}
 ```
 
 H4, H7 and H8 have STRONG SE concordance but **cannot enter the headline set**:
 H4 is `EXPLORATORY_POST_HOC` (opposite sign to its pre-registration), H7/H8
 were demoted to `NULL_FRAGILE` by the Stage-1 Romano–Wolf step-down. This is
 the intended behaviour of the rule — estimator concordance is not hypothesis
-confirmation. H6 remains `MODERATE` but is `NULL_FRAGILE` after RW.
+confirmation.
 
-**H10 is the only Stage-2 headline candidate**, now with the additional
-caveats (i) FM discordance (p .290), (ii) the Stage-1 DC13 past-|ret|
-association (+19.69 bp vs +9.49 bp forward) that flags a persistence channel,
-and (iii) the 12-cluster bootstrap limitation. These are carried into the
-Stage-5 final classification; none is resolved in H10's favour by Stage 2.
+**H6 and H10 are the Stage-2 headline candidates**, with the additional
+caveats (i) H10's FM discordance (p .4901), (ii) the Stage-1 DC13 past-|ret|
+association (+44.78 bp vs +20.64 bp forward) that flags a persistence channel,
+and (iii) the 12-cluster bootstrap limitation. H6 is FM-concordant but is the
+same construct as H10. These are carried into the Stage-5 final classification;
+none is resolved in either headline's favour by Stage 2.
 
 ---
 
@@ -246,21 +257,21 @@ Within-transformed design (two-way FE absorbed), 8 features + 3 liquidity γ's
 
 | feature | VIF | max |r| with any other regressor |
 |---|---:|---:|
-| reciprocity_z | 2.538 | .529 |
-| self_loop_ratio_z | 2.506 | .529 |
-| anomaly_score_z | 1.933 | .635 |
-| buyer_hhi_z | 1.611 | .635 |
-| log_volume_z | 1.427 | .518 |
+| reciprocity_z | 1.736 | .604 |
+| self_loop_ratio_z | 1.189 | .370 |
+| anomaly_score_z | **2.049** | .637 |
+| buyer_hhi_z | 1.818 | .637 |
+| log_volume_z | 1.590 | .604 |
 | amihud_z | 1.101 | .302 |
-| end_of_day_concentration_z | 1.075 | .165 |
-| market_ret_loo_z | 1.050 | .083 |
+| end_of_day_concentration_z | 1.073 | .177 |
+| market_ret_loo_z | 1.020 | .083 |
 | roll_spread_z | 1.017 | .195 |
 | corwin_schultz_z | 1.009 | .405 |
 
 - **No VIF > 5 and no |r| > 0.7.** The largest correlation is
-  `buyer_hhi ↔ anomaly_score` at +.635 and the largest VIF is 2.538
-  (reciprocity). The pre-declared drop-sensitivity run is therefore **not
-  required** and was not added.
+  `buyer_hhi ↔ anomaly_score` at +.637 and the largest VIF is **2.049**
+  (`anomaly_score_z`). The pre-declared drop-sensitivity run is therefore
+  **not required** and was not added.
 - Figure: `outputs/figures/feature_correlation.png` (matplotlib 3.11.2,
   Agg backend, 180 dpi).
 - The liquidity γ's are close to orthogonal to the network features
@@ -277,20 +288,23 @@ Within-transformed design (two-way FE absorbed), 8 features + 3 liquidity γ's
 - v2 gains a genuine two-way clustered estimator; the v1 `p_dc` column is
   disclosed as a silent time-kernel fallback.
 - v2 gains the wild cluster bootstrap and the 4-estimator concordance table;
-  H10 is the only Stage-2 headline under the pre-declared intersection rule.
+  H6 and H10 are the Stage-2 headlines under the pre-declared intersection
+  rule.
 
 **Does not change**
 - No frozen v1 numeric cell (`docs/analysis_plan.md`,
   `hypothesis_grid_results.csv`, `configs/project.yaml` are byte-untouched).
-- No Stage-1 classification: H10 remains `CONFIRMED_HEADLINE`; H4
-  `EXPLORATORY_POST_HOC`; H6/H7/H8 `NULL_FRAGILE`; H1/H2/H3/H5/H9
-  `NULL_ROBUST`.
+- No pre-declared composition rule; the corrected inputs simply move H6 from
+  `NULL_FRAGILE` to `CONFIRMED_HEADLINE` and keep H10 at
+  `CONFIRMED_HEADLINE`. H4 is `EXPLORATORY_POST_HOC`; H7/H8 are
+  `NULL_FRAGILE`; H1/H2/H3/H5/H9 are `NULL_ROBUST`.
 - The Stage-2 headline is a **governance label for the Stage-5/6 reporting
   surface**, not a new hypothesis test.
 
 **Open limitations carried forward**
 1. 12 clusters → WB is a weak-G diagnostic, not confirmation.
-2. H10's FM discordance and the DC13 persistence association.
+2. H10's FM discordance and the DC13 persistence association for both
+   reciprocity headlines.
 3. Liquidity proxies are daily proxies on the tier-1 OHLCV-covered universe;
    they do not capture intraday depth or order-book state.
 4. Amihud uses OHLCV turnover, not floorsheet rupee amount (declared fallback;

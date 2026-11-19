@@ -1,8 +1,9 @@
-# Chapter 1 — Introduction · handoff pack (v2.0.1)
+# Chapter 1 — Introduction · handoff pack (v2.1.0)
 
 **Status:** skeleton + verified asset manifest. **No thesis prose.** The student
 writes every paragraph. Numbers below are claim slots with their EXP keys; quote
-them only from the cited artefact.
+them only from the cited artefact. Updated 2026-11-19 after the reciprocity
+correction (EXP-0015); v2.0.2 values are superseded.
 
 **Canonical result table:** `outputs/tables/v2_final_headline_set.csv`.
 
@@ -34,21 +35,25 @@ structure observable without a proprietary dataset.
 
 ## 1.3 Headline preview
 
-**Claim slot.** After v2 adjudication, H10 (reciprocity → next-day absolute
-return) is the sole `HEADLINE_MODERATE` association (+9.492 bp/SD; DK p=.0138;
-RW p=.081; WB p=.009; MODERATE SE concordance; liquidity and EGARCH pass; both
-tails increasing). H4 is `EXPLORATORY_POST_HOC`; H6/H7/H8 are `NULL_FRAGILE`;
-H1/H2/H3/H5/H9 are `NULL_POWERED`.
+**Claim slot.** After v2 adjudication, two related reciprocity associations
+survive the family-wise gate: H6 (reciprocity → signed next-day return) is
+`HEADLINE_ROBUST` (−22.948 bp/SD; DK p=.0048; RW p=.031; FM p=.0028; STRONG
+SE concordance; liquidity and EGARCH pass), and H10 (reciprocity → next-day
+absolute return) is `HEADLINE_MODERATE` (+20.642 bp/SD; DK p=.0014; RW p=.012;
+FM p=.4901; MODERATE concordance; both tails increasing). They are the same
+construct predicting two outcomes, not independent confirmations. H4 is
+`EXPLORATORY_POST_HOC`; H7/H8 are `NULL_FRAGILE`; H1/H2/H3/H5/H9 are
+`NULL_POWERED`.
 
 - Table 1.2 slot: canonical final headline set (10 rows × 11 brief columns).
 - Source: `outputs/tables/v2_final_headline_set.csv`.
 
 **Citation keys:** EXP-0012 (canonical set), EXP-0008b (RW), EXP-0009c/d
-(WB/SE), EXP-0010a/b (EGARCH/quantiles).
+(WB/SE), EXP-0010a/b (EGARCH/quantiles), EXP-0015 (corrected rebuild).
 
 ## 1.4 Economic significance preview
 
-**Claim slot.** At 1 TRAIN-SD engagement, the H10 effect is 3.16–5.27× below
+**Claim slot.** At 1 TRAIN-SD engagement, the H10 effect is 1.45–2.42× below
 the declared 30–50 bp round-trip explicit-cost floor; H7 is 7.59–12.65× below
 and H4 is 3.99–6.66× below. None is standalone tradable at 1 SD.
 
@@ -56,7 +61,7 @@ and H4 is 3.99–6.66× below. None is standalone tradable at 1 SD.
 - Source: `outputs/tables/economic_magnitude.csv`;
   `reports/economic_magnitude_analysis.md`.
 
-**Citation keys:** EXP-0011f.
+**Citation keys:** EXP-0011f, EXP-0015.
 
 ## 1.5 Contribution and roadmap
 

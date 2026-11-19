@@ -12,4 +12,4 @@ Fixed effects,symbol + date,docs/analysis_plan.md §3,PanelOLS with absorbed ent
 Primary inference,"Driscoll-Kraay, Bartlett bandwidth 5",docs/analysis_plan.md §3,DK(bw=5) is the primary standard error.
 Concordance inference,DC-v2; Fama-MacBeth; wild cluster bootstrap,docs/analysis_plan_v2_extension.md §V2-1,"Each is a concordance check, not a replacement primary."
 Multiplicity,BH q=.10 (v1); Romano-Wolf q=.10 (v2),docs/analysis_plan.md §2; docs/analysis_plan_v2_extension.md §V2-1,BH is the v1 gate; RW is the family-wise v2 gate.
-Validation design,"4 anchored folds; 6-session purge; 7,126 OOS rows; 686 events",docs/analysis_plan.md §4,Warm-up chunk is never tested.
+Validation design,"4 anchored folds; 6-session purge; 7,126 OOS rows; 666 events",outputs/tables/anomaly_scoring_summary.csv; outputs/tables/event_study_cars.csv,Warm-up chunk is never tested. Counts are read from the live rebuild.

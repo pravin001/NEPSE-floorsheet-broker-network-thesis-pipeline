@@ -15,7 +15,6 @@ Run:
 from __future__ import annotations
 
 import hashlib
-import io
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -85,6 +84,22 @@ def yesno(x) -> str:
     if pd.isna(x):
         return ""
     return "yes" if bool(x) else "no"
+
+
+def headline_event_row(ev: pd.DataFrame, test: str) -> pd.Series:
+    """Return the v1-method row for whichever `all_<n>` sample is present."""
+    samples = sorted({str(s) for s in ev["sample"]
+                      if str(s).startswith("all_")})
+    if len(samples) != 1:
+        raise AssertionError(f"ambiguous headline event sample: {samples}")
+    return ev[(ev["sample"] == samples[0])
+              & (ev["model"] == "v1_method")
+              & (ev["test"] == test)].iloc[0]
+
+
+def headline_tests(rob: pd.DataFrame) -> list[str]:
+    return sorted({str(t) for t in rob["test_id"]},
+                  key=lambda t: int(t.lstrip("H")))
 
 
 def sign_label(x) -> str:
@@ -159,6 +174,13 @@ def emit(
 # ---------------------------------------------------------------------------
 v2_grid = read("outputs/tables/hypothesis_grid_results_v2.csv")
 final = read("outputs/tables/v2_final_headline_set.csv", keep_default_na=False)
+ev = read("outputs/tables/event_study_upgraded.csv")
+ev_cars = read("outputs/tables/event_study_cars.csv")
+ev_events = read("outputs/tables/event_study_upgraded_events.csv")
+oos = read("outputs/tables/anomaly_scoring_summary.csv")
+h10 = v2_grid.loc[v2_grid["test_id"] == "H10"].iloc[0]
+n_events = int(len(ev_cars))
+oos_rows = int(oos["n_test_complete"].sum())
 
 m = v2_grid.merge(
     final[["hypothesis", "final_classification"]],
@@ -247,8 +269,16 @@ emit(
 t30_rows = [
     ("Observation unit", "symbol-session (daily)", "docs/analysis_plan.md §1", "Floorsheet rows are aggregated to one row per symbol and session."),
     ("Window", "2021-01-03 to 2024-12-31", "docs/analysis_plan.md §1; docs/reproducibility.md", "940 DC3 calendar sessions; 938 have corpus coverage."),
-    ("Headline panel", "12 symbols; 723 dates; 7,116 rows", "outputs/tables/hypothesis_grid_results_v2.csv", "The panel is the per-fold top-10 universe, not the 530-symbol market."),
-    ("Effective N", "6,383", "outputs/tables/hypothesis_grid_results_v2.csv", "n_obs - (n_stocks - 1) - (n_dates - 1) = 7,116 - 11 - 722."),
+    ("Headline panel",
+     f"{int(h10['n_stocks'])} symbols; {int(h10['n_dates']):,} dates; "
+     f"{int(h10['n_obs']):,} rows",
+     "outputs/tables/hypothesis_grid_results_v2.csv",
+     "The panel is the per-fold top-10 universe, not the 530-symbol market."),
+    ("Effective N", f"{int(h10['n_effective']):,}",
+     "outputs/tables/hypothesis_grid_results_v2.csv",
+     f"n_obs - (n_stocks - 1) - (n_dates - 1) = "
+     f"{int(h10['n_obs']):,} - {int(h10['n_stocks']) - 1} - "
+     f"{int(h10['n_dates']) - 1:,}."),
     ("Network features", "self-loop ratio; buyer HHI; reciprocity; end-of-day concentration", "docs/analysis_plan.md §2", "Definitions in Table 3.3."),
     ("Anomaly feature", "Isolation Forest score (200 trees, TRAIN-fold fit)", "docs/analysis_plan.md §4", "Scored with -decision_function on both sides."),
     ("Outcomes", "ret_fwd1; abs_ret_fwd1", "docs/analysis_plan.md §2", "Next-session close-to-close return and its absolute value."),
@@ -258,7 +288,11 @@ t30_rows = [
     ("Primary inference", "Driscoll-Kraay, Bartlett bandwidth 5", "docs/analysis_plan.md §3", "DK(bw=5) is the primary standard error."),
     ("Concordance inference", "DC-v2; Fama-MacBeth; wild cluster bootstrap", "docs/analysis_plan_v2_extension.md §V2-1", "Each is a concordance check, not a replacement primary."),
     ("Multiplicity", "BH q=.10 (v1); Romano-Wolf q=.10 (v2)", "docs/analysis_plan.md §2; docs/analysis_plan_v2_extension.md §V2-1", "BH is the v1 gate; RW is the family-wise v2 gate."),
-    ("Validation design", "4 anchored folds; 6-session purge; 7,126 OOS rows; 686 events", "docs/analysis_plan.md §4", "Warm-up chunk is never tested."),
+    ("Validation design",
+     f"4 anchored folds; 6-session purge; {oos_rows:,} OOS rows; "
+     f"{n_events:,} events",
+     "outputs/tables/anomaly_scoring_summary.csv; outputs/tables/event_study_cars.csv",
+     "Warm-up chunk is never tested. Counts are read from the live rebuild."),
 ]
 t30 = pd.DataFrame(t30_rows, columns=["item", "value", "source", "note"])
 emit(
@@ -326,14 +360,8 @@ emit(
     "The q90 threshold is fitted on TRAIN rows only. Fold 0 is the warm-up train chunk and is never tested; the four scored folds are 0-3 in the source table's test rows. 12 unique symbols appear across the four fold universes. 2023-02-16 is excluded from ordering-dependent features.",
 )
 
-feature_raw = (ROOT / "reports/chapter_assets/ch3_feature_dictionary.csv").read_text(encoding="utf-8")
-# The audited source line 4 has an unquoted comma in its final `notes` field.
-# Quote only that field so the print copy is valid CSV; no value is changed.
-feature_fixed = feature_raw.replace(
-    "EXP-0003a,2*sum(min(w_ij,w_ji))/sum(all weights)",
-    'EXP-0003a,"2*sum(min(w_ij,w_ji))/sum(all weights)"',
-)
-t33 = pd.read_csv(io.StringIO(feature_fixed), keep_default_na=False)
+t33 = pd.read_csv(ROOT / "reports/chapter_assets/ch3_feature_dictionary.csv",
+                  keep_default_na=False)
 emit(
     "Table 3.3",
     "Feature and outcome dictionary",
@@ -341,10 +369,10 @@ emit(
     "table_3_3_feature_dictionary.csv",
     t33,
     src("reports/chapter_assets/ch3_feature_dictionary.csv"),
-    "Verbatim copy of the 13-row feature dictionary with the malformed final field of the reciprocity row correctly quoted. No definition, formula or note is edited.",
+    "Verbatim copy of the 13-row feature dictionary.",
     "Text only; no numeric rounding.",
-    "Source line 4 is not valid CSV as committed (an unquoted comma in `notes`). The print copy quotes that field only; the audited source is left untouched. `self_loop_ratio` is a self-loop volume share, not a wash-trading measure.",
-    status="VERBATIM_COPY_WITH_CSV_QUOTING_FIX",
+    "The reciprocity row states the corrected definition: self-loops are excluded from the numerator and kept in the denominator, and each unordered broker pair is counted once. `self_loop_ratio` is a self-loop volume share, not a wash-trading measure.",
+    status="VERBATIM_COPY",
 )
 
 t34_rows = [
@@ -369,17 +397,65 @@ emit(
     status="MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN",
 )
 
+# v2.1.0: verdicts are read from the live robustness/event tables rather than
+# transcribed from the v2.0.2 run.  The reciprocity correction changes H6/H10
+# and can therefore change any verdict that involves them.
+rob = read("outputs/tables/robustness_headline_survival.csv")
+htests = headline_tests(rob)
+loo = read("outputs/tables/robustness_loo_stability.csv")
+n_loo_stable = int(loo["sign_stable"].sum())
+n_loo_tests = len(loo)
+n_loo_symbols = int(loo["n_symbols"].max())
+bmp_p = float(headline_event_row(ev, "bmp_car_t")["p_value"])
+corr_row = headline_event_row(ev, "corrado_rank_car_z")
+clust = read("outputs/tables/event_study_clustered_inference.csv").set_index(
+    "statistic")
+horizon_txt = []
+for hz in ("t+2", "t+3", "t+5"):
+    sub = rob.loc[rob["variant"] == hz]
+    n_pass = int(sub["bh_pass"].sum())
+    hits = sorted(sub.loc[sub["bh_pass"].astype(bool), "test_id"].tolist())
+    suffix = f" ({','.join(hits)})" if hits else ""
+    horizon_txt.append(f"{n_pass}/{len(sub)}{suffix}")
+eod = read("outputs/tables/robustness_alt_eod_thresholds.csv").set_index(
+    ["threshold", "test_id"])
+h7_ok = bool((eod.loc[(slice(None), "H7"), "p_dk"] < 0.10).all())
+h8_one = float(eod.loc[("1%", "H8"), "p_dk"])
+scorers = (read("outputs/tables/robustness_alt_scorers_rankcorr.csv")
+           .groupby("scorer")["spearman_r"].mean())
+drop = read("outputs/tables/robustness_drop_bubble_grid.csv").set_index(
+    "test_id")
+drop_pass = [h for h in htests if bool(drop.loc[h, "bh_sig_q10"])]
+drop_fail = [h for h in htests if not bool(drop.loc[h, "bh_sig_q10"])]
+ext = read("outputs/tables/robustness_top5_external_grid.csv").set_index(
+    "test_id")
+ext_pass = int(ext.loc[htests, "bh_sig_q10"].sum())
+ext_min_p = float(ext.loc[htests, "p_dk"].min())
+seq = read("outputs/tables/robustness_sequential_variant.csv")
+seq_rho = float(seq["spearman_vs_anchored_pooled"].mean())
 t35_rows = [
     ("Event-study reconstruction", "Rebuild stored v1 ARs/CARs without re-estimation", "Integrity gate", "PASS: max |reconstructed - stored| = 0.0", "EXP-0011e"),
-    ("BMP test", "Prediction-error variance; cross-sectional t", "Added inference", "Mean CAR null (p=.240)", "EXP-0011e"),
-    ("Corrado rank test", "Rank each event-window AR among estimation + event ARs", "Added inference", "Rank z=3.158 (p=.0016); date-clustered z=2.522 (p=.0120)", "EXP-0011e"),
-    ("Leave-one-stock-out", "Drop each of 12 symbols in turn", "Robustness", "5/5 headlines sign-stable 12/12", "EXP-0005a"),
-    ("Alternative horizons", "t+2, t+3, t+5; BH per horizon", "Robustness", "BH pass 0/5, 0/5, 1/5 (H7 at t+5)", "EXP-0005b"),
-    ("Alternative EoD thresholds", "Top 1% and top 10% by contract_no", "Robustness", "H7 robust; H8 collapses at 1%", "EXP-0005c"),
-    ("Alternative anomaly scorers", "Mahalanobis; diag-z^2; LOF; OC-SVM", "Descriptive", "Rank correlation vs IF: +.83/+.95/+.60/+.54", "EXP-0005d"),
-    ("Drop-bubble re-fit", "Normal era only (2023+)", "Robustness", "H4/H6/H7/H10 survive BH; H8 fails", "EXP-0005e"),
-    ("External top-5", "Ranks 11-15 of the same TRAIN turnover ranking", "Falsification", "0/5 BH pass; raw p >= .23", "EXP-0005f"),
-    ("Sequential fold variant", "Rolling pairs; 2021-07 to 2023-06 coverage", "Descriptive", "Pooled Spearman +.87 vs anchored", "EXP-0005g"),
+    ("BMP test", "Prediction-error variance; cross-sectional t", "Added inference", f"Mean CAR {'null' if bmp_p >= 0.10 else 'non-null'} (p={bmp_p:.3f})", "EXP-0011e"),
+    ("Corrado rank test", "Rank each event-window AR among estimation + event ARs", "Added inference",
+     f"Rank z={float(corr_row['statistic']):.3f} (p={float(corr_row['p_value']):.4f}); "
+     f"date-clustered z={float(clust.loc['corrado_rank_centered', 't']):.3f} "
+     f"(p={float(clust.loc['corrado_rank_centered', 'p_value']):.4f})", "EXP-0011e"),
+    ("Leave-one-stock-out", f"Drop each of {n_loo_symbols} symbols in turn", "Robustness", f"{n_loo_stable}/{n_loo_tests} headlines sign-stable {n_loo_symbols}/{n_loo_symbols}", "EXP-0005a"),
+    ("Alternative horizons", "t+2, t+3, t+5; BH per horizon", "Robustness", "BH pass " + ", ".join(horizon_txt), "EXP-0005b"),
+    ("Alternative EoD thresholds", "Top 1% and top 10% by contract_no", "Robustness",
+     f"H7 {'robust at all thresholds' if h7_ok else 'fails a threshold'}; "
+     f"H8 p={h8_one:.3f} at 1%", "EXP-0005c"),
+    ("Alternative anomaly scorers", "Mahalanobis; diag-z^2; LOF; OC-SVM", "Descriptive",
+     "Rank correlation vs IF: " + "/".join(
+         f"{scorers.get(s, float('nan')):+.2f}"
+         for s in ("mahalanobis", "diag_z2_sum", "lof_novelty", "ocsvm")),
+     "EXP-0005d"),
+    ("Drop-bubble re-fit", "Normal era only (2023+)", "Robustness",
+     f"{'/'.join(drop_pass) or 'none'} survive BH; "
+     f"{'/'.join(drop_fail) or 'none'} fail", "EXP-0005e"),
+    ("External top-5", "Ranks 11-15 of the same TRAIN turnover ranking", "Falsification",
+     f"{ext_pass}/{len(htests)} BH pass; raw p >= {ext_min_p:.2f}", "EXP-0005f"),
+    ("Sequential fold variant", "Rolling pairs; 2021-07 to 2023-06 coverage", "Descriptive", f"Pooled Spearman {seq_rho:+.2f} vs anchored", "EXP-0005g"),
 ]
 t35 = pd.DataFrame(t35_rows, columns=["protocol", "declared_variant", "role", "verdict", "exp_id"])
 emit(
@@ -389,10 +465,10 @@ emit(
     "table_3_5_protocol_matrix.csv",
     t35,
     src("docs/analysis_plan.md", "docs/analysis_plan_v2_extension.md", "docs/experiment_register.md"),
-    "Manual transcription of protocol names, declared variants and verdicts from the frozen plans and register.",
+    "Protocols and roles are transcribed from the frozen plans; verdicts are projections of the live robustness and event-study tables, so the corrected run states its own results.",
     "Statistics as reported in the cited EXP rows.",
-    "Verdicts are summaries of registered results, not new tests. The event-study p-values remain upper bounds because 68.2% of events share a date.",
-    status="MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN",
+    "Verdicts are summaries of registered results, not new tests. The event-study p-values remain upper bounds because many events share a date.",
+    status="DERIVED_PROJECTION",
 )
 
 
@@ -510,6 +586,12 @@ emit(
     status="MANUAL_TRANSCRIPTION_FROM_VERIFIED_SOURCE",
 )
 
+bid = read("outputs/tables/broker_id_defect_sensitivity.csv").set_index(
+    "test_id")
+n_affected = int(bid["n_affected"].max())
+n_full_panel = int(bid["n_full"].max())
+aff_pct = 100.0 * n_affected / n_full_panel
+h8_excl_p = float(bid.loc["H8", "p_excl_affected_dk"])
 audit_rows = [
     ("Raw floorsheet rows ingested", "57927926", "rows", "EXP-0002b", "36,706,934 Kaggle + 21,220,992 socrateai."),
     ("Rows after deduplication", "57892630", "rows", "EXP-0002c", "Page-split duplicates dropped."),
@@ -526,7 +608,9 @@ audit_rows = [
     ("Low-activity symbol-days", "114167", "pairs", "EXP-0002f", "Fewer than 100 trades; included by default."),
     ("Missing broker-ID symbol-days", "19", "pairs", "EXP-0002c", "NULL volume; no aggregation touches them."),
     ("Dotted broker-ID rows", "275590", "rows", "EXP-0011c", "15 days; canonicalised Xs.0 -> zero-padded integer."),
-    ("Out-of-sample rows affected by dotted IDs", "37", "rows of 7116", "EXP-0011c", "0.52%; leave-out signs unchanged, H8 p .0563."),
+    ("Out-of-sample rows affected by dotted IDs", str(n_affected),
+     f"rows of {n_full_panel}", "EXP-0011c",
+     f"{aff_pct:.2f}%; leave-out signs unchanged, H8 p {h8_excl_p:.4f}."),
 ]
 t42 = pd.DataFrame(audit_rows, columns=["metric", "value", "unit", "exp_id", "note"])
 emit(
@@ -632,8 +716,11 @@ interpretation = {
     "REORDERED_ONLY": "Same row multiset; row order differs.",
     "OPTIMIZER_DRIFT": "Statsmodels QuantReg convergence path; labels/shapes identical.",
     "FLOAT_AGGREGATION": "11 symbol totals differ by 1 unit on ~1e8 sums.",
-    "THRESHOLD_FLIP": "Descriptive sequential fold-0 events 146 -> 141; anchored 686 unchanged.",
+    "THRESHOLD_FLIP": "Descriptive sequential fold-0 event count changed; the anchored v2.0.2 count was 686.",
 }
+_n_eps = int((drift["status"] == "NUMERIC_EPSILON").sum())
+_max_eps_rel = float(
+    drift.loc[drift["status"] == "NUMERIC_EPSILON", "max_rel_diff"].max())
 summary = (
     drift.groupby("status", sort=False)
     .agg(
@@ -660,9 +747,13 @@ emit(
     "table_4_5a_drift_summary.csv",
     t45a,
     src("outputs/tables/v2_clean_rebuild_audit.csv", "docs/reproducibility.md"),
-    "Group-by summary of the frozen 73-artifact drift audit; no rebuild is re-run.",
+    f"Group-by summary of the {len(drift)}-artifact v2.0.2 drift audit; no rebuild is re-run.",
     "Counts integer; max differences scientific notation with 2 significant digits.",
-    "Largest relative drift among the 25 NUMERIC_EPSILON artifacts is 2.03e-12 (broker_id_defect_sensitivity.csv); among the regression-table subset it is 3.55e-14. Anchored classifications are unchanged.",
+    f"Largest relative drift among the {_n_eps} NUMERIC_EPSILON artifacts is "
+    f"{_max_eps_rel:.2e}. Anchored v2.0.2 classifications were unchanged. "
+    "This table documents the v2.0.2 rebuild before the reciprocity "
+    "correction; the corrected build and its old-versus-new comparison are "
+    "documented in reports/reciprocity_correction.md.",
     status="DERIVED_DESCRIPTIVE_SUMMARY",
 )
 
@@ -716,7 +807,12 @@ emit(
     src("outputs/tables/hypothesis_grid_results_v2.csv"),
     "Projection: per-hypothesis sample counts and effective N from the v2 governance grid.",
     "Counts integer.",
-    "n_effective = n_obs - (n_stocks - 1) - (n_dates - 1) = 7,116 - 11 - 722 = 6,383. FM cross-sections vary 712-714 because each date slice must clear the full-rank guard. The 10 rows lost from 7,126 OOS rows are missing outcome/feature rows.",
+    f"n_effective = n_obs - (n_stocks - 1) - (n_dates - 1) = "
+    f"{int(h10['n_obs']):,} - {int(h10['n_stocks']) - 1} - "
+    f"{int(h10['n_dates']) - 1:,} = {int(h10['n_effective']):,}. "
+    f"FM cross-sections are the per-date full-rank slices. The "
+    f"{oos_rows - int(h10['n_obs'])} rows lost from {oos_rows:,} OOS rows are "
+    f"missing outcome/feature rows.",
 )
 
 t52 = pd.DataFrame(
@@ -763,6 +859,12 @@ t53 = pd.DataFrame(
         "final_classification": final["final_classification"],
     }
 ).sort_values("hypothesis", key=lambda s: s.map(table_number_key))
+_label_groups = []
+for _lbl in ("HEADLINE_ROBUST", "HEADLINE_MODERATE", "EXPLORATORY_POST_HOC",
+             "NULL_POWERED", "NULL_FRAGILE", "NULL_UNDERPOWERED"):
+    _hyps = "/".join(
+        final.loc[final["final_classification"] == _lbl, "hypothesis"]) or "none"
+    _label_groups.append(f"{_lbl} = {_hyps}")
 emit(
     "Table 5.3",
     "Canonical final headline set",
@@ -772,10 +874,16 @@ emit(
     src("outputs/tables/v2_final_headline_set.csv"),
     "Projection: all 11 canonical columns, formatted for print.",
     "beta 3 dp; p 4 dp with '<0.0001' floor; flags yes/no.",
-    "H10 is the sole HEADLINE_MODERATE. H4 is EXPLORATORY_POST_HOC (opposite sign to pre-declaration). H6/H7/H8 are NULL_FRAGILE. H1/H2/H3/H5/H9 are NULL_POWERED. survives_liquidity = p<.10 under the three liquidity controls; survives_egarch = sign match AND p<.10.",
+    "Labels are the composition-rule output of the corrected build: "
+    + "; ".join(_label_groups)
+    + ". survives_liquidity = p<.10 under the three liquidity controls; "
+      "survives_egarch = sign match AND p<.10.",
 )
 
-ev = read("outputs/tables/event_study_upgraded.csv")
+_date_counts = ev_events["date"].value_counts()
+n_shared_dates = int(_date_counts[_date_counts > 1].sum())
+n_appendix = int(ev.loc[
+    ev["sample"].astype(str).str.startswith("illiquid_"), "n_events"].iloc[0])
 t54 = pd.DataFrame(
     {
         "sample": ev["sample"],
@@ -796,9 +904,13 @@ emit(
     "table_5_4_event_study.csv",
     t54,
     src("outputs/tables/event_study_upgraded.csv"),
-    "Projection: all 12 rows; CAR and SD converted from decimal returns to basis points (x10,000).",
+    "Projection: every row; CAR and SD converted from decimal returns to basis points (x10,000).",
     "CAR 3 dp in bp; test statistic 3 dp; p 4 dp with '<0.0001' floor.",
-    "686 events on 393 dates; 468 events (68.2%) share a date, so event-level p-values are upper bounds. The market-adjusted mean is a pre-window-alpha artifact, not an event effect. The 16-event illiquid appendix is not a headline.",
+    f"{n_events} events on {ev_events['date'].nunique()} dates; "
+    f"{n_shared_dates} events ({100 * n_shared_dates / n_events:.1f}%) "
+    f"share a date, so event-level p-values are upper bounds. The "
+    f"market-adjusted mean is a pre-window-alpha artifact, not an event "
+    f"effect. The {n_appendix}-event illiquid appendix is not a headline.",
 )
 
 rob = read("outputs/tables/robustness_headline_survival.csv")
@@ -819,7 +931,7 @@ emit(
     "table_5_5_robustness_survival.csv",
     t55,
     src("outputs/tables/robustness_headline_survival.csv"),
-    "Projection: all 46 variant-by-headline rows from the frozen survival table.",
+    f"Projection: all {len(rob)} variant-by-headline rows from the live survival table.",
     "bp 3 dp; p 4 dp with '<0.0001' floor; flags yes/no.",
     "Variants include horizons, leave-one-stock-out, drop-bubble, external top-5 and alternative EoD thresholds. BH is evaluated within each variant family as declared; this is not a new multiplicity family.",
 )
@@ -1051,7 +1163,7 @@ manifest = pd.DataFrame(MANIFEST)
 manifest.to_csv(OUT / "table_manifest.csv", index=False, lineterminator="\n", encoding="utf-8")
 
 readme_lines = [
-    "# Print-ready thesis tables (v2.0.2 pre-write)",
+    "# Print-ready thesis tables (v2.1.0 rebuild)",
     "",
     f"Generated: {GENERATED_UTC}",
     "",
@@ -1092,14 +1204,7 @@ readme_lines += [
     "| DOCUMENTED_CONSTANTS | Counts transcribed from the Ch.4 handoff pack and experiment register; no audit re-run. |",
     "| MANUAL_TRANSCRIPTION_FROM_FROZEN_PLAN | Design/protocol table transcribed from a frozen plan; no numeric estimate. |",
     "| MANUAL_TRANSCRIPTION_FROM_VERIFIED_SOURCE | Licence matrix transcribed from the live, timestamped licence review. |",
-    "| VERBATIM_COPY_WITH_CSV_QUOTING_FIX | Content-identical copy with one malformed CSV field correctly quoted. |",
-    "",
-    "## Known source quirk",
-    "",
-    "`reports/chapter_assets/ch3_feature_dictionary.csv` is not valid CSV as",
-    "committed: line 4 has an unquoted comma in its final `notes` field. Its",
-    "chapter-map hash is audited, so the source is left untouched; the print",
-    "copy quotes that one field and changes nothing else.",
+    "| VERBATIM_COPY | Content-identical copy of a valid source CSV; no value edited. |",
     "",
 ]
 (OUT / "README.md").write_text("\n".join(readme_lines) + "\n", encoding="utf-8")

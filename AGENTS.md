@@ -7,7 +7,7 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
 - Project: `~/research/nepse-floorsheet-microstructure/` (venv `nepse-msc` IN-REPO —
   intentional: venv dir name ≠ package name `nepsemsc`, so no D5-style shadowing;
   pattern anchored `/nepse-msc/` in .gitignore)
-- Deadline: 2026-11-27 · Today: 2026-11-15 · Engineering ends 21 Nov (writing 22-27)
+- Deadline: 2026-11-27 · Today: 2026-11-19 · Engineering ends 21 Nov (writing 22-27)
 - **v2.0 A++ upgrade COMPLETE** (post-`v1.0-freeze`): binding pre-declaration
   `docs/analysis_plan_v2_extension.md` (written before any v2 result). Stages 1–6
   COMPLETE (EXP-0008a–e, EXP-0009a–d, EXP-0010a–c, EXP-0011a–f, EXP-0012,
@@ -25,6 +25,33 @@ Sibling project (context only, NOT this repo): `~/research/nepse-kronos-thesis/`
   was run. The statistical layer remains frozen.
 - Binding contract: the 19-day brief (hard rules R1-R12, SV1-SV7, DC1-DC20),
   pre-declared constants in `configs/project.yaml` + `docs/analysis_plan.md` (DC20).
+
+## v2.1.0 reciprocity correction — CURRENT STATE (2026-11-19)
+
+The `reciprocity_volume` feature was defective: it counted each reciprocal
+pair in both directions and treated self-loops as reciprocal flow. The fix
+(`e2cc72b`) counts each unordered pair once and keeps self-loops only in the
+denominator: `2 * sum(min(w_ij, w_ji)) / sum(all weights)`. On all 233,706
+rows the identity `old = 2 * (corrected + self_loop_share)` holds; the factor 2
+is neutral under TRAIN-fold standardisation, the self-loop term is not, so the
+full 21-step pipeline was rebuilt from untouched raw archives (21/21 exit 0,
+4,209.8 s). Corrected results are primary; v2.0.2 values are byte-frozen in
+`outputs/tables/superseded_v2_0_2/` and are not mixed with live tables.
+
+| item | value |
+|---|---|
+| release | tag `v2.1.0-reciprocity-correction`; prior tag `v2.0.2-prewrite` not moved |
+| canonical set | **H6 `HEADLINE_ROBUST`** (−22.948 bp, DK .0048, RW .031, FM .0028, STRONG 4/4); **H10 `HEADLINE_MODERATE`** (+20.642 bp, DK .0014, RW .012, FM .4901, MODERATE 3/4); H4 `EXPLORATORY_POST_HOC`; H7/H8 `NULL_FRAGILE`; H1/H2/H3/H5/H9 `NULL_POWERED` |
+| rebuild | `scripts/run_stage6_rebuild.py --clean`; log `outputs/logs/v2_stage6_rebuild.log`; timings CSV; `data/raw/` unchanged (577 files / 611,881,127 bytes) |
+| governance | EXP-0015; deviation #45; correction record `reports/reciprocity_correction.md` |
+| living limitations | `reports/limitations.md` L1–L26 (v1 `docs/limitations.md` stays frozen) |
+| suite | **177 passed, 0 failed** (incl. 2 notebooks); H10 recompute PASS; chapter map 67/67; register 736 OK + 3 documented exemptions |
+| deposit | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz`, SHA-256 `843817a8f789a89d399799cdf0506cbd8435eca9d443debdea5fab4f955c2da3`; built locally, not uploaded |
+| historical sections | the v2.0/v2.0.1/v2.0.2 stage reports below are historical; wherever they quote H6/H10 or reciprocity-dependent numbers, the v2.1.0 tables and reports above supersede them |
+
+**Next:** the student writes Chapters 1–6 (student prose only) using
+`reports/chapter_assets/writing_order_memo.md` and `key_claims_sheet.md`;
+viva study aid in `reports/viva_prep.md`. No new analysis is permitted.
 
 ## Environment survey — 2026-11-08
 

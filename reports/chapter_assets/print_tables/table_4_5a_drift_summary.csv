@@ -4,4 +4,4 @@ NUMERIC_EPSILON,25,3.58e-07,2.03e-12,Floating-point aggregation/computation orde
 REORDERED_ONLY,4,0.00e+00,0.00e+00,Same row multiset; row order differs.
 OPTIMIZER_DRIFT,2,2.01e-07,7.44e-07,Statsmodels QuantReg convergence path; labels/shapes identical.
 FLOAT_AGGREGATION,1,1.00e+00,9.09e-08,11 symbol totals differ by 1 unit on ~1e8 sums.
-THRESHOLD_FLIP,1,5.00e+00,3.42e-02,Descriptive sequential fold-0 events 146 -> 141; anchored 686 unchanged.
+THRESHOLD_FLIP,1,5.00e+00,3.42e-02,Descriptive sequential fold-0 event count changed; the anchored v2.0.2 count was 686.
