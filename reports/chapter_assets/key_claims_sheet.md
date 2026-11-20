@@ -223,9 +223,10 @@ positive) or “H4 confirms the concentration story.”
 - β **−4.471 bp/SD**; DK p **.0459**; BH q **.0918**; RW p **.199**; WB p
   **.095**; FM p **.0587**.
 - Registered robustness failures: top-1% cutoff **−0.601 bp** (p **.7634**);
-  normal era **−4.442 bp** (p **.1703**). MDE₈₀ **6.269 bp**; MDE₈₀ / \|β\|
-  **1.426** → `NULL_UNDERPOWERED` in the MDE table, but the final label is
-  `NULL_FRAGILE` because the registered failures are the specific demotion.
+  normal era **−4.442 bp** (p **.1703**). MDE₈₀ **6.269 bp**;
+  \|β\| / (MDE₈₀/2) = **1.426** → `NULL_UNDERPOWERED` in the MDE table, but the
+  final label is `NULL_FRAGILE` because the registered failures are the
+  specific demotion.
 - Trade-size: medium-ticket **−5.266 bp** (p **.0056**); not a large-ticket
   effect.
 - `NULL_FRAGILE`.

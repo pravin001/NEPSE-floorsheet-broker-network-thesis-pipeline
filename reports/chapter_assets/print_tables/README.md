@@ -1,6 +1,6 @@
 # Print-ready thesis tables (v2.1.0 rebuild)
 
-Generated: 2026-11-19T02:46:41Z
+Generated: 2026-11-20T06:44:25Z
 
 Every CSV in this directory is a **projection or transcription of a frozen
 artefact**. No regression, test, re-fit, robustness check, simulation or

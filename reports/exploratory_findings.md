@@ -93,8 +93,9 @@ a confirmed concentration premium.
 **(a) Pre-declared direction.** NEGATIVE.
 
 **(b) Estimate.** −4.47 bp per 1-SD EoD concentration, DK p=.04589, BH-adjusted
-p=.09176, FM p=.05867 (borderline). MDE₈₀ = 6.27 bp; |β|/MDE = 1.43 → the
-null is **underpowered**, not a precise zero (EXP-0008c).
+p=.09176, FM p=.05867 (borderline). MDE₈₀ = 6.27 bp;
+|β| / (MDE₈₀/2) = 1.43 → the null is **underpowered**, not a precise zero
+(EXP-0008c).
 
 **(c) Two registered robustness failures.**
 - EXP-0005c (EoD cutoff): at the top-1% cutoff the estimate collapses to

@@ -101,7 +101,7 @@ fragility of the surviving estimates.
   - corpus gaps 2021-09-01 and 2023-11-27 (938/940 sessions);
   - 2023-02-16 `contract_no_defect` (ordering features exclude the day);
   - H8 fragility: 1% EoD cutoff p .7634, normal era p .1703, MDE ratio
-    1.426 (`NULL_UNDERPOWERED`);
+    `|β|/(MDE₈₀/2) = 1.426` (`NULL_UNDERPOWERED`);
   - H10 dependence: FM p .4901, MODERATE not STRONG concordance;
   - reciprocity definition and network-size correlation (.833 `n_edges`;
     .765 `n_nodes`) (L25);

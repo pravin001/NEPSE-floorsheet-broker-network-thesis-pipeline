@@ -791,7 +791,7 @@ def fig_f9() -> dict:
         "Headline effects versus the declared trading-cost floor",
         "Ch.5 §5.6.9 / Ch.6 §6.2", "EXP-0011f", [path],
         "One-SD effects for H10, H7 and H4 against the declared 30–50 bp "
-        "round-trip explicit-cost floor; all are 3.2–12.7× below it.",
+        "round-trip explicit-cost floor; all are 1.45–12.65× below it.",
     )
 
 

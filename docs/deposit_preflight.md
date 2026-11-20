@@ -5,6 +5,14 @@
 no deposit-repository push. Upload is a user action; the public code
 repository is separate from this derived-only archive.
 
+**Post-release documentation update (2026-11-20).** The archive was
+re-sealed after documentation-only corrections: the H8 MDE formula
+wording, the F9 caption, the Table 4.0 timing footnote, and the
+limitations count. No numerical cell, figure image, model, estimate, or
+result changed. Tag `v2.1.0-reciprocity-correction` remains at
+`b67bea5`; this archive corresponds to the post-release documentation
+commit.
+
 This file is a wrapper record. It is excluded from the archive payload so
 the archive SHA-256 is not self-referential; the payload's embedded
 provenance manifest predates the final wrapper hash row.
@@ -16,13 +24,13 @@ provenance manifest predates the final wrapper hash row.
 | item | value |
 |---|---|
 | archive | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored) |
-| SHA-256 | `57519e42465ccf18e8ca089d77811bf3f81a14194606c3b78fa43ec6097b07be` |
-| compressed size | 3,054,635 bytes |
+| SHA-256 | `272e3d563a8e6959e64d7a40507a8de9c1eb631ac52966424237bc62e80a9511` |
+| compressed size | 3,056,386 bytes |
 | payload files | 354 |
-| uncompressed payload | 14,996,830 bytes |
+| uncompressed payload | 15,005,239 bytes |
 | content manifest | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv` |
-| content-manifest SHA-256 | `13c6d996c6116572ccfff00055bf4787cdee82bc3617713b39ecbabe94dc6858` |
-| provenance rows at seal | 1,225 |
+| content-manifest SHA-256 | `5d7d747d88b0c66bb6f65dea8220ea606dcfdb9e34c5d0660047db3d65c4d8e2` |
+| provenance rows at seal | 1,240 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:

@@ -119,7 +119,7 @@ NEPSE Alpha remains `UNCERTAIN`. The provenance manifest stays authoritative per
 file. See `reports/licence_review.md`.
 
 Table 4.0's source log is local and gitignored; the print CSV is the tracked
-projection. It records 21/21 exit-0 steps and a 3,749.9 s total. No step was
+projection. It records 21/21 exit-0 steps and a 4,209.8 s total. No step was
 re-run to make the table.
 
 ### Chapter 5 — Results
@@ -162,7 +162,7 @@ they are descriptive and monthly-aggregated.
 | appendix table | contents | source |
 |---|---|---|
 | B.1 | Broker panel and core–periphery descriptives | `outputs/tables/broker_panel_summary.csv`; `broker_core_definition_sensitivity.csv`; `broker_core_transitions.csv` |
-| C.1 | Limitations register L1–L24 | `reports/limitations.md` |
+| C.1 | Limitations register L1–L26 | `reports/limitations.md` |
 | D.1 | Full clean-rebuild drift audit (73 rows) | `table_4_5b_drift_detail.csv` |
 | D.2 | Full H7 specification curve (144 rows) | `outputs/tables/specification_curve_h7.csv` |
 | D.3 | Full trade-size sensitivity (36 extra rows) | `outputs/tables/trade_size_heterogeneity.csv` |

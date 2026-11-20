@@ -306,7 +306,7 @@ headline (H6), one moderate headline (H10), one exploratory post-hoc result
 - H4 → `EXPLORATORY_POST_HOC`: opposite sign to pre-declaration; RW p .152
   (EXP-0012).
 - H7/H8 → `NULL_FRAGILE`: BH pass but RW p .152/.199; H8 also
-  MDE-underpowered (ratio 1.426) (EXP-0012).
+  MDE-underpowered (`|β|/(MDE₈₀/2) = 1.426`) (EXP-0012).
 - H1/H2/H3/H5/H9 → `NULL_POWERED`: Stage-1 `NULL_ROBUST` + MDE
   `NULL_POWERED`; Stage-1 label maps to the brief's NULL_POWERED taxonomy
   (EXP-0012).

@@ -494,7 +494,7 @@ emit(
     src("outputs/logs/v2_stage6_rebuild_timings.csv", "docs/reproducibility.md"),
     "Projection: ordered step, script, duration and exit code from the local Stage-6 timing log. Step order is the driver's ordered STEPS list.",
     "Duration 1 dp; exit code integer.",
-    "The timing log is local evidence and is gitignored; this CSV is the tracked print projection. Total wall time was 3,749.9 s (62.5 min), 21/21 steps exit 0. No step was re-run to make this table.",
+    "The timing log is local evidence and is gitignored; this CSV is the tracked print projection. Total wall time was 4,209.8 s (70.2 min), 21/21 steps exit 0. No step was re-run to make this table.",
 )
 
 licence_rows = [
