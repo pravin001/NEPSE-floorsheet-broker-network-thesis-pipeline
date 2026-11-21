@@ -7,11 +7,12 @@ repository is separate from this derived-only archive.
 
 **Post-release documentation update (2026-11-20).** The archive was
 re-sealed after documentation-only corrections: the H8 MDE formula
-wording, the F9 caption, the Table 4.0 timing footnote, and the
-limitations count. No numerical cell, figure image, model, estimate, or
-result changed. Tag `v2.1.0-reciprocity-correction` remains at
-`b67bea5`; this archive corresponds to the post-release documentation
-commit.
+wording, the F9 caption, the Table 4.0 timing footnote, the limitations
+count, two H6/H10 outcome-label clarifications, and limitation L27
+(density counts self-loops; disclosure only). No numerical cell,
+figure image, model, estimate, or result changed. Tag
+`v2.1.0-reciprocity-correction` remains at `b67bea5`; this archive
+corresponds to the post-release documentation commit.
 
 This file is a wrapper record. It is excluded from the archive payload so
 the archive SHA-256 is not self-referential; the payload's embedded
@@ -24,13 +25,13 @@ provenance manifest predates the final wrapper hash row.
 | item | value |
 |---|---|
 | archive | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored) |
-| SHA-256 | `272e3d563a8e6959e64d7a40507a8de9c1eb631ac52966424237bc62e80a9511` |
-| compressed size | 3,056,386 bytes |
+| SHA-256 | `2576db4be66fda33c7bbc595e34eac792f727a5bccd5428956b4e3db07d5927d` |
+| compressed size | 3,057,205 bytes |
 | payload files | 354 |
-| uncompressed payload | 15,005,239 bytes |
+| uncompressed payload | 15,009,548 bytes |
 | content manifest | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv` |
-| content-manifest SHA-256 | `5d7d747d88b0c66bb6f65dea8220ea606dcfdb9e34c5d0660047db3d65c4d8e2` |
-| provenance rows at seal | 1,240 |
+| content-manifest SHA-256 | `bdf7f407297617ef2acb03a28e252e46a7e7f30f325defc69c58b06099d3e4bc` |
+| provenance rows at seal | 1,250 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:

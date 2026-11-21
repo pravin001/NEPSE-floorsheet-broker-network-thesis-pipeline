@@ -33,8 +33,9 @@ two related reciprocity associations — one robust, one moderate — and a set
 of null or fragile results, not a portfolio of tradable anomalies.
 
 - The IF anomaly-score channel is null out of sample: H2 placebo share .805,
-  H3 .540; event-study mean CAR +19.33 bp (p .402), rank-only shift; no BH
-  pass survives RW (EXP-0004c/e, EXP-0008b/e, EXP-0015).
+  H3 .540; the event study shows no mean effect (+19.33 bp, p .402) and a
+  rank-only shift; neither enters the headline set (EXP-0004c/e, EXP-0008b/e,
+  EXP-0015).
 - H6 (RW p .031) and H10 (RW p .012) survive RW q = .10; H7 (.152) and H8
   (.199) are demoted to `NULL_FRAGILE`; H4 is opposite-sign
   `EXPLORATORY_POST_HOC` (EXP-0008a/b, EXP-0012, EXP-0015).
@@ -173,9 +174,10 @@ complete-graph degeneracy block structural interpretation.
 interpretation of network concentration, not a tradable-alpha or policy claim,
 and the thesis states the conditions under which that reading would change.
 
-- H10 +20.64 bp/SD is 1.45–2.42× below the explicit-cost floor; H6 −22.95 is
-  an absolute-return association, not a directional return signal; neither is
-  tradable at 1 SD (EXP-0011f, EXP-0015).
+- H10 +20.64 bp/SD is 1.45–2.42× below the explicit-cost floor. H10 is an
+  absolute-return association and needs a direction forecast before it could
+  be monetised; H6 −22.95 is a signed-return association whose pre-declared
+  direction was ambiguous. Neither is tradable at 1 SD (EXP-0011f, EXP-0015).
 - Tier-local: the effect family is concentrated in the most-traded tier and
   does not replicate at ranks 11–15 (EXP-0005f).
 - Falsification conditions:

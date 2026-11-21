@@ -32,7 +32,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | chapter | section | claim_id | artifact_path | exp_id | sha256 | claim_version | status |
 |---|---|---|---|---|---|---|---|
 | Ch.1 Introduction | 1.1 | CH1-1.1-SCOPE | `README.md` | EXP-0002b,EXP-0012 | `cf0532aafaa72345cf5f107646206e357c22231741f22ae958367caeff377cc9` | v2 | VERIFIED |
-| Ch.1 Introduction | 1.1 | CH1-1.1-LIMITS | `reports/limitations.md` | EXP-0012 | `e14d6081af0d6c8295dc6b812c0874605220f98f20b9ac94d8f2981cc0552a7e` | v2 | VERIFIED |
+| Ch.1 Introduction | 1.1 | CH1-1.1-LIMITS | `reports/limitations.md` | EXP-0012 | `8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280` | v2 | VERIFIED |
 | Ch.1 Introduction | 1.2 | CH1-1.2-HYPOTHESES | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.1 Introduction | 1.3 | CH1-1.3-HEADLINE | `outputs/tables/v2_final_headline_set.csv` | EXP-0012 | `049b83315d07a84fa6df9433dc9d1470ae23854c993b751344529d0faf3a53cd` | v2 | VERIFIED |
 | Ch.1 Introduction | 1.4 | CH1-1.4-COST | `outputs/tables/economic_magnitude.csv` | EXP-0011f | `2390fa2fa83bf689838f904b05b3e325cf7ca06ee784abc91df41863264a4a70` | v2 | VERIFIED |
@@ -41,7 +41,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | Ch.2 Literature | 2.2 | CH2-2.2-GAP | `reports/chapter_assets/ch2_research_gap.md` | EXP-0014 | `8b25e3999a845f74a074a669f8c48de69159425bba566195311c3b2718f02f20` | v2 | SCAFFOLD |
 | Ch.2 Literature | 2.3 | CH2-2.3-COMPARE | `reports/chapter_assets/ch2_comparison_table.csv` | EXP-0014 | `6f33ba765e746366852f7308b91a5d245a2ee36695f33f5446dc446b5e0e3f6a` | v2 | SCAFFOLD |
 | Ch.2 Literature | 2.4 | CH2-2.4-HYPOMAP | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
-| Ch.2 Literature | 2.4 | CH2-2.4-FRONTIER | `reports/limitations.md` | EXP-0012 | `e14d6081af0d6c8295dc6b812c0874605220f98f20b9ac94d8f2981cc0552a7e` | v2 | VERIFIED |
+| Ch.2 Literature | 2.4 | CH2-2.4-FRONTIER | `reports/limitations.md` | EXP-0012 | `8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280` | v2 | VERIFIED |
 | Ch.3 Methodology | 3.1 | CH3-3.1-DESIGN | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.3 Methodology | 3.2 | CH3-3.2-PREDECL | `docs/analysis_plan_v2_extension.md` | EXP-0008a | `5599c5a33d3801cc28143716db40ea186d70dc8a1d8b02e8016b4aff5f9d9d98` | v2 | VERIFIED |
 | Ch.3 Methodology | 3.2 | CH3-3.2-FREEZE | `configs/v2_freeze/freeze_manifest.csv` | EXP-0013 | `386273a2976f24b4a2da4f13ea5cbea5f918711d734f8292f249273308cc890b` | v2 | VERIFIED |
@@ -89,9 +89,9 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | Ch.5 Results | 5.7 | CH5-5.7-FINAL | `outputs/tables/v2_final_headline_set.csv` | EXP-0012 | `049b83315d07a84fa6df9433dc9d1470ae23854c993b751344529d0faf3a53cd` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.1 | CH6-6.1-NEGATIVE | `outputs/tables/v2_final_headline_set.csv` | EXP-0012 | `049b83315d07a84fa6df9433dc9d1470ae23854c993b751344529d0faf3a53cd` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.1 | CH6-6.1-EXPLORATORY | `reports/exploratory_findings.md` | EXP-0008a | `d0690f5068563af238f5c2e8daacd72deb3dc047fd3951b67d1d9384672a10ae` | v2 | VERIFIED |
-| Ch.6 Discussion | 6.2 | CH6-6.2-LIMITS | `reports/limitations.md` | EXP-0012 | `e14d6081af0d6c8295dc6b812c0874605220f98f20b9ac94d8f2981cc0552a7e` | v2 | VERIFIED |
+| Ch.6 Discussion | 6.2 | CH6-6.2-LIMITS | `reports/limitations.md` | EXP-0012 | `8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.2 | CH6-6.2-PLAN | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
-| Ch.6 Discussion | 6.3 | CH6-6.3-LIMITS | `reports/limitations.md` | EXP-0012 | `e14d6081af0d6c8295dc6b812c0874605220f98f20b9ac94d8f2981cc0552a7e` | v2 | VERIFIED |
+| Ch.6 Discussion | 6.3 | CH6-6.3-LIMITS | `reports/limitations.md` | EXP-0012 | `8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.4 | CH6-6.4-PANEL | `outputs/tables/broker_panel_summary.csv` | EXP-0011c | `ca510a6989d776760340b50444cb6ac9c9e17836709f86ed20f16f3144b409e2` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.4 | CH6-6.4-CORE | `outputs/tables/broker_core_transitions.csv` | EXP-0011c | `1f800f073e814caf6dc159bef84e8057ce74a8d75172992ddb85ef8ee773462a` | v2 | VERIFIED |
 | Ch.6 Discussion | 6.4 | CH6-6.4-PERSIST | `outputs/tables/broker_top50_persistence.csv` | EXP-0011c | `ad99f03d4effd3716bf684b30c5d99372356adae5e33b08f65db42718917b27b` | v2 | VERIFIED |

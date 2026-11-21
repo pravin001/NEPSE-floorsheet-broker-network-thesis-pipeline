@@ -1,7 +1,7 @@
 asset_id,artifact_path,role,exp_id,claim_version,sha256
 CH1-A1,README.md,scope + epistemic frame,"EXP-0002b,EXP-0012",v2,cf0532aafaa72345cf5f107646206e357c22231741f22ae958367caeff377cc9
 CH1-A2,docs/analysis_plan.md,pre-declared design,EXP-0004b,v1,7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2
-CH1-A3,reports/limitations.md,boundary conditions,EXP-0012,v2,e14d6081af0d6c8295dc6b812c0874605220f98f20b9ac94d8f2981cc0552a7e
+CH1-A3,reports/limitations.md,boundary conditions,EXP-0012,v2,8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280
 CH1-A4,outputs/tables/v2_final_headline_set.csv,canonical headline set,EXP-0012,v2,049b83315d07a84fa6df9433dc9d1470ae23854c993b751344529d0faf3a53cd
 CH1-A5,outputs/tables/economic_magnitude.csv,cost-benefit arithmetic,EXP-0011f,v2,2390fa2fa83bf689838f904b05b3e325cf7ca06ee784abc91df41863264a4a70
 CH1-A6,reports/economic_magnitude_analysis.md,cost-floor rationale,EXP-0011f,v2,ea746e8ff99d42d6f49c5ccfdd596e7aad65a6efade294b5d558a85136d31168
