@@ -69,9 +69,9 @@ cutting the results or the reference reading.
 ### Chapter 4 (first)
 
 1. §4.1 pipeline architecture — Table 4.0, F1.
-2. §4.2 provenance and licensing — Table 4.1. Use the live licence review, not
-   the stale “tier1 pending” wording in limitation L4; L4 is hash-audited and
-   is not edited.
+2. §4.2 provenance and licensing — Table 4.1. Use the live licence review:
+   Kaggle tier1 metadata declares MIT, but upstream NEPSE Alpha clearance is
+   `UNCERTAIN`; L4 is hash-audited and states the same two-layer position.
 3. §4.3 corpus audit — Tables 4.2–4.3, F2.
 4. §4.4 universe — Tables 4.4a–4.4b.
 5. §4.5 clean rebuild and drift — Tables 4.5a–4.5b.

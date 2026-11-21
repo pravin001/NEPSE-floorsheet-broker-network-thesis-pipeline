@@ -18,8 +18,9 @@ Logged as Stage-5 deviation #28.
 Path refresh (v2.0.1 handoff): every table path in this skeleton now resolves
 to a tracked v2 artefact and is listed in the verified crosswalk
 (`docs/chapter_artifact_map.md`), audited by `scripts/audit_chapter_map.py`.
-Figures under `outputs/figures/` are real but remain licence-restricted and are
-not part of the derived deposit (`reports/limitations.md` L4).
+Figures under `outputs/figures/` are real and public in the code repository at
+the author's accepted risk, but they are not part of the derived-only deposit
+(`reports/limitations.md` L4).
 
 Severity vocabulary for §6.3: `CRITICAL` / `MAJOR` / `MINOR`, as defined in
 `reports/limitations.md`.
@@ -96,8 +97,10 @@ fragility of the surviving estimates.
   - tier-10 coverage and 0/5 external replication;
   - no intraday timestamps / execution order;
   - single-exchange (NEPSE) scope;
-  - licence chain: tier1 OHLCV licence pending → figures RESTRICTED;
-    index licence unstated; data licences per `provenance_manifest.csv`.
+  - licence chain: Kaggle tier1 OHLCV metadata declares MIT, but upstream NEPSE
+    Alpha clearance is `UNCERTAIN`; figures are public in the code repository at
+    the author's accepted risk and excluded from the derived-only deposit;
+    index licence unstated; data licences per `provenance_manifest.csv` (L4).
 - MAJOR:
   - corpus gaps 2021-09-01 and 2023-11-27 (938/940 sessions);
   - 2023-02-16 `contract_no_defect` (ordering features exclude the day);

@@ -46,8 +46,9 @@ chapter handoff has an explicit gap statement slot rather than an invented one.
   concordance, liquidity, EGARCH, quantile tails, trade size, specification
   curve and subgroups (`outputs/tables/v2_final_headline_set.csv`; EXP-0012).
 - [ ] **Negative-result contribution:** the IF anomaly-score channel is null;
-  one moderate association survives; all 1-SD effects are below the declared
-  cost floor (`reports/limitations.md`; EXP-0008b/e, EXP-0011f).
+  two related reciprocity associations survive (H6 robust, H10 moderate); all
+  1-SD effects are below the declared cost floor (`reports/limitations.md`;
+  EXP-0008b/e, EXP-0011f).
 
 ## 2.5 Boundary conditions / falsification
 
@@ -55,8 +56,10 @@ chapter handoff has an explicit gap statement slot rather than an invented one.
   EXP-0005f).
 - [ ] Predictive, not causal: no instrument or exogenous broker shock
   (limitation L1; EXP-0004b).
-- [ ] Licence chain: tier1 OHLCV pending; figures restricted (limitation L4;
-  EXP-0002d).
+- [ ] Licence chain: Kaggle tier1 OHLCV metadata declares MIT, but upstream
+  NEPSE Alpha clearance is `UNCERTAIN`; figures are public in the code
+  repository at the author's accepted risk and excluded from the derived-only
+  deposit (limitation L4; EXP-0002d).
 - [ ] Falsification conditions listed in `reports/limitations.md` §falsification.
 
 ---

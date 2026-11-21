@@ -29,14 +29,16 @@ step.
 
 **Claim slot.** Every raw file and derived table carries a SHA-256 provenance
 row; the code is MIT, the 2021–2023 floorsheets are CC0, the 2024 floorsheets
-are MIT with attribution, and the tier1 OHLCV licence remains pending.
+are MIT-style with notice, and the Kaggle tier1 OHLCV metadata declares MIT
+while upstream NEPSE Alpha clearance remains `UNCERTAIN`.
 
 - Table 4.1 slot: source/licence matrix.
 - Sources: `data/metadata/provenance_manifest.csv` (authoritative, self-
   referential); `data/metadata/corpus_files_sha256.csv`;
   `docs/ai_use_policy.md`.
-- Boundary: `reports/limitations.md` L4 (figures restricted until tier1 licence
-  confirmed).
+- Boundary: `reports/limitations.md` L4 (figures are public in the code
+  repository at the author's accepted risk; the derived-only deposit excludes
+  them; upstream clearance is not claimed).
 
 **Citation keys:** EXP-0002b, EXP-0002d, EXP-0007.
 

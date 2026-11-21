@@ -8,8 +8,10 @@ repository is separate from this derived-only archive.
 **Post-release documentation update (2026-11-20).** The archive was
 re-sealed after documentation-only corrections: the H8 MDE formula
 wording, the F9 caption, the Table 4.0 timing footnote, the limitations
-count, two H6/H10 outcome-label clarifications, and limitation L27
-(density counts self-loops; disclosure only). No numerical cell,
+count, two H6/H10 outcome-label clarifications, limitation L27
+(density counts self-loops; disclosure only), and the tier1 licence
+wording in the chapter scaffolds (Kaggle metadata MIT; upstream NEPSE
+Alpha UNCERTAIN). No numerical cell,
 figure image, model, estimate, or result changed. Tag
 `v2.1.0-reciprocity-correction` remains at `b67bea5`; this archive
 corresponds to the post-release documentation commit.
@@ -25,13 +27,13 @@ provenance manifest predates the final wrapper hash row.
 | item | value |
 |---|---|
 | archive | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.tar.gz` (gitignored) |
-| SHA-256 | `2576db4be66fda33c7bbc595e34eac792f727a5bccd5428956b4e3db07d5927d` |
-| compressed size | 3,057,205 bytes |
+| SHA-256 | `78701d5e78ef189434534d448ce87a5526a947be192d11db836ea63d8a5e111c` |
+| compressed size | 3,057,784 bytes |
 | payload files | 354 |
-| uncompressed payload | 15,009,548 bytes |
+| uncompressed payload | 15,014,727 bytes |
 | content manifest | `dist/nepse-floorsheet-microstructure-v2.1.0-derived.contents.csv` |
-| content-manifest SHA-256 | `bdf7f407297617ef2acb03a28e252e46a7e7f30f325defc69c58b06099d3e4bc` |
-| provenance rows at seal | 1,250 |
+| content-manifest SHA-256 | `6994a052f723aca1f9cb8704df6b78e6cdbc407cc0eeb49f8a6696a69155b701` |
+| provenance rows at seal | 1,263 |
 
 Sidecars: `dist/*.sha256` (archive digest) and `dist/*.summary.json`
 (machine-readable identity). Rebuild deterministically with:

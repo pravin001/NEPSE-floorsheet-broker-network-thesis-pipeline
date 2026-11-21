@@ -19,8 +19,9 @@ adjudication. Logged as Stage-5 deviation #28.
 Path refresh (v2.0.1 handoff): every table path in this skeleton now resolves
 to a tracked v2 artefact and is listed in the verified crosswalk
 (`docs/chapter_artifact_map.md`), audited by `scripts/audit_chapter_map.py`.
-Figures under `outputs/figures/` are real but remain licence-restricted and are
-not part of the derived deposit (`reports/limitations.md` L4).
+Figures under `outputs/figures/` are real and public in the code repository at
+the author's accepted risk, but they are not part of the derived-only deposit
+(`reports/limitations.md` L4).
 
 **Units.** `estimated_beta` = basis points per 1 TRAIN-fold standard deviation
 of the feature (bp/SD). Raw inference α = .05; BH multiplicity q = .10;

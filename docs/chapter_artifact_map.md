@@ -38,7 +38,7 @@ also requires the latest hash-bearing provenance-manifest row to match.
 | Ch.1 Introduction | 1.4 | CH1-1.4-COST | `outputs/tables/economic_magnitude.csv` | EXP-0011f | `2390fa2fa83bf689838f904b05b3e325cf7ca06ee784abc91df41863264a4a70` | v2 | VERIFIED |
 | Ch.1 Introduction | 1.5 | CH1-1.5-CONTRIBUTION | `reports/economic_magnitude_analysis.md` | EXP-0011f | `ea746e8ff99d42d6f49c5ccfdd596e7aad65a6efade294b5d558a85136d31168` | v2 | VERIFIED |
 | Ch.2 Literature | 2.1 | CH2-2.1-MATRIX | `reports/chapter_assets/ch2_literature_matrix.csv` | EXP-0014 | `f1287a5c1347bd196ab70b13b9237e7154b84f86342c41bcdb75f1afe5dbd0c6` | v2 | SCAFFOLD |
-| Ch.2 Literature | 2.2 | CH2-2.2-GAP | `reports/chapter_assets/ch2_research_gap.md` | EXP-0014 | `8b25e3999a845f74a074a669f8c48de69159425bba566195311c3b2718f02f20` | v2 | SCAFFOLD |
+| Ch.2 Literature | 2.2 | CH2-2.2-GAP | `reports/chapter_assets/ch2_research_gap.md` | EXP-0014 | `cb321ecf5078efe841435fbe36bc895005c238f53c46612b018ddf3f1c7db1c1` | v2 | SCAFFOLD |
 | Ch.2 Literature | 2.3 | CH2-2.3-COMPARE | `reports/chapter_assets/ch2_comparison_table.csv` | EXP-0014 | `6f33ba765e746366852f7308b91a5d245a2ee36695f33f5446dc446b5e0e3f6a` | v2 | SCAFFOLD |
 | Ch.2 Literature | 2.4 | CH2-2.4-HYPOMAP | `docs/analysis_plan.md` | EXP-0004b | `7d29da6b49393eddca828db0ab21c130ed27f892a23f0e4c6609be8e1ffdead2` | v1 | VERIFIED_V1_IMMUTABLE |
 | Ch.2 Literature | 2.4 | CH2-2.4-FRONTIER | `reports/limitations.md` | EXP-0012 | `8793f4a70c491b27bf120c90970500c903eaa5e5ce46a1b102b6298b344be280` | v2 | VERIFIED |

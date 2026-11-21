@@ -113,10 +113,11 @@ malformed CSV field correctly quoted. See §5.
 | 4.5a | Clean-rebuild drift summary | PRINT_READY | `table_4_5a_drift_summary.csv` | `outputs/tables/v2_clean_rebuild_audit.csv` |
 | 4.5b | Clean-rebuild drift, artifact detail | APPENDIX | `table_4_5b_drift_detail.csv` | same |
 
-Table 4.1 supersedes the “tier1 pending” wording in the Ch.4 pack and
-`reports/limitations.md` L4. The live Kaggle metadata declares MIT; upstream
-NEPSE Alpha remains `UNCERTAIN`. The provenance manifest stays authoritative per
-file. See `reports/licence_review.md`.
+Table 4.1 is the print summary of the current two-layer licence position: the
+Kaggle tier1 metadata declares MIT, while upstream NEPSE Alpha clearance remains
+`UNCERTAIN`. L4 states the same position and is not edited because its hash is
+audited. The provenance manifest stays authoritative per file. See
+`reports/licence_review.md`.
 
 Table 4.0's source log is local and gitignored; the print CSV is the tracked
 projection. It records 21/21 exit-0 steps and a 4,209.8 s total. No step was
